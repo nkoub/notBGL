@@ -6,8 +6,8 @@
 * @todo   Complete the documentation using doxygen.
 */
 
-#ifndef NOT_BGL_HPP_INCLUDED
-#define NOT_BGL_HPP_INCLUDED
+#ifndef NOTBGL_HPP_INCLUDED
+#define NOTBGL_HPP_INCLUDED
 
 // Standard Template Library
 #include <algorithm>     // std::transform
@@ -23,21 +23,23 @@
 #include <queue>         // std::queue
 #include <sstream>       // std::stringstream
 #include <string>        // std::string, std::stod
-#include <tuple>         // std::tie
+#include <tuple>         // std::tie, std::make_tuple
 #include <vector>        // std::vector
 // Boost Graph Library
-#include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/betweenness_centrality.hpp>
+#include <boost/graph/graph_traits.hpp>
+#include <boost/graph/iteration_macros.hpp>
 
-// All the methods are under the namespace "bgl"
+// All the methods are under the namespace "notBGL"
 namespace notBGL
 {
 
-  #ifndef DOXYGEN_SHOULD_SKIP_THIS
+  #ifndef DOXYGEN_EXCLUDED
     // Minimal vertex property structure used in the generic undirected unweighted graph type (not documented).
     struct MinimalVertexProp  { std::string name; unsigned int id; };
     struct MinimalWeightedVertexProp  { std::string name; unsigned int id; double strength = 0; };
-  #endif // DOXYGEN_SHOULD_SKIP_THIS
+  #endif // DOXYGEN_EXCLUDED
 
   /// Generic undirected unweighted graph type.
   typedef boost::adjacency_list<boost::listS,
@@ -46,97 +48,201 @@ namespace notBGL
                                 MinimalVertexProp,
                                 boost::no_property > UndirectedGraph_t;
 
-  //! A normal member taking two arguments and returning an integer value.
-  /*!
-    \brief Populates a graph from an edge list.
-    \param filename Path to the file containing the edgelist. The edgelist file must have the format... anything
-                    at the right will be ignored. In other words, a weighted edgelist of the format... can be used
-                    without problem. 
-    \param g Graph object to populate using an edgelist.
-    \return Returns a std::map mapping the name of vertices to their vertex_descriptor. This object is provided to 
-    \sa save_edgelist()
-  */
+  
+
+  /** ---------------------------------------------------------------------------------------------
+   * @defgroup   IO Input / Output
+   * @brief      This group contains the functions related to inputs and outputs
+   *             such as loading graphs from edgelists from files as well as
+   *             writing edgelists and proporties of vertices or edges into
+   *             files.
+   */
+
+  /**
+   * @brief      Populates a graph from an edge list.
+   *
+   * @param      filename  Path to the file containing the edgelist. The
+   *                       edgelist file must have the format... anything at the
+   *                       right will be ignored. In other words, a weighted
+   *                       edgelist of the format... can be used without
+   *                       problem.
+   * @param      g         Graph object to populate using an edgelist.
+   *
+   * @tparam     graph_t   { description }
+   *
+   * @return     Returns a std::map mapping the name of vertices to their
+   *             vertex_descriptor. This object is provided to
+   *
+   * @ingroup    IO
+   *
+   * @see        save_edgelist()
+   */
   template<typename graph_t>
   auto load_edgelist(std::string filename, graph_t &g);
 
-  //! A normal member taking two arguments and returning an integer value.
-  /*!
-    \brief Populates a graph from an edge list.
-    \param filename Path to the file containing the edgelist. The edgelist file must have the format... anything
-                    at the right will be ignored. In other words, a weighted edgelist of the format... can be used
-                    without problem. 
-    \param g Graph object to populate using an edgelist.
-    \return Returns a std::map mapping the name of vertices to their vertex_descriptor. This object is provided to 
-    \sa save_edgelist()
-  */
+  /**
+   * @brief      Populates a graph from an edge list.
+   *
+   * @param      filename  Path to the file containing the edgelist. The
+   *                       edgelist file must have the format... anything at the
+   *                       right will be ignored. In other words, a weighted
+   *                       edgelist of the format... can be used without
+   *                       problem.
+   * @param      g         Graph object to populate using an edgelist.
+   *
+   * @tparam     graph_t   { description }
+   *
+   * @return     Returns a std::map mapping the name of vertices to their
+   *             vertex_descriptor. This object is provided to
+   *
+   * @ingroup    IO
+   *
+   * @see        save_edgelist()
+   */
   template<typename graph_t>
   auto load_weighted_edgelist(std::string filename, graph_t &g);
 
-  //! A normal member taking two arguments and returning an integer value.
-  /*!
-    \brief Populates a graph from an edge list.
-    \param filename Path to the file to write the edgelist into. The edgelist file will have the format 
-    \param g Graph object.
-    \param write_names If set to false, the numerical IDs of the vertices are written instead of their names.
-    \sa load_edgelist()
-  */
+  /**
+   * @brief      Populates a graph from an edge list.
+   *
+   * @param      filename     Path to the file to write the edgelist into. The
+   *                          edgelist file will have the format
+   * @param      g            Graph object.
+   * @param      write_names  If set to false, the numerical IDs of the vertices
+   *                          are written instead of their names.
+   *
+   * @tparam     graph_t      { description }
+   *
+   * @ingroup    IO
+   *
+   * @see        load_edgelist()
+   */
   template<typename graph_t>
   void save_edgelist(std::string filename, graph_t &g, bool write_names = true);
 
-  //! A normal member taking two arguments and returning an integer value.
-  /*!
-    \brief Populates a graph from an edge list.
-    \param filename Path to the file to write the edgelist into. The edgelist file will have the format 
-    \param g Graph object.
-    \param write_names If set to false, the numerical IDs of the vertices are written instead of their names.
-    \sa load_edgelist()
-  */
+  /**
+   * @brief      Populates a graph from an edge list.
+   *
+   * @param      filename     Path to the file to write the edgelist into. The
+   *                          edgelist file will have the format
+   * @param      g            Graph object.
+   * @param      write_names  If set to false, the numerical IDs of the vertices
+   *                          are written instead of their names.
+   *
+   * @tparam     graph_t      { description }
+   *
+   * @ingroup    IO
+   *
+   * @see        load_edgelist()
+   */
   template<typename graph_t>
   void save_weighted_edgelist(std::string filename, graph_t &g, bool write_names = true);
 
-  //! A normal member taking two arguments and returning an integer value.
-  /*!
-    \brief Identifies the triangles in the graph.
-    \param g Graph object.
-    \return A std::vector of tuple of vertex_descriptor
-  */
-  template<typename graph_t>
-  auto survey_triangles(graph_t &g);
-
-  template<typename vector_t, typename graph_t>
-  auto get_local_clustering_coefficient(vector_t triangles, graph_t &g);
-
+  /**
+   * @brief      { function_description }
+   *
+   * @param[in]  filename           The filename
+   * @param      g                  { parameter_description }
+   * @param[in]  vertex_identifier  The vertex identifier
+   *
+   * @tparam     graph_t            { description }
+   *
+   * @ingroup    IO
+   *
+   */
   template<typename graph_t>
   void save_degree_sequence(std::string filename, graph_t &g, std::string vertex_identifier = "None");
 
+  /**
+   * @brief      { function_description }
+   *
+   * @param[in]  filename           The filename
+   * @param      g                  { parameter_description }
+   * @param[in]  vertex_identifier  The vertex identifier
+   *
+   * @tparam     graph_t            { description }
+   *
+   * @ingroup    IO
+   */
   template<typename graph_t>
   void save_strength_sequence(std::string filename, graph_t &g, std::string vertex_identifier = "None");
 
+  /**
+   * @brief      { function_description }
+   *
+   * @param[in]  filename           The filename
+   * @param      clustering         The clustering
+   * @param      g                  { parameter_description }
+   * @param[in]  vertex_identifier  The vertex identifier
+   *
+   * @tparam     map_t              { description }
+   * @tparam     graph_t            { description }
+   *
+   * @ingroup    IO
+   */
   template<typename map_t, typename graph_t>
   void save_local_clustering_coefficents_sequence(std::string filename, map_t &clustering, graph_t &g, std::string vertex_identifier = "None");
 
-  template<typename graph_t>
-  auto disparity(graph_t &g);
-
+  /**
+   * @brief      { function_description }
+   *
+   * @param[in]  filename    The filename
+   * @param      g           { parameter_description }
+   * @param[in]  clustering  The clustering
+   * @param[in]  disparity   The disparity
+   *
+   * @tparam     graph_t     { description }
+   * @tparam     map_t       { description }
+   *
+   * @ingroup    IO
+   */
   template<typename graph_t, typename map_t>
   void save_vertices_properties(std::string filename, graph_t &g, map_t clustering, map_t disparity);
 
-  //! A normal member taking two arguments and returning an integer value.
-  /*!
-    \brief Identifies the triangles in the graph.
-    \param g Graph object.
-    \return A std::vector of tuple of vertex_descriptor
-  */
-  template<typename vertex_t, typename graph_t>
-  auto shortest_path_lengths_from_source(vertex_t &v_source, graph_t &g);
 
-  template<typename graph_t, typename map_t>
-  auto load_coordinates(std::string filename, graph_t &g, map_t &Name2Vertex, const unsigned int N = 3);
 
-  double euclidean_distance(std::vector<double> &x1, std::vector<double> x2);
 
-  double hyperbolic_distance(std::vector<double> &x1, std::vector<double> x2, double zeta);
 
+  /** ---------------------------------------------------------------------------------------------
+   * @defgroup   topo Topology
+   * @brief      This group contains the functions related to the
+   *             characterization of the topology of graphs (e.g., clustering,
+   *             betweenness centrality).
+   */
+
+  /**
+   * @brief      Identifies the triangles in the graph.
+   *
+   * @param      g        Graph object.
+   *
+   * @tparam     graph_t  { description }
+   *
+   * @return     A std::vector of tuple of vertex_descriptor
+   *
+   * @see        local_clustering_coefficient
+   *
+   * @ingroup    topo
+   */
+  template<typename graph_t>
+  auto survey_triangles(graph_t &g);
+
+  /**
+   * @brief      Get the local clustering coefficient.
+   *
+   * @param[in]  triangles  The triangles
+   * @param      g          { parameter_description }
+   *
+   * @tparam     vector_t   { description }
+   * @tparam     graph_t    { description }
+   *
+   * @return     The local clustering coefficient.
+   *
+   * @see        survey_triangles
+   *
+   * @ingroup    topo
+   */
+  template<typename vector_t, typename graph_t>
+  auto local_clustering_coefficient(vector_t triangles, graph_t &g);
 
   /**
    * @brief      Computes the betweenness centrality of the vertices and the
@@ -147,10 +253,199 @@ namespace notBGL
    * @tparam     graph_t  A boost::adjacency_list type.
    *
    * @return     { description_of_the_return_value }
+   *
+   * @ingroup    topo
    */
   template<typename graph_t>
-  std::tuple< std::vector<double>, std::vector<double> > betweenness_centrality(graph_t &graph);
+  auto betweenness_centrality(graph_t &graph);
+  /** \example betweenness_centrality.cpp
+   * This is an example of how to use the Example_Test class.
+   * More details about this example.
+   */
 
+
+
+
+  /** ---------------------------------------------------------------------------------------------
+   * @defgroup   routing Routing
+   * @brief      .
+   */
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param      v_source  The v source
+   * @param      g         { parameter_description }
+   *
+   * @tparam     vertex_t  { description }
+   * @tparam     graph_t   { description }
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    routing
+   */
+  template<typename vertex_t, typename graph_t>
+  auto shortest_path_lengths_from_source(vertex_t &v_source, graph_t &g);
+
+
+
+
+
+  /** ---------------------------------------------------------------------------------------------
+   * @defgroup   geo Geometry
+   * @brief      This group contains the functions related to graphs embedded in
+   *             a geometric space (e.g., loading coordinates, calculating
+   *             distances, greedy routing).
+   */
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param[in]  filename     The filename
+   * @param      g            { parameter_description }
+   * @param      Name2Vertex  The name2 vertex
+   * @param[in]  N            { parameter_description }
+   *
+   * @tparam     graph_t      { description }
+   * @tparam     map_t        { description }
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    geo
+   */
+  template<typename graph_t, typename map_t>
+  auto load_coordinates(std::string filename, graph_t &g, map_t &Name2Vertex, const unsigned int N = 3);
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param      x1    { parameter_description }
+   * @param[in]  x2    { parameter_description }
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    geo
+   */
+  double euclidean_distance(std::vector<double> &x1, std::vector<double> x2);
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param      x1    { parameter_description }
+   * @param[in]  x2    { parameter_description }
+   * @param[in]  zeta  The zeta
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    geo
+   */
+  double hyperbolic_distance(std::vector<double> &x1, std::vector<double> x2, double zeta);
+
+
+  
+
+
+  /** ---------------------------------------------------------------------------------------------
+   * @defgroup   weights Weighted organization
+   * @brief      This group contains the functions related to graphs embedded in
+   *             a geometric space (e.g., loading coordinates, calculating
+   *             distances, greedy routing).
+   */
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param      g        { parameter_description }
+   *
+   * @tparam     graph_t  { description }
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    weights
+   */
+  template<typename graph_t>
+  auto disparity(graph_t &g);
+
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::betweenness_centrality(graph_t &graph)
+{
+  // This code is greatly inspired from the examples given in
+  // - http://programmingexamples.net/wiki/CPP/Boost/BGL/BetweennessCentralityClustering
+  // - http://liuweipingblog.cn/cpp/an-example-of-boost-betweenness-centrality/
+  // - http://stackoverflow.com/questions/23260793/to-convert-internal-properties-in-boost
+  //                                                      -graph-to-external-properties-container-i
+
+
+  // *** Creates a property map that accumulates the betweenness centrality of each vertex (could
+  //   std::map be used?).
+
+  // Typedef of a vertex.
+  typedef typename graph_t::vertex_descriptor vertex_t;
+  // Typedef of an index map for the vertices.
+  typedef typename boost::property_map< graph_t, boost::vertex_index_t>::type VertexIndexMap;
+  // Gets the actual graph's vertex indexmap.
+  VertexIndexMap vertexIndexMap = get(boost::vertex_index, graph);
+  // Creates a container with size equal to number of vertices in "graph".
+  std::vector<double> v_centrality_vec(num_vertices(graph), 0.0);
+  // Creates the property map.
+  boost::iterator_property_map< std::vector<double>::iterator, VertexIndexMap >
+    v_centrality_map(v_centrality_vec.begin(), vertexIndexMap);
+
+
+  // *** Creates a property map that accumulates the betweenness centrality of each edge. Since we
+  //   typically do not use boost::vecS as the container for the edges, we need to define a
+  //   numerical ID for each edge.
+
+  // Typedef of an edge.
+  typedef typename graph_t::edge_descriptor edge_t;
+   // std::map used for convenient initialization
+  typedef typename std::map<edge_t, int> StdEdgeIndexMap;
+  StdEdgeIndexMap my_e_index;
+  // associative property map needed for iterator property map-wrapper
+  typedef boost::associative_property_map< StdEdgeIndexMap > EdgeIndexMap;
+  EdgeIndexMap e_index(my_e_index);
+  // We use setS as edge-container -> no automatic indices
+  // -> Create and set it explicitly
+  int i = 0;
+  typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
+  for(std::tie(e_it, e_end) = boost::edges(graph); e_it != e_end; ++e_it)
+  {
+    my_e_index.insert(std::pair< edge_t, int >(*e_it, i));
+    ++i;
+  }
+  // Define EdgeCentralityMap
+  std::vector< double > e_centrality_vec(boost::num_edges(graph), 0.0);
+  // Create the external property map
+  boost::iterator_property_map< std::vector< double >::iterator, EdgeIndexMap >
+    e_centrality_map(e_centrality_vec.begin(), e_index);
+ 
+
+  // *** Calculates the vertex and edge centralites.
+  boost::brandes_betweenness_centrality(graph, v_centrality_map, e_centrality_map);
+
+
+  // *** Converts the property maps into std::map (may not be necessary).
+  std::map<vertex_t, double> Vertex2BC;
+  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it != v_end; ++v_it)
+  {
+    Vertex2BC[*v_it] = v_centrality_map[*v_it];
+  }
+  std::map<edge_t, double> Edge2BC;
+  // typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
+  for(std::tie(e_it, e_end) = boost::edges(graph); e_it != e_end; ++e_it)
+  {
+    Edge2BC[*e_it] = e_centrality_map[*e_it];
+  }
+
+
+  // *** Returns a tuple containing both Vertex2BC and Edge2BC.
+  return std::make_tuple(Vertex2BC, Edge2BC);
 }
 
 
@@ -226,7 +521,7 @@ auto notBGL::disparity(graph_t &g)
 // ================================================================================================
 // ================================================================================================
 template<typename vector_t, typename graph_t>
-auto notBGL::get_local_clustering_coefficient(vector_t triangles, graph_t &g)
+auto notBGL::local_clustering_coefficient(vector_t triangles, graph_t &g)
 {
   // Typedef.
   typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
@@ -909,7 +1204,7 @@ double notBGL::euclidean_distance(std::vector<double> &x1, std::vector<double> x
   return std::sqrt( std::inner_product(x2.begin(), x2.end(), x2.begin(), 0.0) );
 }
 
-#endif // NOT_BGL_HPP_INCLUDED
+#endif // NOTBGL_HPP_INCLUDED
 
 // // ================================================================================================
 // // ================================================================================================
