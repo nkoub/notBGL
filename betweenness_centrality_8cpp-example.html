@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>notBGL: Welcome to the notBGL project</title>
+<title>notBGL: betweenness_centrality.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -37,7 +37,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -60,6 +60,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -74,14 +75,66 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Welcome to the <a class="el" href="namespacenotBGL.html" title="Sets of methods to facilitate the manipulation of Boost Graph Library objects. ">notBGL</a> project </div>  </div>
+<div class="title">betweenness_centrality.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="el" href="namespacenotBGL.html" title="Sets of methods to facilitate the manipulation of Boost Graph Library objects. ">notBGL</a> consists in an overhead of typedefs and functions to the Boost Graph Library (BGL) to facilitate and diversify its use. </p>
-</div></div><!-- contents -->
+<p>This is an example of how to use the Example_Test class. More details about this example.</p>
+<div class="fragment"><div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;../src/notBGL.hpp&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv)</div>
+<div class="line">{</div>
+<div class="line">  </div>
+<div class="line">  <span class="comment">// Create the graph object.</span></div>
+<div class="line">  <span class="keyword">typedef</span> boost::adjacency_list&lt; boost::setS,</div>
+<div class="line">                                 boost::vecS,</div>
+<div class="line">                                 boost::undirectedS &gt; graph_t;</div>
+<div class="line">  graph_t graph(9);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Populates the graph.</span></div>
+<div class="line">  boost::add_edge(0, 1, graph);  </div>
+<div class="line">  boost::add_edge(0, 2, graph);  </div>
+<div class="line">  boost::add_edge(0, 3, graph);  </div>
+<div class="line">  boost::add_edge(0, 4, graph);  </div>
+<div class="line">  boost::add_edge(0, 5, graph);  </div>
+<div class="line">  boost::add_edge(0, 6, graph);  </div>
+<div class="line">  boost::add_edge(0, 7, graph);  </div>
+<div class="line">  boost::add_edge(1, 2, graph);  </div>
+<div class="line">  boost::add_edge(2, 3, graph);  </div>
+<div class="line">  boost::add_edge(5, 6, graph);  </div>
+<div class="line">  boost::add_edge(6, 7, graph);  </div>
+<div class="line">  boost::add_edge(7, 8, graph);  </div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Computes the betweenness centrality of the vertices and the edges.</span></div>
+<div class="line">  <span class="keyword">typedef</span> graph_t::vertex_descriptor vertex_t;</div>
+<div class="line">  <span class="keyword">typedef</span> graph_t::edge_descriptor edge_t;</div>
+<div class="line">  std::map&lt;vertex_t, double&gt; Vertex2BC;</div>
+<div class="line">  std::map&lt;edge_t, double&gt; Edge2BC;</div>
+<div class="line">  std::tie(Vertex2BC, Edge2BC) = <a name="a0"></a><a class="code" href="group__topo.html#gacb2efa20041aab88077920ddee345120">notBGL::betweenness_centrality</a>(graph);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Prints the betweenness centrality of vertices.</span></div>
+<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : Vertex2BC)</div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; el.first &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; el.second &lt;&lt; std::endl;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Prints the betweenness centrality of edges.</span></div>
+<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : Edge2BC)</div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; boost::source(el.first, graph)</div>
+<div class="line">              &lt;&lt; <span class="stringliteral">&quot; &lt;--&gt; &quot;</span> </div>
+<div class="line">              &lt;&lt; boost::target(el.first, graph) </div>
+<div class="line">              &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> </div>
+<div class="line">              &lt;&lt; el.second </div>
+<div class="line">              &lt;&lt; std::endl;</div>
+<div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated on Wed May 18 2016 20:01:27 for notBGL by &#160;<a href="http://www.doxygen.org/index.html">
