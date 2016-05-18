@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['betweenness_5fcentrality',['betweenness_centrality',['../namespacenotBGL.html#a22d9ed83c223712e5ca108d5761a0c67',1,'notBGL']]],
-  ['bug_20list',['Bug List',['../bug.html',1,'']]]
+  ['welcome_20to_20the_20notbgl_20project',['Welcome to the notBGL project',['../md_README.html',1,'']]]
 ];
