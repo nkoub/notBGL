@@ -80,49 +80,71 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">betweenness_centrality.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<p>This is an example of how to use the Example_Test class. More details about this example.</p>
-<div class="fragment"><div class="line"></div>
+<p>This is an example of how to use the <a class="el" href="group__topo.html#gacb2efa20041aab88077920ddee345120" title="Computes the betweenness centrality of the vertices and the edges of a graph. ">betweenness_centrality()</a> function.</p>
+<div class="fragment"><div class="line"><span class="comment">/*</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * This is an example of how to use the betweenness_centrality() function. The</span></div>
+<div class="line"><span class="comment"> * code instantiates a simple and small undirected graph, computes the</span></div>
+<div class="line"><span class="comment"> * betweenness centrality of its vertices and edges, and then prints the results</span></div>
+<div class="line"><span class="comment"> * on the scree.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * Compilation requires the c++11 standard.</span></div>
+<div class="line"><span class="comment"> *   Example: g++ -O3 -std=c++1y betweenness_centrality.cpp</span></div>
+<div class="line"><span class="comment"> * </span></div>
+<div class="line"><span class="comment"> * Author:  Antoine Allard</span></div>
+<div class="line"><span class="comment"> * WWW:     antoineallard.info</span></div>
+<div class="line"><span class="comment"> * Date:    May 2016</span></div>
+<div class="line"><span class="comment"> * </span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="comment">// Standard template library </span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="comment">// notBGL</span></div>
 <div class="line"><span class="preprocessor">#include &quot;../src/notBGL.hpp&quot;</span></div>
-<div class="line"> </div>
+<div class="line"></div>
+<div class="line"></div>
 <div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv)</div>
 <div class="line">{</div>
 <div class="line">  </div>
-<div class="line">  <span class="comment">// Create the graph object.</span></div>
+<div class="line">  <span class="comment">// Instantiates an undirected graph with 9 vertices.</span></div>
 <div class="line">  <span class="keyword">typedef</span> boost::adjacency_list&lt; boost::setS,</div>
 <div class="line">                                 boost::vecS,</div>
 <div class="line">                                 boost::undirectedS &gt; graph_t;</div>
 <div class="line">  graph_t graph(9);</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">// Populates the graph.</span></div>
-<div class="line">  boost::add_edge(0, 1, graph);  </div>
-<div class="line">  boost::add_edge(0, 2, graph);  </div>
-<div class="line">  boost::add_edge(0, 3, graph);  </div>
-<div class="line">  boost::add_edge(0, 4, graph);  </div>
-<div class="line">  boost::add_edge(0, 5, graph);  </div>
-<div class="line">  boost::add_edge(0, 6, graph);  </div>
-<div class="line">  boost::add_edge(0, 7, graph);  </div>
-<div class="line">  boost::add_edge(1, 2, graph);  </div>
-<div class="line">  boost::add_edge(2, 3, graph);  </div>
-<div class="line">  boost::add_edge(5, 6, graph);  </div>
-<div class="line">  boost::add_edge(6, 7, graph);  </div>
-<div class="line">  boost::add_edge(7, 8, graph);  </div>
+<div class="line">  <span class="comment">// Creates the edges. Since we use boost::vecS to store the vertices, we can</span></div>
+<div class="line">  <span class="comment">// directly use numerical IDs to identify each vertex.</span></div>
+<div class="line">  boost::add_edge(0, 1, graph);</div>
+<div class="line">  boost::add_edge(0, 2, graph);</div>
+<div class="line">  boost::add_edge(0, 3, graph);</div>
+<div class="line">  boost::add_edge(0, 4, graph);</div>
+<div class="line">  boost::add_edge(0, 5, graph);</div>
+<div class="line">  boost::add_edge(0, 6, graph);</div>
+<div class="line">  boost::add_edge(0, 7, graph);</div>
+<div class="line">  boost::add_edge(1, 2, graph);</div>
+<div class="line">  boost::add_edge(2, 3, graph);</div>
+<div class="line">  boost::add_edge(5, 6, graph);</div>
+<div class="line">  boost::add_edge(6, 7, graph);</div>
+<div class="line">  boost::add_edge(7, 8, graph);</div>
 <div class="line"></div>
-<div class="line">  <span class="comment">// Computes the betweenness centrality of the vertices and the edges.</span></div>
-<div class="line">  <span class="keyword">typedef</span> graph_t::vertex_descriptor vertex_t;</div>
-<div class="line">  <span class="keyword">typedef</span> graph_t::edge_descriptor edge_t;</div>
-<div class="line">  std::map&lt;vertex_t, double&gt; Vertex2BC;</div>
-<div class="line">  std::map&lt;edge_t, double&gt; Edge2BC;</div>
-<div class="line">  std::tie(Vertex2BC, Edge2BC) = <a name="a0"></a><a class="code" href="group__topo.html#gacb2efa20041aab88077920ddee345120">notBGL::betweenness_centrality</a>(graph);</div>
+<div class="line">  <span class="comment">// Computes the betweenness centrality of the vertices and the edges. The</span></div>
+<div class="line">  <span class="comment">// function returns a std::tuple of two std::map objects that map a</span></div>
+<div class="line">  <span class="comment">// boost::vertex_descriptor and a boost::edge_descriptor to their</span></div>
+<div class="line">  <span class="comment">// betweenness_centrlity, respectively.</span></div>
+<div class="line">  <span class="keyword">auto</span> bc = <a name="a0"></a><a class="code" href="group__topo.html#gacb2efa20041aab88077920ddee345120">notBGL::betweenness_centrality</a>(graph);</div>
 <div class="line"></div>
-<div class="line">  <span class="comment">// Prints the betweenness centrality of vertices.</span></div>
-<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : Vertex2BC)</div>
+<div class="line">  <span class="comment">// Prints the betweenness centrality of vertices. We use std::get to access</span></div>
+<div class="line">  <span class="comment">// the different map objects.</span></div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Betweenness centrality of vertices&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : std::get&lt;0&gt;(bc))</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; el.first &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; el.second &lt;&lt; std::endl;</div>
 <div class="line">  }</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Prints the betweenness centrality of edges.</span></div>
-<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : Edge2BC)</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Betweenness centrality of edges&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : std::get&lt;1&gt;(bc))</div>
 <div class="line">  {</div>
 <div class="line">    std::cout &lt;&lt; boost::source(el.first, graph)</div>
 <div class="line">              &lt;&lt; <span class="stringliteral">&quot; &lt;--&gt; &quot;</span> </div>
@@ -132,12 +154,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">              &lt;&lt; std::endl;</div>
 <div class="line">  }</div>
 <div class="line"></div>
+<div class="line">  <span class="comment">// Exits the program successfully.</span></div>
 <div class="line">  <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 18 2016 20:01:27 for notBGL by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed May 18 2016 23:39:10 for notBGL by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
