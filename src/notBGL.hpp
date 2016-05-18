@@ -258,9 +258,11 @@ namespace notBGL
    */
   template<typename graph_t>
   auto betweenness_centrality(graph_t &graph);
-  /** \example betweenness_centrality.cpp
-   * This is an example of how to use the Example_Test class.
-   * More details about this example.
+  /**
+   * @example    betweenness_centrality.cpp
+   * @brief      This is an example of how to use the betweenness_centrality()
+   *             function. See comments in the code and the documentation for
+   *             further details.
    */
 
 

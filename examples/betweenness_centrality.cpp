@@ -1,53 +1,67 @@
-/**
-* @brief  Computes the absolute betweenness centrality of the vertices and the edges of a graph.
-* @author Antoine Allard (<a href="http://antoineallard.info">antoineallard.info</a>)
-* @date   May 2016
-* @bug    No known bugs.
-* @todo   Complete the documentation using doxygen.
-*
-*/
- 
+/*
+ *
+ * This is an example of how to use the betweenness_centrality() function. The
+ * code instantiates a simple and small undirected graph, computes the
+ * betweenness centrality of its vertices and edges, and then prints the results
+ * on the screen.
+ *
+ * Compilation requires the c++11 standard.
+ *   Example: g++ -O3 -std=c++1y betweenness_centrality.cpp
+ * 
+ * Author:  Antoine Allard
+ * WWW:     antoineallard.info
+ * Date:    May 2016
+ * 
+ */
+
+
+// Standard template library 
 #include <iostream>
+// notBGL
 #include "../src/notBGL.hpp"
- 
+
+
 int main(int argc, char** argv)
 {
   
-  // Create the graph object.
+  // Instantiates an undirected graph with 9 vertices.
   typedef boost::adjacency_list< boost::setS,
                                  boost::vecS,
                                  boost::undirectedS > graph_t;
   graph_t graph(9);
  
-  // Populates the graph.
-  boost::add_edge(0, 1, graph);  
-  boost::add_edge(0, 2, graph);  
-  boost::add_edge(0, 3, graph);  
-  boost::add_edge(0, 4, graph);  
-  boost::add_edge(0, 5, graph);  
-  boost::add_edge(0, 6, graph);  
-  boost::add_edge(0, 7, graph);  
-  boost::add_edge(1, 2, graph);  
-  boost::add_edge(2, 3, graph);  
-  boost::add_edge(5, 6, graph);  
-  boost::add_edge(6, 7, graph);  
-  boost::add_edge(7, 8, graph);  
+  // Creates the edges. Since we use boost::vecS to store the vertices, we can
+  // directly use numerical IDs to identify each vertex.
+  boost::add_edge(0, 1, graph);
+  boost::add_edge(0, 2, graph);
+  boost::add_edge(0, 3, graph);
+  boost::add_edge(0, 4, graph);
+  boost::add_edge(0, 5, graph);
+  boost::add_edge(0, 6, graph);
+  boost::add_edge(0, 7, graph);
+  boost::add_edge(1, 2, graph);
+  boost::add_edge(2, 3, graph);
+  boost::add_edge(5, 6, graph);
+  boost::add_edge(6, 7, graph);
+  boost::add_edge(7, 8, graph);
 
-  // Computes the betweenness centrality of the vertices and the edges.
-  typedef graph_t::vertex_descriptor vertex_t;
-  typedef graph_t::edge_descriptor edge_t;
-  std::map<vertex_t, double> Vertex2BC;
-  std::map<edge_t, double> Edge2BC;
-  std::tie(Vertex2BC, Edge2BC) = notBGL::betweenness_centrality(graph);
+  // Computes the betweenness centrality of the vertices and the edges. The
+  // function returns a std::tuple of two std::map objects that map a
+  // boost::vertex_descriptor and a boost::edge_descriptor to their
+  // betweenness_centrlity, respectively.
+  auto bc = notBGL::betweenness_centrality(graph);
 
-  // Prints the betweenness centrality of vertices.
-  for(auto el : Vertex2BC)
+  // Prints the betweenness centrality of vertices. We use std::get to access
+  // the different map objects.
+  std::cout << "Betweenness centrality of vertices" << std::endl;
+  for(auto el : std::get<0>(bc))
   {
     std::cout << el.first << ": " << el.second << std::endl;
   }
 
   // Prints the betweenness centrality of edges.
-  for(auto el : Edge2BC)
+  std::cout << "Betweenness centrality of edges" << std::endl;
+  for(auto el : std::get<1>(bc))
   {
     std::cout << boost::source(el.first, graph)
               << " <--> " 
@@ -57,5 +71,6 @@ int main(int argc, char** argv)
               << std::endl;
   }
 
+  // Exits the program successfully.
   return 0;
 }
