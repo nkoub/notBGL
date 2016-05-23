@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>notBGL: Input / Output</title>
+<title>The notBGL library: Input / Output</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">notBGL
+   <div id="projectname">The notBGL library
    </div>
+   <div id="projectbrief">Harnessing the power of the Boost Graph Library</div>
   </td>
  </tr>
  </tbody>
@@ -116,10 +117,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9fbcb7f190ad09e2f1e7aa6e82f83c92"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__IO.html#ga9fbcb7f190ad09e2f1e7aa6e82f83c92">notBGL::save_local_clustering_coefficents_sequence</a> (std::string filename, map_t &amp;clustering, graph_t &amp;g, std::string vertex_identifier=&quot;None&quot;)</td></tr>
 <tr class="memdesc:ga9fbcb7f190ad09e2f1e7aa6e82f83c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga9fbcb7f190ad09e2f1e7aa6e82f83c92">More...</a><br/></td></tr>
 <tr class="separator:ga9fbcb7f190ad09e2f1e7aa6e82f83c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5c38c3eae96e8603d7b5b247480f0912"><td class="memTemplParams" colspan="2">template&lt;typename graph_t , typename map_t &gt; </td></tr>
-<tr class="memitem:ga5c38c3eae96e8603d7b5b247480f0912"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__IO.html#ga5c38c3eae96e8603d7b5b247480f0912">notBGL::save_vertices_properties</a> (std::string filename, graph_t &amp;g, map_t clustering, map_t disparity)</td></tr>
-<tr class="memdesc:ga5c38c3eae96e8603d7b5b247480f0912"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga5c38c3eae96e8603d7b5b247480f0912">More...</a><br/></td></tr>
-<tr class="separator:ga5c38c3eae96e8603d7b5b247480f0912"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaad4ae40942159c9488dc1b5f0266e462"><td class="memTemplParams" colspan="2">template&lt;typename graph_t , typename vertex_t &gt; </td></tr>
+<tr class="memitem:gaad4ae40942159c9488dc1b5f0266e462"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">notBGL::save_vertices_properties</a> (std::string filename, graph_t &amp;graph, std::initializer_list&lt; std::map&lt; vertex_t, double &gt; &gt; props, vertex_identifier_t vertexID=vertexID_name, unsigned int width=10)</td></tr>
+<tr class="memdesc:gaad4ae40942159c9488dc1b5f0266e462"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves properties of vertices into a file.  <a href="#gaad4ae40942159c9488dc1b5f0266e462">More...</a><br/></td></tr>
+<tr class="separator:gaad4ae40942159c9488dc1b5f0266e462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a35094c022a55f48e02530ca3e00330"><td class="memTemplParams" colspan="2">template&lt;typename graph_t , typename edge_t &gt; </td></tr>
+<tr class="memitem:ga1a35094c022a55f48e02530ca3e00330"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330">notBGL::save_edges_properties</a> (std::string filename, graph_t &amp;graph, std::initializer_list&lt; std::map&lt; edge_t, double &gt; &gt; props, vertex_identifier_t vertexID=vertexID_name, unsigned int width=10)</td></tr>
+<tr class="memdesc:ga1a35094c022a55f48e02530ca3e00330"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves properties of edges into a file.  <a href="#ga1a35094c022a55f48e02530ca3e00330">More...</a><br/></td></tr>
+<tr class="separator:ga1a35094c022a55f48e02530ca3e00330"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This group contains the functions related to inputs and outputs such as loading graphs from edgelists from files as well as writing edgelists and proporties of vertices or edges into files. </p>
@@ -166,8 +171,10 @@ template&lt;typename graph_t &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns a std::map mapping the name of vertices to their vertex_descriptor. This object is provided to</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Add the functionnality of ignoring lines beginning with the hashtag character "#".</dd></dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__IO.html#ga43c37070c865b327992d73a2e60cafa6" title="Populates a graph from an edge list. ">save_edgelist()</a> </dd></dl>
-
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="clustering_8cpp-example.html#a0">clustering.cpp</a>, and <a class="el" href="save_properties_8cpp-example.html#a0">save_properties.cpp</a>.</dd>
+</dl>
 </div>
 </div>
 <a class="anchor" id="ga358ff66b1c7a6942dfebae7da9573f3a"></a>
@@ -316,6 +323,79 @@ template&lt;typename graph_t &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="ga1a35094c022a55f48e02530ca3e00330"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t , typename edge_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void notBGL::save_edges_properties </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::initializer_list&lt; std::map&lt; edge_t, double &gt; &gt;&#160;</td>
+          <td class="paramname"><em>props</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vertex_identifier_t&#160;</td>
+          <td class="paramname"><em>vertexID</em> = <code>vertexID_name</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>width</em> = <code>10</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves properties of edges into a file. </p>
+<p>This is the main function to save properties of edges into a file. Several other edge-related output functions are wrappers of the <a class="el" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330" title="Saves properties of edges into a file. ">save_edges_properties()</a>. See the <code>save_properties.cpp</code> example below for further details.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>Name of the file in which the properties are to written. </td></tr>
+    <tr><td class="paramname">graph</td><td>The graph object. </td></tr>
+    <tr><td class="paramname">props</td><td>An std::initializer_list containing std::map objects mapping boost::edge_descriptor objects to the values of the property of the edges. </td></tr>
+    <tr><td class="paramname">vertexID</td><td>[optional] Identifier used for the edges. Options are<ul>
+<li><code>notBGL::vertexID_name</code> (default): prints the name of the vertices;</li>
+<li><code>notBGL::vertexID_num</code>: identifies the vertices with a contiguous sequence of integers starting at 0;</li>
+<li><code>notBGL::vertexID_none</code>: properties are printed without identifying the edges. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">width</td><td>[optional] Width of the columns in the file. Default is 10.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>boost::adjacency_list </td></tr>
+    <tr><td class="paramname">vertex_t</td><td>boost::edge_descriptor</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462" title="Saves properties of vertices into a file. ">save_vertices_properties()</a> </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="save_properties_8cpp-example.html#a6">save_properties.cpp</a>.</dd>
+</dl>
+</div>
+</div>
 <a class="anchor" id="ga9fbcb7f190ad09e2f1e7aa6e82f83c92"></a>
 <div class="memitem">
 <div class="memproto">
@@ -424,11 +504,11 @@ template&lt;typename graph_t &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ga5c38c3eae96e8603d7b5b247480f0912"></a>
+<a class="anchor" id="gaad4ae40942159c9488dc1b5f0266e462"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename graph_t , typename map_t &gt; </div>
+template&lt;typename graph_t , typename vertex_t &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void notBGL::save_vertices_properties </td>
@@ -440,19 +520,25 @@ template&lt;typename graph_t , typename map_t &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">graph_t &amp;&#160;</td>
-          <td class="paramname"><em>g</em>, </td>
+          <td class="paramname"><em>graph</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">map_t&#160;</td>
-          <td class="paramname"><em>clustering</em>, </td>
+          <td class="paramtype">std::initializer_list&lt; std::map&lt; vertex_t, double &gt; &gt;&#160;</td>
+          <td class="paramname"><em>props</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">map_t&#160;</td>
-          <td class="paramname"><em>disparity</em>&#160;</td>
+          <td class="paramtype">vertex_identifier_t&#160;</td>
+          <td class="paramname"><em>vertexID</em> = <code>vertexID_name</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>width</em> = <code>10</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -462,24 +548,33 @@ template&lt;typename graph_t , typename map_t &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>{ function_description } </p>
+<p>Saves properties of vertices into a file. </p>
+<p>This is the main function to save properties of vertices into a file. Several other vertex-related output functions are wrappers of the <a class="el" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462" title="Saves properties of vertices into a file. ">save_vertices_properties()</a>. See the <code>save_vertices_properties.cpp</code> example below for further details.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>The filename </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">g</td><td>{ parameter_description } </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">clustering</td><td>The clustering </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">disparity</td><td>The disparity</td></tr>
+    <tr><td class="paramname">filename</td><td>Name of the file in which the properties are to written. </td></tr>
+    <tr><td class="paramname">graph</td><td>The graph object. </td></tr>
+    <tr><td class="paramname">props</td><td>An std::initializer_list containing std::map objects mapping boost::vertex_descriptor objects to the values of the property of the vertices. </td></tr>
+    <tr><td class="paramname">vertexID</td><td>[optional] Identifier used for the vertices. Options are<ul>
+<li><code>notBGL::vertexID_name</code> (default): prints the name of the vertices;</li>
+<li><code>notBGL::vertexID_num</code>: identifies the vertices with a contiguous sequence of integers starting at 0;</li>
+<li><code>notBGL::vertexID_none</code>: properties are printed without identifying the vertices. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">width</td><td>[optional] Width of the columns in the file. Default is 10.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">graph_t</td><td>{ description } </td></tr>
-    <tr><td class="paramname">map_t</td><td>{ description } </td></tr>
+    <tr><td class="paramname">graph_t</td><td>boost::adjacency_list </td></tr>
+    <tr><td class="paramname">vertex_t</td><td>boost::vertex_descriptor</td></tr>
   </table>
   </dd>
 </dl>
-
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330" title="Saves properties of edges into a file. ">save_edges_properties()</a> </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="save_properties_8cpp-example.html#a5">save_properties.cpp</a>.</dd>
+</dl>
 </div>
 </div>
 <a class="anchor" id="gabd44366520e28f4501b48847d40c2273"></a>
@@ -536,7 +631,7 @@ template&lt;typename graph_t &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 18 2016 23:39:10 for notBGL by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 23 2016 13:20:40 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

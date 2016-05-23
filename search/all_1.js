@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['disparity',['disparity',['../group__weights.html#ga77bce6c43a5d17beb8eab932a3964406',1,'notBGL']]]
+  ['betweenness_5fcentrality',['betweenness_centrality',['../group__topo.html#gacb2efa20041aab88077920ddee345120',1,'notBGL']]],
+  ['bug_20list',['Bug List',['../bug.html',1,'']]]
 ];

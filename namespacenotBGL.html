@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>notBGL: notBGL Namespace Reference</title>
+<title>The notBGL library: notBGL Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">notBGL
+   <div id="projectname">The notBGL library
    </div>
+   <div id="projectbrief">Harnessing the power of the Boost Graph Library</div>
   </td>
  </tr>
  </tbody>
@@ -95,13 +96,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a226c170acb9c4515e8a7278d62355024"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a226c170acb9c4515e8a7278d62355024"></a>
-typedef boost::adjacency_list<br class="typebreak"/>
+<tr class="memitem:a226c170acb9c4515e8a7278d62355024"><td class="memItemLeft" align="right" valign="top">typedef boost::adjacency_list<br class="typebreak"/>
 &lt; boost::listS, boost::vecS, <br class="typebreak"/>
 boost::undirectedS, <br class="typebreak"/>
 MinimalVertexProp, <br class="typebreak"/>
 boost::no_property &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenotBGL.html#a226c170acb9c4515e8a7278d62355024">UndirectedGraph_t</a></td></tr>
-<tr class="memdesc:a226c170acb9c4515e8a7278d62355024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic undirected unweighted graph type. <br/></td></tr>
+<tr class="memdesc:a226c170acb9c4515e8a7278d62355024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic undirected unweighted graph type.  <a href="#a226c170acb9c4515e8a7278d62355024">More...</a><br/></td></tr>
 <tr class="separator:a226c170acb9c4515e8a7278d62355024"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -134,18 +134,38 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9fbcb7f190ad09e2f1e7aa6e82f83c92"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__IO.html#ga9fbcb7f190ad09e2f1e7aa6e82f83c92">save_local_clustering_coefficents_sequence</a> (std::string filename, map_t &amp;clustering, graph_t &amp;g, std::string vertex_identifier=&quot;None&quot;)</td></tr>
 <tr class="memdesc:ga9fbcb7f190ad09e2f1e7aa6e82f83c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="group__IO.html#ga9fbcb7f190ad09e2f1e7aa6e82f83c92">More...</a><br/></td></tr>
 <tr class="separator:ga9fbcb7f190ad09e2f1e7aa6e82f83c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5c38c3eae96e8603d7b5b247480f0912"><td class="memTemplParams" colspan="2">template&lt;typename graph_t , typename map_t &gt; </td></tr>
-<tr class="memitem:ga5c38c3eae96e8603d7b5b247480f0912"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__IO.html#ga5c38c3eae96e8603d7b5b247480f0912">save_vertices_properties</a> (std::string filename, graph_t &amp;g, map_t clustering, map_t <a class="el" href="group__weights.html#ga77bce6c43a5d17beb8eab932a3964406">disparity</a>)</td></tr>
-<tr class="memdesc:ga5c38c3eae96e8603d7b5b247480f0912"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="group__IO.html#ga5c38c3eae96e8603d7b5b247480f0912">More...</a><br/></td></tr>
-<tr class="separator:ga5c38c3eae96e8603d7b5b247480f0912"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaad4ae40942159c9488dc1b5f0266e462"><td class="memTemplParams" colspan="2">template&lt;typename graph_t , typename vertex_t &gt; </td></tr>
+<tr class="memitem:gaad4ae40942159c9488dc1b5f0266e462"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">save_vertices_properties</a> (std::string filename, graph_t &amp;graph, std::initializer_list&lt; std::map&lt; vertex_t, double &gt; &gt; props, vertex_identifier_t vertexID=vertexID_name, unsigned int width=10)</td></tr>
+<tr class="memdesc:gaad4ae40942159c9488dc1b5f0266e462"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves properties of vertices into a file.  <a href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">More...</a><br/></td></tr>
+<tr class="separator:gaad4ae40942159c9488dc1b5f0266e462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a35094c022a55f48e02530ca3e00330"><td class="memTemplParams" colspan="2">template&lt;typename graph_t , typename edge_t &gt; </td></tr>
+<tr class="memitem:ga1a35094c022a55f48e02530ca3e00330"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330">save_edges_properties</a> (std::string filename, graph_t &amp;graph, std::initializer_list&lt; std::map&lt; edge_t, double &gt; &gt; props, vertex_identifier_t vertexID=vertexID_name, unsigned int width=10)</td></tr>
+<tr class="memdesc:ga1a35094c022a55f48e02530ca3e00330"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves properties of edges into a file.  <a href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330">More...</a><br/></td></tr>
+<tr class="separator:ga1a35094c022a55f48e02530ca3e00330"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2a393baf0ce7736a94a9fa249ab3f77"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:ae2a393baf0ce7736a94a9fa249ab3f77"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacenotBGL.html#ae2a393baf0ce7736a94a9fa249ab3f77">degrees</a> (graph_t &amp;graph)</td></tr>
+<tr class="memdesc:ae2a393baf0ce7736a94a9fa249ab3f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the degree sequence.  <a href="#ae2a393baf0ce7736a94a9fa249ab3f77">More...</a><br/></td></tr>
+<tr class="separator:ae2a393baf0ce7736a94a9fa249ab3f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafd8f1d933e19a74ccc49195bd3e31c00"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
 <tr class="memitem:gafd8f1d933e19a74ccc49195bd3e31c00"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00">survey_triangles</a> (graph_t &amp;g)</td></tr>
 <tr class="memdesc:gafd8f1d933e19a74ccc49195bd3e31c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the triangles in the graph.  <a href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00">More...</a><br/></td></tr>
 <tr class="separator:gafd8f1d933e19a74ccc49195bd3e31c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaabd2f2b7483fb57eb3addcfff57dfc00"><td class="memTemplParams" colspan="2">template&lt;typename vector_t , typename graph_t &gt; </td></tr>
-<tr class="memitem:gaabd2f2b7483fb57eb3addcfff57dfc00"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gaabd2f2b7483fb57eb3addcfff57dfc00">local_clustering_coefficient</a> (vector_t triangles, graph_t &amp;g)</td></tr>
-<tr class="memdesc:gaabd2f2b7483fb57eb3addcfff57dfc00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the local clustering coefficient.  <a href="group__topo.html#gaabd2f2b7483fb57eb3addcfff57dfc00">More...</a><br/></td></tr>
-<tr class="separator:gaabd2f2b7483fb57eb3addcfff57dfc00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab6ce77765b8a1fc33a3cfabfb5dae1eb"><td class="memTemplParams" colspan="2">template&lt;typename vector_t , typename graph_t &gt; </td></tr>
+<tr class="memitem:gab6ce77765b8a1fc33a3cfabfb5dae1eb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gab6ce77765b8a1fc33a3cfabfb5dae1eb">local_clustering_coefficients</a> (vector_t &amp;triangles, graph_t &amp;graph)</td></tr>
+<tr class="memdesc:gab6ce77765b8a1fc33a3cfabfb5dae1eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the local clustering coefficients.  <a href="group__topo.html#gab6ce77765b8a1fc33a3cfabfb5dae1eb">More...</a><br/></td></tr>
+<tr class="separator:gab6ce77765b8a1fc33a3cfabfb5dae1eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac4027626e23440950d0fbab8f3b410eb"><td class="memTemplParams" colspan="2">template&lt;typename map_t &gt; </td></tr>
+<tr class="memitem:gac4027626e23440950d0fbab8f3b410eb"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gac4027626e23440950d0fbab8f3b410eb">average_local_clustering_coefficient</a> (map_t &amp;<a class="el" href="group__topo.html#gab6ce77765b8a1fc33a3cfabfb5dae1eb">local_clustering_coefficients</a>)</td></tr>
+<tr class="memdesc:gac4027626e23440950d0fbab8f3b410eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="group__topo.html#gac4027626e23440950d0fbab8f3b410eb">More...</a><br/></td></tr>
+<tr class="separator:gac4027626e23440950d0fbab8f3b410eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1bd26cac89e0ca102a1b36a84f344779"><td class="memTemplParams" colspan="2">template&lt;typename vector_t , typename graph_t &gt; </td></tr>
+<tr class="memitem:ga1bd26cac89e0ca102a1b36a84f344779"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#ga1bd26cac89e0ca102a1b36a84f344779">global_clustering_coefficient</a> (vector_t &amp;triangles, graph_t &amp;graph)</td></tr>
+<tr class="memdesc:ga1bd26cac89e0ca102a1b36a84f344779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the global clustering coefficient.  <a href="group__topo.html#ga1bd26cac89e0ca102a1b36a84f344779">More...</a><br/></td></tr>
+<tr class="separator:ga1bd26cac89e0ca102a1b36a84f344779"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa0c859b1f1495ce287a32e0e772d2d65"><td class="memTemplParams" colspan="2">template&lt;typename vector_t , typename graph_t &gt; </td></tr>
+<tr class="memitem:gaa0c859b1f1495ce287a32e0e772d2d65"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gaa0c859b1f1495ce287a32e0e772d2d65">multiplicity</a> (vector_t &amp;triangles, graph_t &amp;graph)</td></tr>
+<tr class="memdesc:gaa0c859b1f1495ce287a32e0e772d2d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the multiplicity of edges.  <a href="group__topo.html#gaa0c859b1f1495ce287a32e0e772d2d65">More...</a><br/></td></tr>
+<tr class="separator:gaa0c859b1f1495ce287a32e0e772d2d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacb2efa20041aab88077920ddee345120"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
 <tr class="memitem:gacb2efa20041aab88077920ddee345120"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gacb2efa20041aab88077920ddee345120">betweenness_centrality</a> (graph_t &amp;graph)</td></tr>
 <tr class="memdesc:gacb2efa20041aab88077920ddee345120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the betweenness centrality of the vertices and the edges of a graph.  <a href="group__topo.html#gacb2efa20041aab88077920ddee345120">More...</a><br/></td></tr>
@@ -175,10 +195,61 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>March 2016 </dd></dl>
 <dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>No known bugs. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Complete the documentation using doxygen. </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a226c170acb9c4515e8a7278d62355024"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef boost::adjacency_list&lt;boost::listS, boost::vecS, boost::undirectedS, MinimalVertexProp, boost::no_property &gt; <a class="el" href="namespacenotBGL.html#a226c170acb9c4515e8a7278d62355024">notBGL::UndirectedGraph_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generic undirected unweighted graph type. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ae2a393baf0ce7736a94a9fa249ab3f77"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto notBGL::degrees </td>
+          <td>(</td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts the degree sequence. </p>
+<p>Extracts the degree sequence.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph object</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>boost::adjacency_list</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a std::map object mapping the boost:vertex_descriptor to the degree (double). </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="save_properties_8cpp-example.html#a1">save_properties.cpp</a>.</dd>
+</dl>
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 18 2016 23:39:10 for notBGL by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 23 2016 13:20:40 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

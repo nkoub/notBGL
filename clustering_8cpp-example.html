@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>The notBGL library: betweenness_centrality.cpp</title>
+<title>The notBGL library: clustering.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -78,19 +78,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">betweenness_centrality.cpp</div>  </div>
+<div class="title">clustering.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<p>This is an example of how to use the <a class="el" href="group__topo.html#gacb2efa20041aab88077920ddee345120" title="Computes the betweenness centrality of the vertices and the edges of a graph. ">betweenness_centrality()</a> function. See comments in the code and the documentation for further details.</p>
+<p>This is an example of how to use functions related to custering. See comments in the code and the documentation for further details.</p>
 <div class="fragment"><div class="line"><span class="comment">/*</span></div>
 <div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * This is an example of how to use the betweenness_centrality() function. The</span></div>
-<div class="line"><span class="comment"> * code instantiates a simple and small undirected graph, computes the</span></div>
-<div class="line"><span class="comment"> * betweenness centrality of its vertices and edges, and then prints the results</span></div>
-<div class="line"><span class="comment"> * on the screen.</span></div>
+<div class="line"><span class="comment"> * This is an example of how to use the functions related to clustering.</span></div>
 <div class="line"><span class="comment"> *</span></div>
 <div class="line"><span class="comment"> * Compilation requires the c++11 standard.</span></div>
-<div class="line"><span class="comment"> *   Example: g++ -O3 -std=c++1y betweenness_centrality.cpp</span></div>
+<div class="line"><span class="comment"> *   Example: g++ -O3 -std=c++1y clustering.cpp</span></div>
 <div class="line"><span class="comment"> * </span></div>
 <div class="line"><span class="comment"> * Author:  Antoine Allard</span></div>
 <div class="line"><span class="comment"> * WWW:     antoineallard.info</span></div>
@@ -108,51 +105,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv)</div>
 <div class="line">{</div>
 <div class="line">  </div>
-<div class="line">  <span class="comment">// Instantiates an undirected graph with 9 vertices.</span></div>
+<div class="line">  <span class="comment">// Instantiates an empty undirected graph.</span></div>
 <div class="line">  <span class="keyword">typedef</span> boost::adjacency_list&lt; boost::setS,</div>
 <div class="line">                                 boost::vecS,</div>
-<div class="line">                                 boost::undirectedS &gt; graph_t;</div>
-<div class="line">  graph_t graph(9);</div>
+<div class="line">                                 boost::undirectedS,</div>
+<div class="line">                                 notBGL::MinimalVertexProp&gt; graph_t;</div>
+<div class="line">  graph_t graph;</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">// Creates the edges. Since we use boost::vecS to store the vertices, we can</span></div>
-<div class="line">  <span class="comment">// directly use numerical IDs to identify each vertex.</span></div>
-<div class="line">  boost::add_edge(0, 1, graph);</div>
-<div class="line">  boost::add_edge(0, 2, graph);</div>
-<div class="line">  boost::add_edge(0, 3, graph);</div>
-<div class="line">  boost::add_edge(0, 4, graph);</div>
-<div class="line">  boost::add_edge(0, 5, graph);</div>
-<div class="line">  boost::add_edge(0, 6, graph);</div>
-<div class="line">  boost::add_edge(0, 7, graph);</div>
-<div class="line">  boost::add_edge(1, 2, graph);</div>
-<div class="line">  boost::add_edge(2, 3, graph);</div>
-<div class="line">  boost::add_edge(5, 6, graph);</div>
-<div class="line">  boost::add_edge(6, 7, graph);</div>
-<div class="line">  boost::add_edge(7, 8, graph);</div>
+<div class="line">  <span class="comment">// Populates the graph via the edgelist TestGraph.edge.</span></div>
+<div class="line">  <a name="a0"></a><a class="code" href="group__IO.html#ga1fd477f1f460149611d070a52439e8d0">notBGL::load_edgelist</a>(<span class="stringliteral">&quot;edgelists/TestGraph.edge&quot;</span>, graph);</div>
 <div class="line"></div>
-<div class="line">  <span class="comment">// Computes the betweenness centrality of the vertices and the edges. The</span></div>
-<div class="line">  <span class="comment">// function returns a std::tuple of two std::map objects that map a</span></div>
-<div class="line">  <span class="comment">// boost::vertex_descriptor and a boost::edge_descriptor to their</span></div>
-<div class="line">  <span class="comment">// betweenness_centrlity, respectively.</span></div>
-<div class="line">  <span class="keyword">auto</span> bc = <a name="a0"></a><a class="code" href="group__topo.html#gacb2efa20041aab88077920ddee345120">notBGL::betweenness_centrality</a>(graph);</div>
+<div class="line">  <span class="comment">// Surveys the triangles present in the graph. This function yields a std::vector whose elements</span></div>
+<div class="line">  <span class="comment">// are std::tuple containing the boost::vertex_descriptor of the vertices participating to the</span></div>
+<div class="line">  <span class="comment">// triangle.</span></div>
+<div class="line">  <span class="keyword">auto</span> triangles = <a name="a1"></a><a class="code" href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00">notBGL::survey_triangles</a>(graph);</div>
 <div class="line"></div>
-<div class="line">  <span class="comment">// Prints the betweenness centrality of vertices. We use std::get to access</span></div>
-<div class="line">  <span class="comment">// the different map objects.</span></div>
-<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Betweenness centrality of vertices&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : std::get&lt;0&gt;(bc))</div>
+<div class="line">  <span class="comment">// Computes the local clustering coefficients. Having identified the triangles in the graph, this</span></div>
+<div class="line">  <span class="comment">// function computes the local clustering coefficient of each vertex and returns a std::map</span></div>
+<div class="line">  <span class="comment">// mapping the boost::vertex_descriptor to the value of the coefficient.</span></div>
+<div class="line">  <span class="keyword">auto</span> Vertex2LCC = <a name="a2"></a><a class="code" href="group__topo.html#gab6ce77765b8a1fc33a3cfabfb5dae1eb">notBGL::local_clustering_coefficients</a>(triangles, graph);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Computes the multiplicity of edges. Having identified the triangles in the graph, this</span></div>
+<div class="line">  <span class="comment">// function computes the multiplicity of each edge and returns a std::map</span></div>
+<div class="line">  <span class="comment">// mapping the boost::edge_descriptor to the value of the multiplicity.</span></div>
+<div class="line">  <span class="keyword">auto</span> Edge2Multiplicity = <a name="a3"></a><a class="code" href="group__topo.html#gaa0c859b1f1495ce287a32e0e772d2d65">notBGL::multiplicity</a>(triangles, graph);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Computes the global clustering coefficient, and prints it on screen.</span></div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Global clustering coefficient: &quot;</span></div>
+<div class="line">            &lt;&lt; <a name="a4"></a><a class="code" href="group__topo.html#ga1bd26cac89e0ca102a1b36a84f344779">notBGL::global_clustering_coefficient</a>(triangles, graph)</div>
+<div class="line">            &lt;&lt; std::endl &lt;&lt; std::endl;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Computes the average local clustering coefficient, and prints it on screen.</span></div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Average local clustering coefficient: &quot;</span></div>
+<div class="line">            &lt;&lt; <a name="a5"></a><a class="code" href="group__topo.html#gac4027626e23440950d0fbab8f3b410eb">notBGL::average_local_clustering_coefficient</a>(Vertex2LCC)</div>
+<div class="line">            &lt;&lt; std::endl &lt;&lt; std::endl;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Prints the local clustering coefficients on screen.</span></div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Local clustering coefficients:&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : Vertex2LCC)</div>
 <div class="line">  {</div>
-<div class="line">    std::cout &lt;&lt; el.first &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; el.second &lt;&lt; std::endl;</div>
+<div class="line">    std::cout &lt;&lt; graph[el.first].name &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; el.second &lt;&lt; std::endl;</div>
 <div class="line">  }</div>
 <div class="line"></div>
-<div class="line">  <span class="comment">// Prints the betweenness centrality of edges.</span></div>
-<div class="line">  std::cout &lt;&lt; std::endl &lt;&lt; <span class="stringliteral">&quot;Betweenness centrality of edges&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : std::get&lt;1&gt;(bc))</div>
+<div class="line">  <span class="comment">// Prints the multiplicities on screen.</span></div>
+<div class="line">  std::cout &lt;&lt; std::endl &lt;&lt; <span class="stringliteral">&quot;Edge multiplicities:&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> el : Edge2Multiplicity)</div>
 <div class="line">  {</div>
-<div class="line">    std::cout &lt;&lt; boost::source(el.first, graph)</div>
-<div class="line">              &lt;&lt; <span class="stringliteral">&quot; &lt;--&gt; &quot;</span> </div>
-<div class="line">              &lt;&lt; boost::target(el.first, graph) </div>
-<div class="line">              &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> </div>
-<div class="line">              &lt;&lt; el.second </div>
-<div class="line">              &lt;&lt; std::endl;</div>
+<div class="line">    std::cout &lt;&lt; graph[boost::source(el.first, graph)].name &lt;&lt; <span class="stringliteral">&quot;  &quot;</span></div>
+<div class="line">              &lt;&lt; graph[boost::target(el.first, graph)].name &lt;&lt; <span class="stringliteral">&quot;: &quot;</span></div>
+<div class="line">              &lt;&lt; el.second &lt;&lt; std::endl;</div>
 <div class="line">  }</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Exits the program successfully.</span></div>
@@ -161,35 +162,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  <span class="comment">/* </span></div>
 <div class="line"><span class="comment">   * The output should read:</span></div>
 <div class="line"><span class="comment">   * </span></div>
-<div class="line"><span class="comment">   * &gt;&gt; g++ -O3 -std=c++1y betweenness_centrality.cpp -o betweenness_centrality</span></div>
-<div class="line"><span class="comment">   * &gt;&gt; ./betweenness_centrality</span></div>
-<div class="line"><span class="comment">   * Betweenness centrality of vertices</span></div>
-<div class="line"><span class="comment">   * 0: 20.5</span></div>
-<div class="line"><span class="comment">   * 1: 0</span></div>
-<div class="line"><span class="comment">   * 2: 0.5</span></div>
-<div class="line"><span class="comment">   * 3: 0</span></div>
-<div class="line"><span class="comment">   * 4: 0</span></div>
-<div class="line"><span class="comment">   * 5: 0</span></div>
-<div class="line"><span class="comment">   * 6: 1</span></div>
-<div class="line"><span class="comment">   * 7: 7</span></div>
-<div class="line"><span class="comment">   * 8: 0</span></div>
-<div class="line"><span class="comment">   *</span></div>
-<div class="line"><span class="comment">   * Betweenness centrality of edges</span></div>
-<div class="line"><span class="comment">   * 0 &lt;--&gt; 1: 6.5</span></div>
-<div class="line"><span class="comment">   * 0 &lt;--&gt; 2: 6</span></div>
-<div class="line"><span class="comment">   * 0 &lt;--&gt; 3: 6.5</span></div>
-<div class="line"><span class="comment">   * 0 &lt;--&gt; 4: 8</span></div>
-<div class="line"><span class="comment">   * 0 &lt;--&gt; 5: 6</span></div>
-<div class="line"><span class="comment">   * 0 &lt;--&gt; 6: 5</span></div>
-<div class="line"><span class="comment">   * 0 &lt;--&gt; 7: 11</span></div>
-<div class="line"><span class="comment">   * 1 &lt;--&gt; 2: 1.5</span></div>
-<div class="line"><span class="comment">   * 2 &lt;--&gt; 3: 1.5</span></div>
-<div class="line"><span class="comment">   * 5 &lt;--&gt; 6: 2</span></div>
-<div class="line"><span class="comment">   * 6 &lt;--&gt; 7: 3</span></div>
-<div class="line"><span class="comment">   * 7 &lt;--&gt; 8: 8</span></div>
+<div class="line"><span class="comment">   * &gt;&gt; g++ -O3 -std=c++1y clustering.cpp -o clustering</span></div>
+<div class="line"><span class="comment">   * &gt;&gt; ./clustering</span></div>
+<div class="line"><span class="comment">   * Global clustering coefficient: 0.363636</span></div>
+<div class="line"><span class="comment">   * </span></div>
+<div class="line"><span class="comment">   * Average local clustering coefficient: 0.539683</span></div>
+<div class="line"><span class="comment">   * </span></div>
+<div class="line"><span class="comment">   * Local clustering coefficients:</span></div>
+<div class="line"><span class="comment">   * Mark: 0.190476</span></div>
+<div class="line"><span class="comment">   * Anna: 1</span></div>
+<div class="line"><span class="comment">   * Tony: 0.666667</span></div>
+<div class="line"><span class="comment">   * Nick: 1</span></div>
+<div class="line"><span class="comment">   * Mary: 0</span></div>
+<div class="line"><span class="comment">   * Lucy: 1</span></div>
+<div class="line"><span class="comment">   * Fred: 0.666667</span></div>
+<div class="line"><span class="comment">   * Vera: 0.333333</span></div>
+<div class="line"><span class="comment">   * Nora: 0</span></div>
 <div class="line"><span class="comment">   *</span></div>
 <div class="line"><span class="comment">   */</span></div>
-<div class="line"></div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->

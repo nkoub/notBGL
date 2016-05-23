@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['betweenness_5fcentrality',['betweenness_centrality',['../group__topo.html#gacb2efa20041aab88077920ddee345120',1,'notBGL']]],
-  ['bug_20list',['Bug List',['../bug.html',1,'']]]
+  ['average_5flocal_5fclustering_5fcoefficient',['average_local_clustering_coefficient',['../group__topo.html#gac4027626e23440950d0fbab8f3b410eb',1,'notBGL']]]
 ];

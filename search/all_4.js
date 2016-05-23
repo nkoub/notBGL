@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['hyperbolic_5fdistance',['hyperbolic_distance',['../group__geo.html#ga608bc16f34d216add6a8e8a73f7b0ce8',1,'notBGL']]]
+  ['geometry',['Geometry',['../group__geo.html',1,'']]],
+  ['global_5fclustering_5fcoefficient',['global_clustering_coefficient',['../group__topo.html#ga1bd26cac89e0ca102a1b36a84f344779',1,'notBGL']]]
 ];
