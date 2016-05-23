@@ -1,10 +1,17 @@
 /**
-* @brief  Sets of methods to facilitate the manipulation of Boost Graph Library objects.
-* @author Antoine Allard (<a href="http://antoineallard.info">antoineallard.info</a>)
-* @date   March 2016
-* @bug    No known bugs.
-* @todo   Complete the documentation using doxygen.
-*/
+ * @file notBGL.hpp
+ *
+ * @brief      Source code of the notBGL library.
+ *
+ *             This file contains the complete source code of the notBGL
+ *             library. While having one single file is not the most clear and
+ *             organized choice for source codes, it has been
+ *
+ * @author     Antoine Allard (<a
+ *             href="http://antoineallard.info">antoineallard.info</a>)
+ *
+ * @date       March 2016
+ */
 
 #ifndef NOTBGL_HPP_INCLUDED
 #define NOTBGL_HPP_INCLUDED
@@ -80,35 +87,10 @@ namespace notBGL
    *
    * @ingroup    IO
    *
-   * @todo       Add the functionnality of ignoring lines beginning with the
-   *             hashtag character "#".
-   *
    * @see        save_edgelist()
    */
   template<typename graph_t>
   auto load_edgelist(std::string filename, graph_t &g);
-
-  /**
-   * @brief      Populates a graph from an edge list.
-   *
-   * @param      filename  Path to the file containing the edgelist. The
-   *                       edgelist file must have the format... anything at the
-   *                       right will be ignored. In other words, a weighted
-   *                       edgelist of the format... can be used without
-   *                       problem.
-   * @param      g         Graph object to populate using an edgelist.
-   *
-   * @tparam     graph_t   { description }
-   *
-   * @return     Returns a std::map mapping the name of vertices to their
-   *             vertex_descriptor. This object is provided to
-   *
-   * @ingroup    IO
-   *
-   * @see        save_edgelist()
-   */
-  template<typename graph_t>
-  auto load_weighted_edgelist(std::string filename, graph_t &g);
 
   /**
    * @brief      Populates a graph from an edge list.
@@ -127,101 +109,6 @@ namespace notBGL
    */
   template<typename graph_t>
   void save_edgelist(std::string filename, graph_t &g, bool write_names = true);
-
-  /**
-   * @brief      Populates a graph from an edge list.
-   *
-   * @param      filename     Path to the file to write the edgelist into. The
-   *                          edgelist file will have the format
-   * @param      g            Graph object.
-   * @param      write_names  If set to false, the numerical IDs of the vertices
-   *                          are written instead of their names.
-   *
-   * @tparam     graph_t      { description }
-   *
-   * @ingroup    IO
-   *
-   * @see        load_edgelist()
-   */
-  template<typename graph_t>
-  void save_weighted_edgelist(std::string filename, graph_t &g, bool write_names = true);
-
-  /**
-   * @brief      { function_description }
-   *
-   * @param[in]  filename           The filename
-   * @param      g                  { parameter_description }
-   * @param[in]  vertex_identifier  The vertex identifier
-   *
-   * @tparam     graph_t            { description }
-   *
-   * @ingroup    IO
-   *
-   */
-  template<typename graph_t>
-  void save_degree_sequence(std::string filename, graph_t &g, std::string vertex_identifier = "None");
-
-  /**
-   * @brief      { function_description }
-   *
-   * @param[in]  filename           The filename
-   * @param      g                  { parameter_description }
-   * @param[in]  vertex_identifier  The vertex identifier
-   *
-   * @tparam     graph_t            { description }
-   *
-   * @ingroup    IO
-   */
-  template<typename graph_t>
-  void save_strength_sequence(std::string filename, graph_t &g, std::string vertex_identifier = "None");
-
-  /**
-   * @brief      { function_description }
-   *
-   * @param[in]  filename           The filename
-   * @param      clustering         The clustering
-   * @param      g                  { parameter_description }
-   * @param[in]  vertex_identifier  The vertex identifier
-   *
-   * @tparam     map_t              { description }
-   * @tparam     graph_t            { description }
-   *
-   * @ingroup    IO
-   */
-  template<typename map_t, typename graph_t>
-  void save_local_clustering_coefficents_sequence(std::string filename, map_t &clustering, graph_t &g, std::string vertex_identifier = "None");
-
-  // /*
-  //  * @brief      { function_description }
-  //  *
-  //  * @param[in]  filename    The filename
-  //  * @param      g           { parameter_description }
-  //  * @param[in]  clustering  The clustering
-  //  * @param[in]  disparity   The disparity
-  //  *
-  //  * @tparam     graph_t     { description }
-  //  * @tparam     map_t       { description }
-  //  *
-  //  * @ingroup    IO
-  //  */
-  // template<typename graph_t, typename map_t>
-  // void save_vertices_properties(std::string filename, graph_t &g, map_t clustering, map_t disparity);
-
-  // /*
-  //  * @brief      { function_description }
-  //  *
-  //  * @param[in]  filename    The filename
-  //  * @param      g           { parameter_description }
-  //  * @param[in]  clustering  The clustering
-  //  * @param[in]  disparity   The disparity
-  //  *
-  //  * @tparam     graph_t     { description }
-  //  * @tparam     map_t       { description }
-  //  *
-  //  * @ingroup    IO
-  //  */
-  // template<typename graph_t, typename map_t>
-  // void save_vertices_properties(std::string filename, graph_t &g, map_t clustering, map_t disparity);
 
   /**
    * @brief      Saves properties of vertices into a file.
@@ -317,6 +204,8 @@ namespace notBGL
    *
    * @return     Returns a std::map object mapping the boost:vertex_descriptor
    *             to the degree (double).
+   *
+   * @ingroup    topo
    */
   template<typename graph_t>
   auto degrees(graph_t &graph);
@@ -444,25 +333,111 @@ namespace notBGL
 
 
   /** ---------------------------------------------------------------------------------------------
-   * @defgroup   routing Routing
-   * @brief      FH; JDKH.
+   * @defgroup   weights Weighted organization
+   * @brief      This group contains the functions related to graphs embedded in
+   *             a geometric space (e.g., loading coordinates, calculating
+   *             distances, greedy routing).
    */
 
   /**
-   * @brief      { function_description }
+   * @brief      Extracts the strength sequence.
    *
-   * @param      v_source  The v source
-   * @param      g         { parameter_description }
+   * @param      graph    The graph object.
    *
-   * @tparam     vertex_t  { description }
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     std::map object mapping the boost::vertex_descriptor to the
+   *             strengths.
+   *
+   * @see        degrees()
+   * 
+   * @ingroup    weights
+   */
+  template<typename graph_t>
+  auto strengths(graph_t &graph);
+
+  /**
+   * @brief      Extracts the weight sequence.
+   *
+   * @param      graph    The graph object.
+   *
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     std::map object mapping the boost::edge_descriptor to the
+   *             multiplicities.
+   *
+   * @ingroup    weights
+   */
+  template<typename graph_t>
+  auto weights(graph_t &graph);
+
+  /**
+   * @brief      Computes the disparity of vertices.
+   *
+   * @param      graph    The graph object.
+   *
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     std::map object mapping the boost::vertex_descriptor to the
+   *             disparities.
+   *
+   * @ingroup    weights
+   */
+  template<typename graph_t>
+  auto disparity(graph_t &graph);
+
+  /**
+   * @brief      Populates a graph from a weighted edge list.
+   *
+   * @param      filename  Path to the file containing the edgelist. The
+   *                       edgelist file must have the format... anything at the
+   *                       right will be ignored. In other words, a weighted
+   *                       edgelist of the format... can be used without
+   *                       problem.
+   * @param      g         Graph object to populate using an edgelist.
+   *
    * @tparam     graph_t   { description }
    *
-   * @return     { description_of_the_return_value }
+   * @return     Returns a std::map mapping the name of vertices to their
+   *             vertex_descriptor. This object is provided to
    *
-   * @ingroup    routing
+   * @ingroup    weights
+   *
+   * @see        save_edgelist()
    */
-  template<typename vertex_t, typename graph_t>
-  auto shortest_path_lengths_from_source(vertex_t &v_source, graph_t &g);
+  template<typename graph_t>
+  auto load_weighted_edgelist(std::string filename, graph_t &g);
+
+  /**
+   * @brief      Saves the weighted edgelist into a file.
+   *
+   *             This function saves the weighted edgelist into a file. It is a
+   *             wrapper of the more general function save_edges_properties().
+   *             See the `save_properties.cpp` example below for further
+   *             details.
+   *
+   * @param      filename  Name of the file in which the weighted edgelist is to
+   *                       be written.
+   * @param      graph     The graph object.
+   * @param      vertexID  [optional] Identifier used for the edges. Options are
+   *                       + `notBGL::vertexID_name` (default): prints the name
+   *                         of the vertices;
+   *                       + `notBGL::vertexID_num`: identifies the vertices
+   *                         with a contiguous sequence of integers starting at
+   *                         0;
+   *                       + `notBGL::vertexID_none`: properties are printed
+   *                         without identifying the edges.
+   * @param      width     [optional] Width of the columns in the file. Default
+   *                       is 10.
+   *
+   * @tparam     graph_t   boost::adjacency_list
+   *
+   * @see        save_edges_properties()
+   *
+   * @ingroup    weights
+   */
+  template<typename graph_t>
+  void save_weighted_edgelist(std::string filename, graph_t &graph, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10);
 
 
 
@@ -476,12 +451,12 @@ namespace notBGL
    */
 
   /**
-   * @brief      { function_description }
+   * @brief      Loads the coordinates of vertices.
    *
-   * @param[in]  filename     The filename
-   * @param      g            { parameter_description }
+   * @param[in]  filename     The file containing the coordinates in the format
+   *                          [VertexName, x_1, x_2, x_3, ...]
+   * @param      graph        The graph object.
    * @param      Name2Vertex  The name2 vertex
-   * @param[in]  N            { parameter_description }
    *
    * @tparam     graph_t      { description }
    * @tparam     map_t        { description }
@@ -491,7 +466,7 @@ namespace notBGL
    * @ingroup    geo
    */
   template<typename graph_t, typename map_t>
-  auto load_coordinates(std::string filename, graph_t &g, map_t &Name2Vertex, const unsigned int N = 3);
+  auto load_coordinates(std::string filename, graph_t &graph, map_t &Name2Vertex);
 
   /**
    * @brief      { function_description }
@@ -500,8 +475,6 @@ namespace notBGL
    * @param[in]  x2    { parameter_description }
    *
    * @return     { description_of_the_return_value }
-   *
-   * @ingroup    geo
    */
   double euclidean_distance(std::vector<double> &x1, std::vector<double> x2);
 
@@ -513,35 +486,12 @@ namespace notBGL
    * @param[in]  zeta  The zeta
    *
    * @return     { description_of_the_return_value }
-   *
-   * @ingroup    geo
    */
   double hyperbolic_distance(std::vector<double> &x1, std::vector<double> x2, double zeta);
 
 
   
 
-
-  /** ---------------------------------------------------------------------------------------------
-   * @defgroup   weights Weighted organization
-   * @brief      This group contains the functions related to graphs embedded in
-   *             a geometric space (e.g., loading coordinates, calculating
-   *             distances, greedy routing).
-   */
-
-  /**
-   * @brief      { function_description }
-   *
-   * @param      g        { parameter_description }
-   *
-   * @tparam     graph_t  { description }
-   *
-   * @return     { description_of_the_return_value }
-   *
-   * @ingroup    weights
-   */
-  template<typename graph_t>
-  auto disparity(graph_t &g);
 
   #ifndef DOXYGEN_EXCLUDED
     namespace utilities
@@ -552,137 +502,6 @@ namespace notBGL
   #endif // DOXYGEN_EXCLUDED
 
 }
-
-
-
-
-
-// ================================================================================================
-// ================================================================================================
-template<typename vector_t, typename graph_t>
-auto notBGL::multiplicity(vector_t &triangles, graph_t &graph)
-{
-  // Iterators.
-  typename vector_t::iterator it, end;
-  it = triangles.begin();
-  end = triangles.end();
-  // Edge descriptor.
-  typename graph_t::edge_descriptor e;
-  // Variable.
-  bool exists;
-  // Initializes the std::map containing the multiplicities.
-  std::map<typename graph_t::edge_descriptor, double> Edge2Multiplicity;
-  typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
-  for(std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
-  {
-    Edge2Multiplicity[*e_it] = 0;
-  }
-  // Loops over the triangles.
-  for(; it!=end; ++it)
-  {
-    // Gets the vertices in the triangle.
-    for(unsigned int i(0); i<3; ++i)
-    {
-      for(unsigned int j(i+1); j<3; ++j)
-      {
-        // Gets the edge descriptor.
-        std::tie(e, exists) = boost::edge(it->at(i), it->at(j), graph);
-        if(exists)
-        {
-          Edge2Multiplicity[e] += 1;
-        }
-        else
-        {
-          std::cerr << "Edge in triangle does not exists." << std::endl;
-          std::terminate();
-        }
-      }
-    }
-  }
-  // Returns the multiplicities.
-  return Edge2Multiplicity;
-}
-
-
-// ================================================================================================
-// ================================================================================================
-template<typename graph_t>
-auto notBGL::betweenness_centrality(graph_t &graph)
-{
-  // This code is greatly inspired from the examples given in
-  // - http://programmingexamples.net/wiki/CPP/Boost/BGL/BetweennessCentralityClustering
-  // - http://liuweipingblog.cn/cpp/an-example-of-boost-betweenness-centrality/
-  // - http://stackoverflow.com/questions/23260793/to-convert-internal-properties-in-boost
-  //                                                      -graph-to-external-properties-container-i
-
-
-  // *** Creates a property map that accumulates the betweenness centrality of each vertex (could
-  //   std::map be used?).
-
-  // Typedef of a vertex.
-  typedef typename graph_t::vertex_descriptor vertex_t;
-  // Typedef of an index map for the vertices.
-  typedef typename boost::property_map< graph_t, boost::vertex_index_t>::type VertexIndexMap;
-  // Gets the actual graph's vertex indexmap.
-  VertexIndexMap vertexIndexMap = get(boost::vertex_index, graph);
-  // Creates a container with size equal to number of vertices in "graph".
-  std::vector<double> v_centrality_vec(num_vertices(graph), 0.0);
-  // Creates the property map.
-  boost::iterator_property_map< std::vector<double>::iterator, VertexIndexMap >
-    v_centrality_map(v_centrality_vec.begin(), vertexIndexMap);
-
-
-  // *** Creates a property map that accumulates the betweenness centrality of each edge. Since we
-  //   typically do not use boost::vecS as the container for the edges, we need to define a
-  //   numerical ID for each edge.
-
-  // Typedef of an edge.
-  typedef typename graph_t::edge_descriptor edge_t;
-   // std::map used for convenient initialization
-  typedef typename std::map<edge_t, int> StdEdgeIndexMap;
-  StdEdgeIndexMap my_e_index;
-  // associative property map needed for iterator property map-wrapper
-  typedef boost::associative_property_map< StdEdgeIndexMap > EdgeIndexMap;
-  EdgeIndexMap e_index(my_e_index);
-  // We use setS as edge-container -> no automatic indices
-  // -> Create and set it explicitly
-  int i = 0;
-  typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
-  for(std::tie(e_it, e_end) = boost::edges(graph); e_it != e_end; ++e_it)
-  {
-    my_e_index.insert(std::pair< edge_t, int >(*e_it, i));
-    ++i;
-  }
-  // Define EdgeCentralityMap
-  std::vector< double > e_centrality_vec(boost::num_edges(graph), 0.0);
-  // Create the external property map
-  boost::iterator_property_map< std::vector< double >::iterator, EdgeIndexMap >
-    e_centrality_map(e_centrality_vec.begin(), e_index);
- 
-
-  // *** Calculates the vertex and edge centralites.
-  boost::brandes_betweenness_centrality(graph, v_centrality_map, e_centrality_map);
-
-
-  // *** Converts the property maps into std::map (may not be necessary).
-  std::map<vertex_t, double> Vertex2BC;
-  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
-  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it != v_end; ++v_it)
-  {
-    Vertex2BC[*v_it] = v_centrality_map[*v_it];
-  }
-  std::map<edge_t, double> Edge2BC;
-  // typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
-  for(std::tie(e_it, e_end) = boost::edges(graph); e_it != e_end; ++e_it)
-  {
-    Edge2BC[*e_it] = e_centrality_map[*e_it];
-  }
-
-
-  // *** Returns a tuple containing both Vertex2BC and Edge2BC.
-  return std::make_tuple(Vertex2BC, Edge2BC);
-}
-
 
 // // ================================================================================================
 // // ================================================================================================
@@ -700,88 +519,140 @@ double notBGL::utilities::average_of_map(map_t &map)
 #endif // DOXYGEN_EXCLUDED
 
 
-// // ================================================================================================
-// // ================================================================================================
-template<typename map_t>
-double notBGL::average_local_clustering_coefficient(map_t &local_clustering_coefficients)
-{
-  return notBGL::utilities::average_of_map(local_clustering_coefficients);
-}
 
 
-// // ================================================================================================
-// // ================================================================================================
+
+
+
+
+
+// ================================================================================================
+// ================================================================================================
+// *** Module: Input/Output
+// ================================================================================================
+
+
+// ================================================================================================
+// ================================================================================================
 template<typename graph_t>
-auto notBGL::degrees(graph_t &graph)
+auto notBGL::load_edgelist(std::string filename, graph_t &g)
 {
-  // Iterators.
-  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
-  // std::map containing the degrees.
-  std::map<typename graph_t::vertex_descriptor, double> Vertex2Degree;
-  // Fills the container.
-  for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  // Vertex descriptors.
+  typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
+  vertex_t v1, v2;
+  // Stream objects.
+  std::ifstream edgelist_file;
+  std::stringstream one_line;
+  // String objects.
+  std::string full_line, name1_str, name2_str;
+  // Integer objects.
+  unsigned int node_cnt(0);
+  // Map objects to assure the uniqueness of vertices.
+  std::map< std::string, vertex_t > Name2Vertex;
+  // Iterator objects.
+  typename std::map< std::string, vertex_t >::iterator name_it;
+  // Opens the stream and terminates if the operation did not succeed.
+  edgelist_file.open(filename.c_str(), std::ios_base::in);
+  if( !edgelist_file.is_open() )
   {
-    Vertex2Degree[*v_it] = boost::out_degree(*v_it, graph);
+    std::cerr << "Could not open file: " << filename << "." << std::endl;
+    std::terminate();
   }
-  // Returns the degrees.
-  return Vertex2Degree;
+  else
+  {
+    // Reads the edgelist and registers the nodes and the edges.
+    while( !edgelist_file.eof() )
+    {
+      // Reads a line of the edgelist.
+      std::getline(edgelist_file,full_line); edgelist_file >> std::ws;
+      one_line.str(full_line); one_line >> std::ws;
+      one_line >> name1_str >> std::ws;
+      one_line >> name2_str >> std::ws;
+      one_line.clear();
+      // Is name1 new?
+      name_it = Name2Vertex.find(name1_str);
+      if( name_it == Name2Vertex.end() )
+      {
+        v1 = boost::add_vertex(g);
+        Name2Vertex[name1_str] = v1;
+        g[v1].name = name1_str;
+        g[v1].id = node_cnt;
+        ++node_cnt;
+      }
+      else
+      {
+        v1 = name_it->second;
+      }
+      // Is name2 new?
+      name_it = Name2Vertex.find(name2_str);
+      if( name_it == Name2Vertex.end() )
+      {
+        v2 = boost::add_vertex(g);
+        Name2Vertex[name2_str] = v2;
+        g[v2].name = name2_str;
+        g[v2].id = node_cnt;
+        ++node_cnt;
+      }
+      else
+      {
+        v2 = name_it->second;
+      }
+      // Creates the edge if it does not exist (forbids multiple edges and self-loops).
+      if(v1 != v2) // not a self-loop.
+      {
+        if(boost::edge(v1,v2,g).second == false) // not a multiple edge
+        {
+          boost::add_edge(v1, v2, g);
+        }
+      }
+    }
+  }
+  // Closes the stream.
+  edgelist_file.close();
+  // Returns the maps "Name2Vertex" to help add other properties to vertices.
+  return Name2Vertex;
 }
 
 
-// // ================================================================================================
-// // ================================================================================================
-template<typename vector_t, typename graph_t>
-double notBGL::global_clustering_coefficient(vector_t &triangles, graph_t &graph)
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+void notBGL::save_edgelist(std::string filename, graph_t &g, bool write_names = true)
 {
-  // Iterators.
-  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
-  // Number of triplets in the graph.
-  double nb_triplets = 0;
-  unsigned int degree;
-  for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  // Stream objects.
+  std::ofstream edgelist_file;
+  // Opens the stream and terminates if the operation did not succeed.
+  edgelist_file.open(filename.c_str(), std::ios_base::out);
+  if( !edgelist_file.is_open() )
   {
-    degree = boost::out_degree(*v_it, graph);
-    nb_triplets += degree * (degree - 1) / 2;
+    std::cerr << "Could not open file: " << filename << "." << std::endl;
+    std::terminate();
   }
-  // Returns the global coefficient of clustering.
-  return 3 * triangles.size() / nb_triplets;
+  else
+  {
+    // Iterators over the edges of the graph.
+    typename boost::graph_traits<graph_t>::edge_iterator it, end;
+    // Writes each edge under the format source target, one edge per line.
+    if(write_names)  // vertices are identified using their names.
+    {
+      for (std::tie(it, end) = edges(g); it!=end; ++it)
+      {
+        edgelist_file << g[source(*it, g)].name << " "
+                      << g[target(*it, g)].name << std::endl;
+      }
+    }
+    else // vertices are identified using the numerical id.
+    {
+      for (std::tie(it, end) = edges(g); it!=end; ++it)
+      {
+        edgelist_file << g[source(*it, g)].id << " "
+                      << g[target(*it, g)].id << std::endl;
+      }
+    }
+  }
+  // Closes the stream.
+  edgelist_file.close();
 }
-
-
-
-
-
-// // ================================================================================================
-// // ================================================================================================
-// template<typename graph_t, typename map_t>
-// void notBGL::save_vertices_properties(std::string filename, graph_t &g, map_t clustering, map_t disparity)
-// {
-//   // Stream objects.
-//   std::ofstream output_file;
-//   // Opens the stream and terminates if the operation did not succeed.
-//   output_file.open(filename.c_str(), std::ios_base::out);
-//   if( !output_file.is_open() )
-//   {
-//     std::cerr << "Could not open file: " << filename << "." << std::endl;
-//     std::terminate();
-//   }
-//   else
-//   {
-//     // Iterators over the vertices of the graph.
-//     typename boost::graph_traits<graph_t>::vertex_iterator it, end;
-//     for (std::tie(it, end) = vertices(g); it!=end; ++it)
-//     {
-//       output_file << std::setw(5) << g[*it].name              << " "
-//                   << std::setw(7)<< boost::out_degree(*it, g) << " "
-//                   << std::setw(7)<< g[*it].strength           << " "
-//                   << std::setw(9)<< clustering[*it]           << " "
-//                   << std::setw(9)<< disparity[*it]            << " "
-//                   << std::endl;
-//     }
-//   }
-//   // Closes the stream.
-//   output_file.close();
-// }
 
 
 // ================================================================================================
@@ -929,90 +800,37 @@ void notBGL::save_edges_properties(std::string filename, graph_t &graph, std::in
 
 
 
-// ================================================================================================
-// ================================================================================================
-template<typename graph_t>
-auto notBGL::disparity(graph_t &g)
-{
-  // Typedef.
-  typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
-  // Objects related to the weights.
-  typename boost::property_map<graph_t, boost::edge_weight_t>::type weight_map = get(boost::edge_weight, g);
-  // Iterators.
-  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
-  typename boost::graph_traits<graph_t>::out_edge_iterator e_it, e_end;
-  // Map objects.
-  std::map<vertex_t, double> disparity;
-  // Computes the disparity for each vertex.
-  bool inserted;
-  double tmp;
-  for(std::tie(v_it, v_end) = boost::vertices(g); v_it!=v_end; ++v_it)
-  {
-    // Initializes the value of the disparity.
-     tmp = 0;
-    // Runs over every neighbors.
-    for(std::tie(e_it, e_end) = boost::out_edges(*v_it, g); e_it!=e_end; ++e_it)
-    {
-      tmp += std::pow(get(weight_map, *e_it), 2);
-      // std::cout << get(weight_map, *e_it) << std::endl;
-    }
-    if(g[*v_it].strength > 0)
-    {
-      disparity[*v_it] = tmp / std::pow(g[*v_it].strength, 2);
-    }
-  }
-  //
-  return disparity;
-}
+
+
+
+
+
+
 
 // ================================================================================================
 // ================================================================================================
-template<typename vector_t, typename graph_t>
-auto notBGL::local_clustering_coefficients(vector_t &triangles, graph_t &graph)
+// *** Module: Topology
+// ================================================================================================
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::degrees(graph_t &graph)
 {
-  // Typedef.
-  typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
-  // Map objects.
-  std::map<vertex_t, double> local_clustering_coefficient;
-  // Iterator objects.
-  typename std::map<vertex_t, double>::iterator it;
-  // Counts the number of triangles each vertex is part of.
-  bool inserted;
-  vertex_t v;
-  for(auto t : triangles)
-  {
-    for(unsigned int i(0); i<3; ++i)
-    {
-      v = t[i];
-      std::tie(it, inserted) = local_clustering_coefficient.insert(std::make_pair(v, double(0)));
-      if(inserted)
-      {
-        it->second = 1;
-      }
-      else
-      {
-        it->second += 1;
-      }
-    }
-  }
-  // Computes the local clustering coefficient.
+  // Iterators.
   typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
-  typename boost::graph_traits<graph_t>::degree_size_type d;
-  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  // std::map containing the degrees.
+  std::map<typename graph_t::vertex_descriptor, double> Vertex2Degree;
+  // Fills the container.
+  for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
   {
-    d = boost::out_degree(*v_it, graph);
-    if(d > 1)
-    {
-      local_clustering_coefficient[*v_it] /= d * (d - 1) / 2;
-    }
-    else
-    {
-      local_clustering_coefficient[*v_it] = 0;
-    }
+    Vertex2Degree[*v_it] = boost::out_degree(*v_it, graph);
   }
-  // Returns the std::map mapping a vertex descriptior to a value of local clustering.
-  return local_clustering_coefficient;
+  // Returns the degrees.
+  return Vertex2Degree;
 }
+
 
 // ================================================================================================
 // ================================================================================================
@@ -1089,129 +907,305 @@ auto notBGL::survey_triangles(graph_t &g)
 
 // ================================================================================================
 // ================================================================================================
-template<typename vertex_t, typename graph_t>
-auto shortest_path_lengths_from_source(vertex_t &v_source, graph_t &g)
+template<typename vector_t, typename graph_t>
+auto notBGL::local_clustering_coefficients(vector_t &triangles, graph_t &graph)
 {
-  // Vector objects.
-  std::vector<unsigned int> topological_distance(boost::num_vertices(g), 0);
-  std::vector<bool> visited(boost::num_vertices(g), false);
-  // Set objects.
-  std::queue<vertex_t> to_visit;
-  // Variables.
-  unsigned int v_id;
-  unsigned int nb_hop;
-  // 
-  v_id = g[v_source].id;
-  to_visit.push(v_source);
-  visited[v_id] = true;
-  topological_distance[v_id] = nb_hop;
-  //
-  typename boost::graph_traits<graph_t>::adjacency_iterator it, end;
-  while(!to_visit.empty())
+  // Typedef.
+  typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
+  // Map objects.
+  std::map<vertex_t, double> local_clustering_coefficient;
+  // Iterator objects.
+  typename std::map<vertex_t, double>::iterator it;
+  // Counts the number of triangles each vertex is part of.
+  bool inserted;
+  vertex_t v;
+  for(auto t : triangles)
   {
-    nb_hop = topological_distance[g[to_visit.front()].id] + 1;
-    for(std::tie(it, end) = adjacent_vertices(to_visit.front(), g); it != end; ++it)
+    for(unsigned int i(0); i<3; ++i)
     {
-      v_id = g[*it].id;
-      if(!visited[v_id])
+      v = t[i];
+      std::tie(it, inserted) = local_clustering_coefficient.insert(std::make_pair(v, double(0)));
+      if(inserted)
       {
-        topological_distance[v_id] = nb_hop;
-        visited[v_id] = true;
-        to_visit.push(*it);
+        it->second = 1;
+      }
+      else
+      {
+        it->second += 1;
       }
     }
-    to_visit.pop();
   }
-  //
-  return topological_distance;
+  // Computes the local clustering coefficient.
+  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+  typename boost::graph_traits<graph_t>::degree_size_type d;
+  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    d = boost::out_degree(*v_it, graph);
+    if(d > 1)
+    {
+      local_clustering_coefficient[*v_it] /= d * (d - 1) / 2;
+    }
+    else
+    {
+      local_clustering_coefficient[*v_it] = 0;
+    }
+  }
+  // Returns the std::map mapping a vertex descriptior to a value of local clustering.
+  return local_clustering_coefficient;
 }
+
+
+// // ================================================================================================
+// // ================================================================================================
+template<typename map_t>
+double notBGL::average_local_clustering_coefficient(map_t &local_clustering_coefficients)
+{
+  return notBGL::utilities::average_of_map(local_clustering_coefficients);
+}
+
+
+// // ================================================================================================
+// // ================================================================================================
+template<typename vector_t, typename graph_t>
+double notBGL::global_clustering_coefficient(vector_t &triangles, graph_t &graph)
+{
+  // Iterators.
+  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+  // Number of triplets in the graph.
+  double nb_triplets = 0;
+  unsigned int degree;
+  for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    degree = boost::out_degree(*v_it, graph);
+    nb_triplets += degree * (degree - 1) / 2;
+  }
+  // Returns the global coefficient of clustering.
+  return 3 * triangles.size() / nb_triplets;
+}
+
 
 // ================================================================================================
 // ================================================================================================
-template<typename graph_t>
-auto notBGL::load_edgelist(std::string filename, graph_t &g)
+template<typename vector_t, typename graph_t>
+auto notBGL::multiplicity(vector_t &triangles, graph_t &graph)
 {
-  // Vertex descriptors.
-  typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
-  vertex_t v1, v2;
-  // Stream objects.
-  std::ifstream edgelist_file;
-  std::stringstream one_line;
-  // String objects.
-  std::string full_line, name1_str, name2_str;
-  // Integer objects.
-  unsigned int node_cnt(0);
-  // Map objects to assure the uniqueness of vertices.
-  std::map< std::string, vertex_t > Name2Vertex;
-  // Iterator objects.
-  typename std::map< std::string, vertex_t >::iterator name_it;
-  // Opens the stream and terminates if the operation did not succeed.
-  edgelist_file.open(filename.c_str(), std::ios_base::in);
-  if( !edgelist_file.is_open() )
+  // Iterators.
+  typename vector_t::iterator it, end;
+  it = triangles.begin();
+  end = triangles.end();
+  // Edge descriptor.
+  typename graph_t::edge_descriptor e;
+  // Variable.
+  bool exists;
+  // Initializes the std::map containing the multiplicities.
+  std::map<typename graph_t::edge_descriptor, double> Edge2Multiplicity;
+  typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
+  for(std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
   {
-    std::cerr << "Could not open file: " << filename << "." << std::endl;
-    std::terminate();
+    Edge2Multiplicity[*e_it] = 0;
   }
-  else
+  // Loops over the triangles.
+  for(; it!=end; ++it)
   {
-    // Reads the edgelist and registers the nodes and the edges.
-    while( !edgelist_file.eof() )
+    // Gets the vertices in the triangle.
+    for(unsigned int i(0); i<3; ++i)
     {
-      // Reads a line of the edgelist.
-      std::getline(edgelist_file,full_line); edgelist_file >> std::ws;
-      one_line.str(full_line); one_line >> std::ws;
-      one_line >> name1_str >> std::ws;
-      one_line >> name2_str >> std::ws;
-      one_line.clear();
-      // Is name1 new?
-      name_it = Name2Vertex.find(name1_str);
-      if( name_it == Name2Vertex.end() )
+      for(unsigned int j(i+1); j<3; ++j)
       {
-        v1 = boost::add_vertex(g);
-        Name2Vertex[name1_str] = v1;
-        g[v1].name = name1_str;
-        g[v1].id = node_cnt;
-        ++node_cnt;
-      }
-      else
-      {
-        v1 = name_it->second;
-      }
-      // Is name2 new?
-      name_it = Name2Vertex.find(name2_str);
-      if( name_it == Name2Vertex.end() )
-      {
-        v2 = boost::add_vertex(g);
-        Name2Vertex[name2_str] = v2;
-        g[v2].name = name2_str;
-        g[v2].id = node_cnt;
-        ++node_cnt;
-      }
-      else
-      {
-        v2 = name_it->second;
-      }
-      // Creates the edge if it does not exist (forbids multiple edges and self-loops).
-      if(v1 != v2) // not a self-loop.
-      {
-        if(boost::edge(v1,v2,g).second == false) // not a multiple edge
+        // Gets the edge descriptor.
+        std::tie(e, exists) = boost::edge(it->at(i), it->at(j), graph);
+        if(exists)
         {
-          boost::add_edge(v1, v2, g);
+          Edge2Multiplicity[e] += 1;
+        }
+        else
+        {
+          std::cerr << "Edge in triangle does not exists." << std::endl;
+          std::terminate();
         }
       }
     }
   }
-  // Closes the stream.
-  edgelist_file.close();
-  // Returns the maps "Name2Vertex" to help add other properties to vertices.
-  return Name2Vertex;
+  // Returns the multiplicities.
+  return Edge2Multiplicity;
 }
 
 
 // ================================================================================================
 // ================================================================================================
 template<typename graph_t>
-auto notBGL::load_weighted_edgelist(std::string filename, graph_t &g)
+auto notBGL::betweenness_centrality(graph_t &graph)
+{
+  // This code is greatly inspired from the examples given in
+  // - http://programmingexamples.net/wiki/CPP/Boost/BGL/BetweennessCentralityClustering
+  // - http://liuweipingblog.cn/cpp/an-example-of-boost-betweenness-centrality/
+  // - http://stackoverflow.com/questions/23260793/to-convert-internal-properties-in-boost
+  //                                                      -graph-to-external-properties-container-i
+
+
+  // *** Creates a property map that accumulates the betweenness centrality of each vertex (could
+  //   std::map be used?).
+
+  // Typedef of a vertex.
+  typedef typename graph_t::vertex_descriptor vertex_t;
+  // Typedef of an index map for the vertices.
+  typedef typename boost::property_map< graph_t, boost::vertex_index_t>::type VertexIndexMap;
+  // Gets the actual graph's vertex indexmap.
+  VertexIndexMap vertexIndexMap = get(boost::vertex_index, graph);
+  // Creates a container with size equal to number of vertices in "graph".
+  std::vector<double> v_centrality_vec(num_vertices(graph), 0.0);
+  // Creates the property map.
+  boost::iterator_property_map< std::vector<double>::iterator, VertexIndexMap >
+    v_centrality_map(v_centrality_vec.begin(), vertexIndexMap);
+
+
+  // *** Creates a property map that accumulates the betweenness centrality of each edge. Since we
+  //   typically do not use boost::vecS as the container for the edges, we need to define a
+  //   numerical ID for each edge.
+
+  // Typedef of an edge.
+  typedef typename graph_t::edge_descriptor edge_t;
+   // std::map used for convenient initialization
+  typedef typename std::map<edge_t, int> StdEdgeIndexMap;
+  StdEdgeIndexMap my_e_index;
+  // associative property map needed for iterator property map-wrapper
+  typedef boost::associative_property_map< StdEdgeIndexMap > EdgeIndexMap;
+  EdgeIndexMap e_index(my_e_index);
+  // We use setS as edge-container -> no automatic indices
+  // -> Create and set it explicitly
+  int i = 0;
+  typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
+  for(std::tie(e_it, e_end) = boost::edges(graph); e_it != e_end; ++e_it)
+  {
+    my_e_index.insert(std::pair< edge_t, int >(*e_it, i));
+    ++i;
+  }
+  // Define EdgeCentralityMap
+  std::vector< double > e_centrality_vec(boost::num_edges(graph), 0.0);
+  // Create the external property map
+  boost::iterator_property_map< std::vector< double >::iterator, EdgeIndexMap >
+    e_centrality_map(e_centrality_vec.begin(), e_index);
+ 
+
+  // *** Calculates the vertex and edge centralites.
+  boost::brandes_betweenness_centrality(graph, v_centrality_map, e_centrality_map);
+
+
+  // *** Converts the property maps into std::map (may not be necessary).
+  std::map<vertex_t, double> Vertex2BC;
+  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it != v_end; ++v_it)
+  {
+    Vertex2BC[*v_it] = v_centrality_map[*v_it];
+  }
+  std::map<edge_t, double> Edge2BC;
+  // typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
+  for(std::tie(e_it, e_end) = boost::edges(graph); e_it != e_end; ++e_it)
+  {
+    Edge2BC[*e_it] = e_centrality_map[*e_it];
+  }
+
+
+  // *** Returns a tuple containing both Vertex2BC and Edge2BC.
+  return std::make_tuple(Vertex2BC, Edge2BC);
+}
+
+
+
+
+
+
+
+
+
+
+// ================================================================================================
+// ================================================================================================
+// *** Module: Weighted organization
+// ================================================================================================
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::strengths(graph_t &graph)
+{
+  // std::map containing the weights.
+  std::map<typename graph_t::vertex_descriptor, double> Vertex2Strength;
+  // Iterators over the edges of the graph.
+  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+  // Copies the weights.
+  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    Vertex2Strength[*v_it] = graph[*v_it].strength;
+  }
+  // Returns the weights.
+  return Vertex2Strength;
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::weights(graph_t &graph)
+{
+  // Internal property map for the weights.
+  typename boost::property_map<graph_t, boost::edge_weight_t>::type weight_map = get(boost::edge_weight, graph);
+  // std::map containing the weights.
+  std::map<typename graph_t::edge_descriptor, double> Edge2Weight;
+  // Iterators over the edges of the graph.
+  typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
+  // Copies the weights.
+  for(std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
+  {
+    Edge2Weight[*e_it] = get(weight_map, *e_it);
+  }
+  // Returns the weights.
+  return Edge2Weight;
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::disparity(graph_t &graph)
+{
+  // Typedef.
+  typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
+  // Objects related to the weights.
+  typename boost::property_map<graph_t, boost::edge_weight_t>::type weight_map = get(boost::edge_weight, graph);
+  // Iterators.
+  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+  typename boost::graph_traits<graph_t>::out_edge_iterator e_it, e_end;
+  // Map objects.
+  std::map<vertex_t, double> disparity;
+  // Computes the disparity for each vertex.
+  bool inserted;
+  double tmp;
+  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    // Initializes the value of the disparity.
+     tmp = 0;
+    // Runs over every neighbors.
+    for(std::tie(e_it, e_end) = boost::out_edges(*v_it, graph); e_it!=e_end; ++e_it)
+    {
+      tmp += std::pow(get(weight_map, *e_it), 2);
+      // std::cout << get(weight_map, *e_it) << std::endl;
+    }
+    if(graph[*v_it].strength > 0)
+    {
+      disparity[*v_it] = tmp / std::pow(graph[*v_it].strength, 2);
+    }
+  }
+  // Returns the disparity.
+  return disparity;
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::load_weighted_edgelist(std::string filename, graph_t &graph)
 {
   // Vertex descriptors.
   typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
@@ -1253,10 +1247,10 @@ auto notBGL::load_weighted_edgelist(std::string filename, graph_t &g)
       name_it = Name2Vertex.find(name1_str);
       if( name_it == Name2Vertex.end() )
       {
-        v1 = boost::add_vertex(g);
+        v1 = boost::add_vertex(graph);
         Name2Vertex[name1_str] = v1;
-        g[v1].name = name1_str;
-        g[v1].id = node_cnt;
+        graph[v1].name = name1_str;
+        graph[v1].id = node_cnt;
         ++node_cnt;
       }
       else
@@ -1267,10 +1261,10 @@ auto notBGL::load_weighted_edgelist(std::string filename, graph_t &g)
       name_it = Name2Vertex.find(name2_str);
       if( name_it == Name2Vertex.end() )
       {
-        v2 = boost::add_vertex(g);
+        v2 = boost::add_vertex(graph);
         Name2Vertex[name2_str] = v2;
-        g[v2].name = name2_str;
-        g[v2].id = node_cnt;
+        graph[v2].name = name2_str;
+        graph[v2].id = node_cnt;
         ++node_cnt;
       }
       else
@@ -1280,12 +1274,12 @@ auto notBGL::load_weighted_edgelist(std::string filename, graph_t &g)
       // Creates the edge if it does not exist (forbids multiple edges and self-loops).
       if(v1 != v2) // not a self-loop.
       {
-        if(boost::edge(v1,v2,g).second == false) // not a multiple edge
+        if(boost::edge(v1,v2,graph).second == false) // not a multiple edge
         {
           weight = std::stod(weight_str);
-          g[v1].strength += weight;
-          g[v2].strength += weight;
-          boost::add_edge(v1, v2, weight_t(weight), g);
+          graph[v1].strength += weight;
+          graph[v2].strength += weight;
+          boost::add_edge(v1, v2, weight_t(weight), graph);
         }
       }
     }
@@ -1300,253 +1294,33 @@ auto notBGL::load_weighted_edgelist(std::string filename, graph_t &g)
 // ================================================================================================
 // ================================================================================================
 template<typename graph_t>
-void notBGL::save_edgelist(std::string filename, graph_t &g, bool write_names = true)
+void notBGL::save_weighted_edgelist(std::string filename, graph_t &graph, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10)
 {
-  // Stream objects.
-  std::ofstream edgelist_file;
-  // Opens the stream and terminates if the operation did not succeed.
-  edgelist_file.open(filename.c_str(), std::ios_base::out);
-  if( !edgelist_file.is_open() )
-  {
-    std::cerr << "Could not open file: " << filename << "." << std::endl;
-    std::terminate();
-  }
-  else
-  {
-    // Iterators over the edges of the graph.
-    typename boost::graph_traits<graph_t>::edge_iterator it, end;
-    // Writes each edge under the format source target, one edge per line.
-    if(write_names)  // vertices are identified using their names.
-    {
-      for (std::tie(it, end) = edges(g); it!=end; ++it)
-      {
-        edgelist_file << g[source(*it, g)].name << " "
-                      << g[target(*it, g)].name << std::endl;
-      }
-    }
-    else // vertices are identified using the numerical id.
-    {
-      for (std::tie(it, end) = edges(g); it!=end; ++it)
-      {
-        edgelist_file << g[source(*it, g)].id << " "
-                      << g[target(*it, g)].id << std::endl;
-      }
-    }
-  }
-  // Closes the stream.
-  edgelist_file.close();
+  // Extracts the weights of the edges.
+  auto Edge2Weight = notBGL::weights(graph);
+  // Writes the weights into a file.
+  notBGL::save_edges_properties(filename, graph, {Edge2Weight}, vertexID, width);
 }
 
 
-// ================================================================================================
-// ================================================================================================
-template<typename graph_t>
-void notBGL::save_degree_sequence(std::string filename, graph_t &g, std::string vertex_identifier = "None")
-{
-  // Stream objects.
-  std::ofstream output_file;
-  // Opens the stream and terminates if the operation did not succeed.
-  output_file.open(filename.c_str(), std::ios_base::out);
-  if( !output_file.is_open() )
-  {
-    std::cerr << "Could not open file: " << filename << "." << std::endl;
-    std::terminate();
-  }
-  else
-  {
-    // Iterators over the vertices of the graph.
-    typename boost::graph_traits<graph_t>::vertex_iterator it, end;
-    if(vertex_identifier == "None")
-    {
-      // Writes the degree sequence, one vertex per line.
-      for (std::tie(it, end) = vertices(g); it!=end; ++it)
-      {
-        output_file << out_degree(*it, g) << std::endl;
-      }
-    }
-    else if(vertex_identifier == "Name")
-    {
-      // Writes the degree sequence, one vertex per line.
-      for (std::tie(it, end) = vertices(g); it!=end; ++it)
-      {
-        output_file << g[*it].name        << " "
-                    << out_degree(*it, g) << std::endl;
-      }
-    }
-    else if(vertex_identifier == "ID")
-    {
-      // Writes the degree sequence, one vertex per line.
-      for (std::tie(it, end) = vertices(g); it!=end; ++it)
-      {
-        output_file << g[*it].id          << " "
-                    << out_degree(*it, g) << std::endl;
-      }
-    }
-    else
-    {
-      std::cerr << "Unknown vertex identifier option: " << vertex_identifier << "." << std::endl;
-      std::terminate();
-    }
-  }
-  // Closes the stream.
-  output_file.close();
-}
 
-// ================================================================================================
-// ================================================================================================
-template<typename map_t, typename graph_t>
-void notBGL::save_local_clustering_coefficents_sequence(std::string filename, map_t &clustering, graph_t &g, std::string vertex_identifier = "None")
-{
-  // Stream objects.
-  std::ofstream output_file;
-  // Opens the stream and terminates if the operation did not succeed.
-  output_file.open(filename.c_str(), std::ios_base::out);
-  if( !output_file.is_open() )
-  {
-    std::cerr << "Could not open file: " << filename << "." << std::endl;
-    std::terminate();
-  }
-  else
-  {
-    // Writes the sequence, one vertex per line.
-    if(vertex_identifier == "None")
-    {
-      for(auto v : clustering)
-      {
-        output_file << v.second << std::endl;
-      }
-    }
-    else if(vertex_identifier == "Name")
-    {
-      for(auto v : clustering)
-      {
-        output_file << g[v.first].name << " "
-                    << v.second << std::endl;
-      }
-    }
-    else if(vertex_identifier == "ID")
-    {
-      for(auto v : clustering)
-      {
-        output_file << g[v.first].id << " "
-                    << v.second << std::endl;
-      }
-    }
-    else
-    {
-      std::cerr << "Unknown vertex identifier option: " << vertex_identifier << "." << std::endl;
-      std::terminate();
-    }
-  }
-  // Closes the stream.
-  output_file.close();
-}
+
+
+
+
+
 
 
 // ================================================================================================
 // ================================================================================================
-template<typename graph_t>
-void notBGL::save_strength_sequence(std::string filename, graph_t &g, std::string vertex_identifier = "None")
-{
-  // Stream objects.
-  std::ofstream output_file;
-  // Opens the stream and terminates if the operation did not succeed.
-  output_file.open(filename.c_str(), std::ios_base::out);
-  if( !output_file.is_open() )
-  {
-    std::cerr << "Could not open file: " << filename << "." << std::endl;
-    std::terminate();
-  }
-  else
-  {
-    // Iterators over the vertices of the graph.
-    typename boost::graph_traits<graph_t>::vertex_iterator it, end;
-    if(vertex_identifier == "None")
-    {
-      // Writes the degree sequence, one vertex per line.
-      for (std::tie(it, end) = vertices(g); it!=end; ++it)
-      {
-        output_file << g[*it].strength << std::endl;
-      }
-    }
-    else if(vertex_identifier == "Name")
-    {
-      // Writes the degree sequence, one vertex per line.
-      for (std::tie(it, end) = vertices(g); it!=end; ++it)
-      {
-        output_file << g[*it].name     << " "
-                    << g[*it].strength << std::endl;
-      }
-    }
-    else if(vertex_identifier == "ID")
-    {
-      // Writes the degree sequence, one vertex per line.
-      for (std::tie(it, end) = vertices(g); it!=end; ++it)
-      {
-        output_file << g[*it].id       << " "
-                    << g[*it].strength << std::endl;
-      }
-    }
-    else
-    {
-      std::cerr << "Unknown vertex identifier option: " << vertex_identifier << "." << std::endl;
-      std::terminate();
-    }
-  }
-  // Closes the stream.
-  output_file.close();
-}
-
-
+// *** Module: Geometry
 // ================================================================================================
-// ================================================================================================
-template<typename graph_t>
-void notBGL::save_weighted_edgelist(std::string filename, graph_t &g, bool write_names = true)
-{
-  // Stream objects.
-  std::ofstream edgelist_file;
-  // Objects related to the weights.
-  typename boost::property_map<graph_t, boost::edge_weight_t>::type weight_map = get(boost::edge_weight, g);
-  // Opens the stream and terminates if the operation did not succeed.
-  edgelist_file.open(filename.c_str(), std::ios_base::out);
-  if( !edgelist_file.is_open() )
-  {
-    std::cerr << "Could not open file: " << filename << "." << std::endl;
-    std::terminate();
-  }
-  else
-  {
-    // Iterators over the edges of the graph.
-    typename boost::graph_traits<graph_t>::edge_iterator it, end;
-    // Writes each edge under the format source target, one edge per line.
-    if(write_names)  // vertices are identified using their names.
-    {
-      for (std::tie(it, end) = boost::edges(g); it!=end; ++it)
-      {
-        edgelist_file << g[source(*it, g)].name << " "
-                      << g[target(*it, g)].name << " "
-                      << get(weight_map, *it)   << std::endl;
-      }
-    }
-    else // vertices are identified using the numerical id.
-    {
-      for (std::tie(it, end) = edges(g); it!=end; ++it)
-      {
-        edgelist_file << g[source(*it, g)].id << " "
-                      << g[target(*it, g)].id << " "
-                      << get(weight_map, *it)   << std::endl;
-      }
-    }
-  }
-  // Closes the stream.
-  edgelist_file.close();
-}
 
 
 // ================================================================================================
 // ================================================================================================
 template<typename graph_t, typename map_t>
-auto notBGL::load_coordinates(std::string filename, graph_t &g, map_t &Name2Vertex, const unsigned int N = 3)
+auto notBGL::load_coordinates(std::string filename, graph_t &graph, map_t &Name2Vertex)
 {
   // Vertex descriptors.
   typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
@@ -1561,7 +1335,9 @@ auto notBGL::load_coordinates(std::string filename, graph_t &g, map_t &Name2Vert
   // Iterator objects.
   typename map_t::iterator name_it;
   // Vectro objects.
-  std::vector<double> position(N);
+  std::vector<double> position();
+  // Variable.
+  unsigned int N = 0;
   // Opens the stream and terminates if the operation did not succeed.
   positions_file.open(filename.c_str(), std::ios_base::in);
   if( !positions_file.is_open() )
@@ -1571,6 +1347,15 @@ auto notBGL::load_coordinates(std::string filename, graph_t &g, map_t &Name2Vert
   }
   else
   {
+    // Reads the first line of the file to count the number of dimensions.
+    std::getline(positions_file,full_line);
+    one_line.str(full_line); one_line >> std::ws;
+    while(!one_line.eof())
+    {
+      ++N;
+    }
+    // Resets the file stream to the initial position.
+    positions_file.seekg(0, std::ios::beg);
     // Reads each line of the positions file.
     while( !positions_file.eof() )
     {
@@ -1589,28 +1374,10 @@ auto notBGL::load_coordinates(std::string filename, graph_t &g, map_t &Name2Vert
       // If the vertex is not present in the edgelist (has a degree equal to 0)
       if( name_it == Name2Vertex.end() )
       {
-        vertex_t v1 = boost::add_vertex(g);
+        vertex_t v1 = boost::add_vertex(graph);
         Name2Vertex[name1_str] = v1;
-        g[v1].name = name1_str;
-        g[v1].id = boost::num_vertices(g);
-        // std::cerr << "Vertex " << name1_str << " in the positions file is not"
-        //           << " in the edgelist (has a degree equal to 0). The options"
-        //           << " to solve this problem are"
-        //           << std::endl << std::endl;
-        // std::cerr << "  1) Remove the line corresponding to vertex "
-        //           << name1_str << " from the file " << filename << "."
-        //           << std::endl;
-        // std::cerr << "  2) Add the line '" << name1_str << " " << name1_str
-        //           << "' (a self-loop) at the end of the edgelist file. This"
-        //           << " will works given that the function loading the graph"
-        //           << " from the edgelist do not allow self-loops (e.g.,"
-        //           << " notBGL::load_edgelist())."
-        //           << std::endl;
-        // std::cerr << "  3) Modify the code (where this message can be found)"
-        //           << " to make it add the zero-degree vertex " << name1_str
-        //           << " to the graph_t object."
-        //           << std::endl << std::endl;
-        // std::terminate();
+        graph[v1].name = name1_str;
+        graph[v1].id = boost::num_vertices(graph);
       }
       // Register the position of the vertex if it is present in the edgelist.
       else
@@ -1652,84 +1419,3 @@ double notBGL::euclidean_distance(std::vector<double> &x1, std::vector<double> x
 }
 
 #endif // NOTBGL_HPP_INCLUDED
-
-// // ================================================================================================
-// // ================================================================================================
-// template<typename graph_t>
-// auto notBGL::load_edgelist(std::string filename, graph_t &g)
-// {
-//   // Vertex descriptors.
-//   typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
-//   vertex_t v1, v2;
-//   // Stream objects.
-//   std::ifstream edgelist_file;
-//   std::stringstream one_line;
-//   // String objects.
-//   std::string full_line, name1_str, name2_str;
-//   // Integer objects.
-//   unsigned int node_cnt(0);
-//   // Map objects to assure the uniqueness of vertices.
-//   std::map< std::string, vertex_t > Name2Vertex;
-//   // Iterator objects.
-//   typename std::map< std::string, vertex_t >::iterator name_it;
-//   // Opens the stream and terminates if the operation did not succeed.
-//   edgelist_file.open(filename.c_str(), std::ios_base::in);
-//   if( !edgelist_file.is_open() )
-//   {
-//     std::cerr << "Could not open file: " << filename << "." << std::endl;
-//     std::terminate();
-//   }
-//   else
-//   {
-//     // Reads the edgelist and registers the nodes and the edges.
-//     while( !edgelist_file.eof() )
-//     {
-//       // Reads a line of the edgelist.
-//       std::getline(edgelist_file,full_line); edgelist_file >> std::ws;
-//       one_line.str(full_line); one_line >> std::ws;
-//       one_line >> name1_str >> std::ws;
-//       one_line >> name2_str >> std::ws;
-//       one_line.clear();
-//       // Is name1 new?
-//       name_it = Name2Vertex.find(name1_str);
-//       if( name_it == Name2Vertex.end() )
-//       {
-//         v1 = boost::add_vertex(g);
-//         Name2Vertex[name1_str] = v1;
-//         g[v1].name = name1_str;
-//         g[v1].id = node_cnt;
-//         ++node_cnt;
-//       }
-//       else
-//       {
-//         v1 = name_it->second;
-//       }
-//       // Is name2 new?
-//       name_it = Name2Vertex.find(name2_str);
-//       if( name_it == Name2Vertex.end() )
-//       {
-//         v2 = boost::add_vertex(g);
-//         Name2Vertex[name2_str] = v2;
-//         g[v2].name = name2_str;
-//         g[v2].id = node_cnt;
-//         ++node_cnt;
-//       }
-//       else
-//       {
-//         v2 = name_it->second;
-//       }
-//       // Creates the edge if it does not exist (forbids multiple edges and self-loops).
-//       if(v1 != v2) // not a self-loop.
-//       {
-//         if(boost::edge(v1,v2,g).second == false) // not a multiple edge
-//         {
-//           boost::add_edge(v1, v2, g);
-//         }
-//       }
-//     }
-//   }
-//   // Closes the stream.
-//   edgelist_file.close();
-//   // Returns the maps "Name2Vertex" to help add other properties to vertices.
-//   return Name2Vertex;
-// }

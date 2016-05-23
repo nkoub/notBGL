@@ -28,8 +28,8 @@ int main(int argc, char** argv)
                                  notBGL::MinimalVertexProp> graph_t;
   graph_t graph;
  
-  // Populates the graph via the edgelist TestGraph.edge.
-  notBGL::load_edgelist("edgelists/TestGraph.edge", graph);
+  // Populates the graph via the edgelist TestGraph1.edge.
+  notBGL::load_edgelist("edgelists/TestGraph1.edge", graph);
 
   // Surveys the triangles present in the graph. This function yields a std::vector whose elements
   // are std::tuple containing the boost::vertex_descriptor of the vertices participating to the

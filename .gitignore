@@ -1,3 +1,4 @@
 html/
 *.out
 *.dat
+src/backward_compatibility.hpp

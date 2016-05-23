@@ -26,8 +26,8 @@ int main(int argc, char** argv)
                                  notBGL::MinimalVertexProp> graph_t;
   graph_t graph;
  
-  // Populates the graph via the edgelist TestGraph.edge.
-  notBGL::load_edgelist("edgelists/TestGraph.edge", graph);
+  // Populates the graph via the edgelist TestGraph1.edge.
+  notBGL::load_edgelist("edgelists/TestGraph1.edge", graph);
 
   // Extracts the degree of vertices.
   auto Vertex2Degree = notBGL::degrees(graph);
@@ -35,7 +35,7 @@ int main(int argc, char** argv)
   // Computes the betweenness centrality of the vertices and the edges. This function returns a
   // std::tuple of two std::map objects that map a boost::vertex_descriptor and a
   // boost::edge_descriptor to their betweenness_centrlity, respectively.
-  auto bc = notBGL::betweenness_centrality(graph);
+  auto BC = notBGL::betweenness_centrality(graph);
 
   // Surveys the triangles present in the graph. This function yields a std::vector whose elements
   // are std::tuple containing the boost::vertex_descriptor of the vertices participating to the
@@ -51,17 +51,17 @@ int main(int argc, char** argv)
   // object. 
   // By default, the name of the vertices are printed and that the width of the columns
   // are set to 10.
-  notBGL::save_vertices_properties("TestGraph_vertices_prop_name_width10_default.dat", graph, {Vertex2Degree, std::get<0>(bc), Vertex2LCC});
+  notBGL::save_vertices_properties("TestGraph1_vertices_prop_name_width10_default.dat", graph, {Vertex2Degree, std::get<0>(BC), Vertex2LCC});
   // Identifies the vertices with a contiguous sequence of integers starting at 0.
-  notBGL::save_vertices_properties("TestGraph_vertices_prop_num_width10.dat", graph, {Vertex2Degree, std::get<0>(bc), Vertex2LCC}, notBGL::vertexID_num);
+  notBGL::save_vertices_properties("TestGraph1_vertices_prop_num_width10.dat", graph, {Vertex2Degree, std::get<0>(BC), Vertex2LCC}, notBGL::vertexID_num);
   // Only prints the properties without identifying the vertices, and changes the width of the
   // column to 15.
-  notBGL::save_vertices_properties("TestGraph_vertices_prop_none_width15.dat", graph, {Vertex2Degree, std::get<0>(bc), Vertex2LCC}, notBGL::vertexID_none, 15);
+  notBGL::save_vertices_properties("TestGraph1_vertices_prop_none_width15.dat", graph, {Vertex2Degree, std::get<0>(BC), Vertex2LCC}, notBGL::vertexID_none, 15);
 
   // Same sequence of options, but for the edge properties.
-  notBGL::save_edges_properties("TestGraph_edges_prop_name_width10_default.dat", graph, {std::get<1>(bc)});
-  notBGL::save_edges_properties("TestGraph_edges_prop_num_width10.dat", graph, {std::get<1>(bc)}, notBGL::vertexID_num);
-  notBGL::save_edges_properties("TestGraph_edges_prop_none_width15.dat", graph, {std::get<1>(bc)}, notBGL::vertexID_none, 15);
+  notBGL::save_edges_properties("TestGraph1_edges_prop_name_width10_default.dat", graph, {std::get<1>(BC)});
+  notBGL::save_edges_properties("TestGraph1_edges_prop_num_width10.dat", graph, {std::get<1>(BC)}, notBGL::vertexID_num);
+  notBGL::save_edges_properties("TestGraph1_edges_prop_none_width15.dat", graph, {std::get<1>(BC)}, notBGL::vertexID_none, 15);
 
 
   // Exits the program successfully.
