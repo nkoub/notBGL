@@ -401,8 +401,28 @@ namespace notBGL
   template<typename vector_t, typename graph_t>
   double global_clustering_coefficient(vector_t &triangles, graph_t &graph);
 
+  /**
+   * @brief      Computes the multiplicity of edges.
+   *
+   *             The multiplicity of an edge is the number of triangles to which it participates.
+   *
+   * @param      triangles  Vector containing the triangles in the graph
+   *                        [obtained from survey_triangles()].
+   * @param      graph      The graph object.
+   *
+   * @tparam     vector_t   std::vector< std::tuple< boost::vertex_descriptor> >
+   *                        >
+   * @tparam     graph_t    boost::adjacency_list
+   *
+   * @return     std::map object mapping the boost::edge_descriptor to the
+   *             multiplicities.
+   *
+   * @ingroup    topo
+   * 
+   * @see        survey_triangles()
+   */
   template <typename vector_t, typename graph_t>
-  auto multiplicity(vector_t &triangles);
+  auto multiplicity(vector_t &triangles, graph_t &graph);
 
   /**
    * @brief      Computes the betweenness centrality of the vertices and the
@@ -537,13 +557,52 @@ namespace notBGL
 
 
 
-// // ================================================================================================
-// // ================================================================================================
-// template<typename vector_t, typename graph_t>
-// auto notBGL::multiplicity(vector_t &triangles)
-// {
-//   for()
-// }
+// ================================================================================================
+// ================================================================================================
+template<typename vector_t, typename graph_t>
+auto notBGL::multiplicity(vector_t &triangles, graph_t &graph)
+{
+  // Iterators.
+  typename vector_t::iterator it, end;
+  it = triangles.begin();
+  end = triangles.end();
+  // Edge descriptor.
+  typename graph_t::edge_descriptor e;
+  // Variable.
+  bool exists;
+  // Initializes the std::map containing the multiplicities.
+  std::map<typename graph_t::edge_descriptor, double> Edge2Multiplicity;
+  typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
+  for(std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
+  {
+    Edge2Multiplicity[*e_it] = 0;
+  }
+  // Loops over the triangles.
+  for(; it!=end; ++it)
+  {
+    // Gets the vertices in the triangle.
+    for(unsigned int i(0); i<3; ++i)
+    {
+      for(unsigned int j(i+1); j<3; ++j)
+      {
+        // Gets the edge descriptor.
+        std::tie(e, exists) = boost::edge(it->at(i), it->at(j), graph);
+        if(exists)
+        {
+          Edge2Multiplicity[e] += 1;
+        }
+        else
+        {
+          std::cerr << "Edge in triangle does not exists." << std::endl;
+          std::terminate();
+        }
+      }
+    }
+  }
+  // Returns the multiplicities.
+  return Edge2Multiplicity;
+}
+
 
 // ================================================================================================
 // ================================================================================================
@@ -664,7 +723,7 @@ auto notBGL::degrees(graph_t &graph)
   {
     Vertex2Degree[*v_it] = boost::out_degree(*v_it, graph);
   }
-  // Returns the degree.
+  // Returns the degrees.
   return Vertex2Degree;
 }
 
@@ -812,7 +871,7 @@ void notBGL::save_edges_properties(std::string filename, graph_t &graph, std::in
   }
   else
   {
-    // Iterators over the vertices of the graph.
+    // Iterators over the edges of the graph.
     typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
     // Iterators over the std::map<edge_t, double> in "props".
     typename std::initializer_list<std::map<edge_t, double> >::iterator p_it, p_end(props.end());

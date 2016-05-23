@@ -41,6 +41,11 @@ int main(int argc, char** argv)
   // mapping the boost::vertex_descriptor to the value of the coefficient.
   auto Vertex2LCC = notBGL::local_clustering_coefficients(triangles, graph);
 
+  // Computes the multiplicity of edges. Having identified the triangles in the graph, this
+  // function computes the multiplicity of each edge and returns a std::map
+  // mapping the boost::edge_descriptor to the value of the multiplicity.
+  auto Edge2Multiplicity = notBGL::multiplicity(triangles, graph);
+
   // Computes the global clustering coefficient, and prints it on screen.
   std::cout << "Global clustering coefficient: "
             << notBGL::global_clustering_coefficient(triangles, graph)
@@ -56,6 +61,15 @@ int main(int argc, char** argv)
   for(auto el : Vertex2LCC)
   {
     std::cout << graph[el.first].name << ": " << el.second << std::endl;
+  }
+
+  // Prints the multiplicities on screen.
+  std::cout << std::endl << "Edge multiplicities:" << std::endl;
+  for(auto el : Edge2Multiplicity)
+  {
+    std::cout << graph[boost::source(el.first, graph)].name << "  "
+              << graph[boost::target(el.first, graph)].name << ": "
+              << el.second << std::endl;
   }
 
   // Exits the program successfully.
@@ -80,6 +94,20 @@ int main(int argc, char** argv)
    * Fred: 0.666667
    * Vera: 0.333333
    * Nora: 0
+   * 
+   * Edge multiplicities:
+   * Mark  Anna: 1
+   * Mark  Tony: 2
+   * Mark  Lucy: 1
+   * Mark  Nick: 1
+   * Mark  Mary: 0
+   * Vera  Nora: 0
+   * Mark  Fred: 2
+   * Mark  Vera: 1
+   * Anna  Tony: 1
+   * Tony  Nick: 1
+   * Lucy  Fred: 1
+   * Fred  Vera: 1
    *
    */
 }

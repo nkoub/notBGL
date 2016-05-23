@@ -60,7 +60,7 @@ int main(int argc, char** argv)
   }
 
   // Prints the betweenness centrality of edges.
-  std::cout << "Betweenness centrality of edges" << std::endl;
+  std::cout << std::endl << "Betweenness centrality of edges" << std::endl;
   for(auto el : std::get<1>(bc))
   {
     std::cout << boost::source(el.first, graph)
@@ -73,4 +73,37 @@ int main(int argc, char** argv)
 
   // Exits the program successfully.
   return 0;
+
+  /* 
+   * The output should read:
+   * 
+   * >> g++ -O3 -std=c++1y betweenness_centrality.cpp -o betweenness_centrality
+   * >> ./betweenness_centrality
+   * Betweenness centrality of vertices
+   * 0: 20.5
+   * 1: 0
+   * 2: 0.5
+   * 3: 0
+   * 4: 0
+   * 5: 0
+   * 6: 1
+   * 7: 7
+   * 8: 0
+   *
+   * Betweenness centrality of edges
+   * 0 <--> 1: 6.5
+   * 0 <--> 2: 6
+   * 0 <--> 3: 6.5
+   * 0 <--> 4: 8
+   * 0 <--> 5: 6
+   * 0 <--> 6: 5
+   * 0 <--> 7: 11
+   * 1 <--> 2: 1.5
+   * 2 <--> 3: 1.5
+   * 5 <--> 6: 2
+   * 6 <--> 7: 3
+   * 7 <--> 8: 8
+   *
+   */
+
 }
