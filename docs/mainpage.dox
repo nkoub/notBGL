@@ -1,10 +1,51 @@
 /**
-@brief Documentation file for Mainpage, and defgroups.
-@author Antoine Allard
-@file
-*/
-/** @defgroup notBGL sources */
-/**
-@mainpage notBGL - a user-friendly interface to harness and enhance the power of the Boost Graph Library
+ *
+ * @brief Documentation file for Mainpage, and defgroups.
+ * 
+ * @author Antoine Allard
+ * 
+ * @file
+ * 
+ */
 
-*/
+
+// ================================================================================================
+// Main page.
+
+/**
+ * @mainpage Welcome to the notBGL library documentation page
+ *
+ * The notBGL library is a user-friendly C++ interface provinding a set of
+ * functions and objects to facilitate the use of the [Boost Graph
+ * Library](http://www.boost.org/doc/libs/1_61_0/libs/graph/doc/index.html). See
+ * the [Modules](modules.html) section for a complete description of the library
+ * and the [Examples](examples.html) Section for complete examples that show how
+ * to use the library.
+ *
+ * The
+ */
+
+// ================================================================================================
+// Example files.
+
+/**
+ * @example    save_properties.cpp
+ * @brief      This is an example of how to use the functions
+ *             save_vertices_properties() and save_edges_properties(), among
+ *             others. See comments in the code and the documentation for
+ *             further details.
+ */
+
+/**
+ * @example    clustering.cpp
+ * @brief      This is an example of how to use functions related to
+ *             custering. See comments in the code and the documentation for
+ *             further details.
+ */
+
+/**
+ * @example    betweenness_centrality.cpp
+ * @brief      This is an example of how to use the betweenness_centrality()
+ *             function. See comments in the code and the documentation for
+ *             further details.
+ */

@@ -10,21 +10,22 @@
 #define NOTBGL_HPP_INCLUDED
 
 // Standard Template Library
-#include <algorithm>     // std::transform
-#include <cmath>         // std::sqrt, std::pow, std::cosh, std::sinh, std::acosh, std::fabs
-#include <cstdlib>       // std::terminate
-#include <fstream>       // std::ifstream, std::ofstream
-#include <functional>    // std::minus
-#include <iomanip>       // std::setw
-#include <iostream>      // std::cerr
-#include <limits>        // std::numeric_limits
-#include <map>           // std::map
-#include <numeric>       // std::inner_product
-#include <queue>         // std::queue
-#include <sstream>       // std::stringstream
-#include <string>        // std::string, std::stod
-#include <tuple>         // std::tie, std::make_tuple
-#include <vector>        // std::vector
+#include <algorithm>         // std::transform
+#include <cmath>             // std::sqrt, std::pow, std::cosh, std::sinh, std::acosh, std::fabs
+#include <cstdlib>           // std::terminate
+#include <fstream>           // std::ifstream, std::ofstream
+#include <functional>        // std::minus
+#include <initializer_list>  // std::initializer_list
+#include <iomanip>           // std::setw
+#include <iostream>          // std::cerr
+#include <limits>            // std::numeric_limits
+#include <map>               // std::map
+#include <numeric>           // std::inner_product
+#include <queue>             // std::queue
+#include <sstream>           // std::stringstream
+#include <string>            // std::string, std::stod
+#include <tuple>             // std::tie, std::make_tuple
+#include <vector>            // std::vector
 // Boost Graph Library
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/betweenness_centrality.hpp>
@@ -48,7 +49,11 @@ namespace notBGL
                                 MinimalVertexProp,
                                 boost::no_property > UndirectedGraph_t;
 
+#ifndef DOXYGEN_EXCLUDED
+  enum vertex_identifier_t {vertexID_none, vertexID_num, vertexID_name};
+
   
+#endif // DOXYGEN_EXCLUDED
 
   /** ---------------------------------------------------------------------------------------------
    * @defgroup   IO Input / Output
@@ -74,6 +79,9 @@ namespace notBGL
    *             vertex_descriptor. This object is provided to
    *
    * @ingroup    IO
+   *
+   * @todo       Add the functionnality of ignoring lines beginning with the
+   *             hashtag character "#".
    *
    * @see        save_edgelist()
    */
@@ -183,21 +191,109 @@ namespace notBGL
   template<typename map_t, typename graph_t>
   void save_local_clustering_coefficents_sequence(std::string filename, map_t &clustering, graph_t &g, std::string vertex_identifier = "None");
 
+  // /*
+  //  * @brief      { function_description }
+  //  *
+  //  * @param[in]  filename    The filename
+  //  * @param      g           { parameter_description }
+  //  * @param[in]  clustering  The clustering
+  //  * @param[in]  disparity   The disparity
+  //  *
+  //  * @tparam     graph_t     { description }
+  //  * @tparam     map_t       { description }
+  //  *
+  //  * @ingroup    IO
+  //  */
+  // template<typename graph_t, typename map_t>
+  // void save_vertices_properties(std::string filename, graph_t &g, map_t clustering, map_t disparity);
+
+  // /*
+  //  * @brief      { function_description }
+  //  *
+  //  * @param[in]  filename    The filename
+  //  * @param      g           { parameter_description }
+  //  * @param[in]  clustering  The clustering
+  //  * @param[in]  disparity   The disparity
+  //  *
+  //  * @tparam     graph_t     { description }
+  //  * @tparam     map_t       { description }
+  //  *
+  //  * @ingroup    IO
+  //  */
+  // template<typename graph_t, typename map_t>
+  // void save_vertices_properties(std::string filename, graph_t &g, map_t clustering, map_t disparity);
+
   /**
-   * @brief      { function_description }
+   * @brief      Saves properties of vertices into a file.
    *
-   * @param[in]  filename    The filename
-   * @param      g           { parameter_description }
-   * @param[in]  clustering  The clustering
-   * @param[in]  disparity   The disparity
+   *             This is the main function to save properties of vertices into a
+   *             file. Several other vertex-related output functions are
+   *             wrappers of the save_vertices_properties(). See the
+   *             `save_vertices_properties.cpp` example below for further
+   *             details.
    *
-   * @tparam     graph_t     { description }
-   * @tparam     map_t       { description }
+   * @param      filename  Name of the file in which the properties are to
+   *                       written.
+   * @param      graph     The graph object.
+   * @param      props     An std::initializer_list containing std::map objects
+   *                       mapping boost::vertex_descriptor objects to the
+   *                       values of the property of the vertices.
+   * @param      vertexID  [optional] Identifier used for the vertices. Options
+   *                       are
+   *                       + `notBGL::vertexID_name` (default): prints the name
+   *                         of the vertices;
+   *                       + `notBGL::vertexID_num`: identifies the vertices
+   *                         with a contiguous sequence of integers starting at
+   *                         0;
+   *                       + `notBGL::vertexID_none`: properties are printed
+   *                         without identifying the vertices.
+   * @param      width     [optional] Width of the columns in the file. Default
+   *                       is 10.
+   *
+   * @tparam     graph_t   boost::adjacency_list
+   * @tparam     vertex_t  boost::vertex_descriptor
+   *
+   * @see        save_edges_properties()
    *
    * @ingroup    IO
    */
-  template<typename graph_t, typename map_t>
-  void save_vertices_properties(std::string filename, graph_t &g, map_t clustering, map_t disparity);
+  template<typename graph_t, typename vertex_t>
+  void save_vertices_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<vertex_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10);
+
+  /**
+   * @brief      Saves properties of edges into a file.
+   *
+   *             This is the main function to save properties of edges into a
+   *             file. Several other edge-related output functions are wrappers
+   *             of the save_edges_properties(). See the `save_properties.cpp`
+   *             example below for further details.
+   *
+   * @param      filename  Name of the file in which the properties are to
+   *                       written.
+   * @param      graph     The graph object.
+   * @param      props     An std::initializer_list containing std::map objects
+   *                       mapping boost::edge_descriptor objects to the values
+   *                       of the property of the edges.
+   * @param      vertexID  [optional] Identifier used for the edges. Options are
+   *                       + `notBGL::vertexID_name` (default): prints the name
+   *                         of the vertices;
+   *                       + `notBGL::vertexID_num`: identifies the vertices
+   *                         with a contiguous sequence of integers starting at
+   *                         0;
+   *                       + `notBGL::vertexID_none`: properties are printed
+   *                         without identifying the edges.
+   * @param      width     [optional] Width of the columns in the file. Default
+   *                       is 10.
+   *
+   * @tparam     graph_t   boost::adjacency_list
+   * @tparam     vertex_t  boost::edge_descriptor
+   *
+   * @see        save_vertices_properties()
+   *
+   * @ingroup    IO
+   */
+  template<typename graph_t, typename edge_t>
+  void save_edges_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<edge_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10);
 
 
 
@@ -209,6 +305,21 @@ namespace notBGL
    *             characterization of the topology of graphs (e.g., clustering,
    *             betweenness centrality).
    */
+
+  /**
+   * @brief      Extracts the degree sequence.
+   *
+   *             Extracts the degree sequence.
+   *
+   * @param      graph    The graph object
+   *
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     Returns a std::map object mapping the boost:vertex_descriptor
+   *             to the degree (double).
+   */
+  template<typename graph_t>
+  auto degrees(graph_t &graph);
 
   /**
    * @brief      Identifies the triangles in the graph.
@@ -227,10 +338,13 @@ namespace notBGL
   auto survey_triangles(graph_t &g);
 
   /**
-   * @brief      Get the local clustering coefficient.
+   * @brief      Computes the local clustering coefficients.
    *
-   * @param[in]  triangles  The triangles
-   * @param      g          { parameter_description }
+   *             Ceci est un `test`
+   *
+   * @param      triangles  Vector containing the triangles in the graph (from
+   *                        survey_triangles()).
+   * @param      graph      The graph
    *
    * @tparam     vector_t   { description }
    * @tparam     graph_t    { description }
@@ -242,7 +356,53 @@ namespace notBGL
    * @ingroup    topo
    */
   template<typename vector_t, typename graph_t>
-  auto local_clustering_coefficient(vector_t triangles, graph_t &g);
+  auto local_clustering_coefficients(vector_t &triangles, graph_t &graph);
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param[in]  local_clustering_coefficients  The local clustering
+   *                                            coefficients
+   *
+   * @tparam     map_t                          { description }
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    topo
+   */
+  template<typename map_t>
+  double average_local_clustering_coefficient(map_t &local_clustering_coefficients);
+
+  /**
+   * @brief      Computes the global clustering coefficient.
+   *
+   *             Computes the global clustering coefficient according to
+   *             @f[ C = \frac{3N_\triangle}{N_\wedge}
+   *             @f] where
+   *             @f$N_\triangle\f$ and
+   *             @f$N_\wedge\f$ are the number of triangles and the number of
+   *             triplets present in the graph, respectively. More details can
+   *             be found
+   *             [here](https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient)
+   *
+   * @param      triangles  Vector containing the triangles in the graph
+   *                        [obtained from survey_triangles()].
+   * @param      graph      The graph object.
+   *
+   * @tparam     vector_t   std::vector< std::tuple< boost::vertex_descriptor> > >
+   * @tparam     graph_t    boost::adjacency_list
+   *
+   * @return     Value of the global clustering coefficient.
+   *
+   * @see        survey_triangles(), average_local_clustering_coefficient()
+   * 
+   * @ingroup    topo
+   */
+  template<typename vector_t, typename graph_t>
+  double global_clustering_coefficient(vector_t &triangles, graph_t &graph);
+
+  template <typename vector_t, typename graph_t>
+  auto multiplicity(vector_t &triangles);
 
   /**
    * @brief      Computes the betweenness centrality of the vertices and the
@@ -250,7 +410,7 @@ namespace notBGL
    *
    * @param      graph    The graph object.
    *
-   * @tparam     graph_t  A boost::adjacency_list type.
+   * @tparam     graph_t  boost::adjacency_list
    *
    * @return     { description_of_the_return_value }
    *
@@ -258,19 +418,14 @@ namespace notBGL
    */
   template<typename graph_t>
   auto betweenness_centrality(graph_t &graph);
-  /**
-   * @example    betweenness_centrality.cpp
-   * @brief      This is an example of how to use the betweenness_centrality()
-   *             function. See comments in the code and the documentation for
-   *             further details.
-   */
+
 
 
 
 
   /** ---------------------------------------------------------------------------------------------
    * @defgroup   routing Routing
-   * @brief      .
+   * @brief      FH; JDKH.
    */
 
   /**
@@ -368,8 +523,27 @@ namespace notBGL
   template<typename graph_t>
   auto disparity(graph_t &g);
 
+  #ifndef DOXYGEN_EXCLUDED
+    namespace utilities
+    {
+      template<typename map_t>
+      double average_of_map(map_t &map);
+    }
+  #endif // DOXYGEN_EXCLUDED
+
 }
 
+
+
+
+
+// // ================================================================================================
+// // ================================================================================================
+// template<typename vector_t, typename graph_t>
+// auto notBGL::multiplicity(vector_t &triangles)
+// {
+//   for()
+// }
 
 // ================================================================================================
 // ================================================================================================
@@ -451,10 +625,110 @@ auto notBGL::betweenness_centrality(graph_t &graph)
 }
 
 
+// // ================================================================================================
+// // ================================================================================================
+#ifndef DOXYGEN_EXCLUDED
+template<typename map_t>
+double notBGL::utilities::average_of_map(map_t &map)
+{
+  double sum = 0;
+  for(auto el : map)
+  {
+    sum += el.second;
+  }
+  return sum / map.size();
+}
+#endif // DOXYGEN_EXCLUDED
+
+
+// // ================================================================================================
+// // ================================================================================================
+template<typename map_t>
+double notBGL::average_local_clustering_coefficient(map_t &local_clustering_coefficients)
+{
+  return notBGL::utilities::average_of_map(local_clustering_coefficients);
+}
+
+
+// // ================================================================================================
+// // ================================================================================================
+template<typename graph_t>
+auto notBGL::degrees(graph_t &graph)
+{
+  // Iterators.
+  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+  // std::map containing the degrees.
+  std::map<typename graph_t::vertex_descriptor, double> Vertex2Degree;
+  // Fills the container.
+  for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    Vertex2Degree[*v_it] = boost::out_degree(*v_it, graph);
+  }
+  // Returns the degree.
+  return Vertex2Degree;
+}
+
+
+// // ================================================================================================
+// // ================================================================================================
+template<typename vector_t, typename graph_t>
+double notBGL::global_clustering_coefficient(vector_t &triangles, graph_t &graph)
+{
+  // Iterators.
+  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+  // Number of triplets in the graph.
+  double nb_triplets = 0;
+  unsigned int degree;
+  for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    degree = boost::out_degree(*v_it, graph);
+    nb_triplets += degree * (degree - 1) / 2;
+  }
+  // Returns the global coefficient of clustering.
+  return 3 * triangles.size() / nb_triplets;
+}
+
+
+
+
+
+// // ================================================================================================
+// // ================================================================================================
+// template<typename graph_t, typename map_t>
+// void notBGL::save_vertices_properties(std::string filename, graph_t &g, map_t clustering, map_t disparity)
+// {
+//   // Stream objects.
+//   std::ofstream output_file;
+//   // Opens the stream and terminates if the operation did not succeed.
+//   output_file.open(filename.c_str(), std::ios_base::out);
+//   if( !output_file.is_open() )
+//   {
+//     std::cerr << "Could not open file: " << filename << "." << std::endl;
+//     std::terminate();
+//   }
+//   else
+//   {
+//     // Iterators over the vertices of the graph.
+//     typename boost::graph_traits<graph_t>::vertex_iterator it, end;
+//     for (std::tie(it, end) = vertices(g); it!=end; ++it)
+//     {
+//       output_file << std::setw(5) << g[*it].name              << " "
+//                   << std::setw(7)<< boost::out_degree(*it, g) << " "
+//                   << std::setw(7)<< g[*it].strength           << " "
+//                   << std::setw(9)<< clustering[*it]           << " "
+//                   << std::setw(9)<< disparity[*it]            << " "
+//                   << std::endl;
+//     }
+//   }
+//   // Closes the stream.
+//   output_file.close();
+// }
+
+
 // ================================================================================================
 // ================================================================================================
-template<typename graph_t, typename map_t>
-void notBGL::save_vertices_properties(std::string filename, graph_t &g, map_t clustering, map_t disparity)
+template<typename graph_t, typename vertex_t>
+void notBGL::save_vertices_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<vertex_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10)
 {
   // Stream objects.
   std::ofstream output_file;
@@ -468,20 +742,132 @@ void notBGL::save_vertices_properties(std::string filename, graph_t &g, map_t cl
   else
   {
     // Iterators over the vertices of the graph.
-    typename boost::graph_traits<graph_t>::vertex_iterator it, end;
-    for (std::tie(it, end) = vertices(g); it!=end; ++it)
+    typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+    // Iterators over the std::map<vertex_t, double> in "props".
+    typename std::initializer_list<std::map<vertex_t, double> >::iterator p_it, p_end(props.end());
+
+    // Prints the vertex properties.
+    if(vertexID == notBGL::vertexID_name)
     {
-      output_file << std::setw(5) << g[*it].name              << " "
-                  << std::setw(7)<< boost::out_degree(*it, g) << " "
-                  << std::setw(7)<< g[*it].strength           << " "
-                  << std::setw(9)<< clustering[*it]           << " "
-                  << std::setw(9)<< disparity[*it]            << " "
-                  << std::endl;
+      for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+      {
+        output_file << std::setw(width) << graph[*v_it].name << " ";
+        p_it = props.begin();
+        for(; p_it!=p_end; ++p_it)
+        {
+          output_file << std::setw(width) << p_it->at(*v_it) << " ";
+        }
+        output_file << std::endl;
+      }
+    }
+    else if(vertexID == notBGL::vertexID_num)
+    {
+      for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+      {
+        output_file << std::setw(width) << graph[*v_it].id << " ";
+        p_it = props.begin();
+        for(; p_it!=p_end; ++p_it)
+        {
+          output_file << std::setw(width) << p_it->at(*v_it) << " ";
+        }
+        output_file << std::endl;
+      }
+    }
+    else if(vertexID == notBGL::vertexID_none)
+    {
+      for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+      {
+        p_it = props.begin();
+        for(; p_it!=p_end; ++p_it)
+        {
+          output_file << std::setw(width) << p_it->at(*v_it) << " ";
+        }
+        output_file << std::endl;
+      }
+    }
+    else
+    {
+      std::cerr << "Unknown vertex identifier type." << std::endl;
+      std::terminate();
     }
   }
   // Closes the stream.
   output_file.close();
 }
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t, typename edge_t>
+void notBGL::save_edges_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<edge_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10)
+{
+  // Stream objects.
+  std::ofstream output_file;
+  // Opens the stream and terminates if the operation did not succeed.
+  output_file.open(filename.c_str(), std::ios_base::out);
+  if( !output_file.is_open() )
+  {
+    std::cerr << "Could not open file: " << filename << "." << std::endl;
+    std::terminate();
+  }
+  else
+  {
+    // Iterators over the vertices of the graph.
+    typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
+    // Iterators over the std::map<edge_t, double> in "props".
+    typename std::initializer_list<std::map<edge_t, double> >::iterator p_it, p_end(props.end());
+
+    // Prints the vertex properties.
+    if(vertexID == notBGL::vertexID_name)
+    {
+      for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
+      {
+        output_file << std::setw(width) << graph[boost::source(*e_it, graph)].name << " ";
+        output_file << std::setw(width) << graph[boost::target(*e_it, graph)].name << " ";
+        p_it = props.begin();
+        for(; p_it!=p_end; ++p_it)
+        {
+          output_file << std::setw(width) << p_it->at(*e_it) << " ";
+        }
+        output_file << std::endl;
+      }
+    }
+    else if(vertexID == notBGL::vertexID_num)
+    {
+      for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
+      {
+        output_file << std::setw(width) << graph[boost::source(*e_it, graph)].id << " ";
+        output_file << std::setw(width) << graph[boost::target(*e_it, graph)].id << " ";
+        p_it = props.begin();
+        for(; p_it!=p_end; ++p_it)
+        {
+          output_file << std::setw(width) << p_it->at(*e_it) << " ";
+        }
+        output_file << std::endl;
+      }
+    }
+    else if(vertexID == notBGL::vertexID_none)
+    {
+      for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
+      {
+        p_it = props.begin();
+        for(; p_it!=p_end; ++p_it)
+        {
+          output_file << std::setw(width) << p_it->at(*e_it) << " ";
+        }
+        output_file << std::endl;
+      }
+    }
+    else
+    {
+      std::cerr << "Unknown vertex identifier type." << std::endl;
+      std::terminate();
+    }
+  }
+  // Closes the stream.
+  output_file.close();
+}
+
 
 
 // ================================================================================================
@@ -523,7 +909,7 @@ auto notBGL::disparity(graph_t &g)
 // ================================================================================================
 // ================================================================================================
 template<typename vector_t, typename graph_t>
-auto notBGL::local_clustering_coefficient(vector_t triangles, graph_t &g)
+auto notBGL::local_clustering_coefficients(vector_t &triangles, graph_t &graph)
 {
   // Typedef.
   typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
@@ -553,9 +939,9 @@ auto notBGL::local_clustering_coefficient(vector_t triangles, graph_t &g)
   // Computes the local clustering coefficient.
   typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
   typename boost::graph_traits<graph_t>::degree_size_type d;
-  for(std::tie(v_it, v_end) = boost::vertices(g); v_it!=v_end; ++v_it)
+  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
   {
-    d = boost::out_degree(*v_it, g);
+    d = boost::out_degree(*v_it, graph);
     if(d > 1)
     {
       local_clustering_coefficient[*v_it] /= d * (d - 1) / 2;
