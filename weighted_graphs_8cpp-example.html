@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>notBGL: basic_example.cpp</title>
+<title>The notBGL library: weighted_graphs.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">notBGL
+   <div id="projectname">The notBGL library
    </div>
+   <div id="projectbrief">Harnessing the power of the Boost Graph Library</div>
   </td>
  </tr>
  </tbody>
@@ -37,9 +38,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
@@ -66,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -77,19 +76,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">basic_example.cpp</div>  </div>
+<div class="title">weighted_graphs.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<p>This is an example of how to use the <a class="el" href="group__IO.html#ga9f6ed355dc4dfba4f196963502b14893" title="Saves properties of vertices into a file. ">save_vertices_properties()</a> function. See comments in the code and the documentation for further details.</p>
+<p>This is an example of how to use functions related to weighted graphs. See comments in the code and the documentation for further details.</p>
 <div class="fragment"><div class="line"><span class="comment">/*</span></div>
 <div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * This is an example of how to use the betweenness_centrality() function. The</span></div>
-<div class="line"><span class="comment"> * code instantiates a simple and small undirected graph, computes the</span></div>
-<div class="line"><span class="comment"> * betweenness centrality of its vertices and edges, and then prints the results</span></div>
-<div class="line"><span class="comment"> * on the screen.</span></div>
+<div class="line"><span class="comment"> * This is an example of how to use the functions related to weighted graphs.</span></div>
 <div class="line"><span class="comment"> *</span></div>
 <div class="line"><span class="comment"> * Compilation requires the c++11 standard.</span></div>
-<div class="line"><span class="comment"> *   Example: g++ -O3 -std=c++1y betweenness_centrality.cpp</span></div>
+<div class="line"><span class="comment"> *   Example: g++ -O3 -std=c++1y weighted_graphs.cpp</span></div>
 <div class="line"><span class="comment"> * </span></div>
 <div class="line"><span class="comment"> * Author:  Antoine Allard</span></div>
 <div class="line"><span class="comment"> * WWW:     antoineallard.info</span></div>
@@ -111,37 +107,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  <span class="keyword">typedef</span> boost::adjacency_list&lt; boost::setS,</div>
 <div class="line">                                 boost::vecS,</div>
 <div class="line">                                 boost::undirectedS,</div>
-<div class="line">                                 notBGL::MinimalVertexProp&gt; graph_t;</div>
+<div class="line">                                 notBGL::MinimalWeightedVertexProp,</div>
+<div class="line">                                 boost::property&lt;boost::edge_weight_t, double&gt; &gt; graph_t;</div>
 <div class="line">  graph_t graph;</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">// Populates the graph via the edgelist TestGraph.edge.</span></div>
-<div class="line">  <a name="a0"></a><a class="code" href="group__IO.html#ga1fd477f1f460149611d070a52439e8d0">notBGL::load_edgelist</a>(<span class="stringliteral">&quot;TestGraph.edge&quot;</span>, graph);</div>
+<div class="line">  <span class="comment">// Populates the graph via the edgelist TestGraph2.edge.</span></div>
+<div class="line">  <a name="a0"></a><a class="code" href="group__weights.html#ga358ff66b1c7a6942dfebae7da9573f3a">notBGL::load_weighted_edgelist</a>(<span class="stringliteral">&quot;edgelists/TestGraph2.edge&quot;</span>, graph);</div>
 <div class="line"></div>
-<div class="line">  <span class="comment">// Computes the betweenness centrality of the vertices and the edges. This function returns a</span></div>
-<div class="line">  <span class="comment">// std::tuple of two std::map objects that map a boost::vertex_descriptor and a</span></div>
-<div class="line">  <span class="comment">// boost::edge_descriptor to their betweenness_centrlity, respectively.</span></div>
-<div class="line">  <span class="keyword">auto</span> bc = <a name="a1"></a><a class="code" href="group__topo.html#gacb2efa20041aab88077920ddee345120">notBGL::betweenness_centrality</a>(graph);</div>
+<div class="line">  <span class="comment">// Saves the weighted edgelist (see documentation of save_edges_properties() for further options).</span></div>
+<div class="line">  <a name="a1"></a><a class="code" href="group__weights.html#ga087f2b6b172628e0f7961da9615c2be6">notBGL::save_weighted_edgelist</a>(<span class="stringliteral">&quot;TestGraph2.edge&quot;</span>, graph);</div>
 <div class="line"></div>
-<div class="line">  <span class="comment">// Surveys the triangles present in the graph. This function yields a std::vector whose elements</span></div>
-<div class="line">  <span class="comment">// are std::tuple containing the boost::vertex_descriptor of the vertices participating to the</span></div>
-<div class="line">  <span class="comment">// triangle.</span></div>
-<div class="line">  <span class="keyword">auto</span> triangles = <a name="a2"></a><a class="code" href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00">notBGL::survey_triangles</a>(graph);</div>
-<div class="line">  <span class="comment">// Computes the local clustering coefficients. Having identified the triangles in the graph, this</span></div>
-<div class="line">  <span class="comment">// function computes the local clustering coefficient of each vertex and returns a std::map</span></div>
-<div class="line">  <span class="comment">// mapping the boost::vertex_descriptor to the value of the coefficient.</span></div>
-<div class="line">  <span class="keyword">auto</span> Vertex2LCC = <a name="a3"></a><a class="code" href="group__topo.html#ga0a5e80cd8a404a50ef9058a9a66ba3a4">notBGL::local_clustering_coefficients</a>(triangles, graph);</div>
+<div class="line">  <span class="comment">// Extracts the strength of the vertices.</span></div>
+<div class="line">  <span class="keyword">auto</span> Vertex2Strength = <a name="a2"></a><a class="code" href="group__weights.html#ga8038d65f5f86f5afc05a6cb987b48835">notBGL::strengths</a>(graph);</div>
 <div class="line"></div>
-<div class="line">  <span class="comment">// Saves the betweenness centrality and the local clustering coefficient of the vertices into a</span></div>
-<div class="line">  <span class="comment">// file.</span></div>
-<div class="line">  <a name="a4"></a><a class="code" href="group__IO.html#ga9f6ed355dc4dfba4f196963502b14893">notBGL::save_vertices_properties</a>(<span class="stringliteral">&quot;TestGraph_vertices_prop.dat&quot;</span>, graph, {std::get&lt;0&gt;(bc), Vertex2LCC});</div>
+<div class="line">  <span class="comment">// Computes the disparity of vertices.</span></div>
+<div class="line">  <span class="keyword">auto</span> Vertex2Disparity = <a name="a3"></a><a class="code" href="group__weights.html#gace665985c118194e87e0b8654c942af0">notBGL::disparity</a>(graph);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Writes the vertices&#39; properties into a file (see documentation of save_vertices_properties() for further options)</span></div>
+<div class="line">  <a name="a4"></a><a class="code" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">notBGL::save_vertices_properties</a>(<span class="stringliteral">&quot;TestGraph2_vertices_prop.dat&quot;</span>, graph, {Vertex2Strength, Vertex2Disparity});</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Exits the program successfully.</span></div>
 <div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line"></div>
+<div class="line">  </div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 19 2016 16:41:13 for notBGL by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 23 2016 20:21:24 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

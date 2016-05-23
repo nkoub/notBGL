@@ -38,9 +38,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
@@ -67,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,6 +87,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gae2a393baf0ce7736a94a9fa249ab3f77"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:gae2a393baf0ce7736a94a9fa249ab3f77"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gae2a393baf0ce7736a94a9fa249ab3f77">notBGL::degrees</a> (graph_t &amp;graph)</td></tr>
+<tr class="memdesc:gae2a393baf0ce7736a94a9fa249ab3f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the degree sequence.  <a href="#gae2a393baf0ce7736a94a9fa249ab3f77">More...</a><br/></td></tr>
+<tr class="separator:gae2a393baf0ce7736a94a9fa249ab3f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafd8f1d933e19a74ccc49195bd3e31c00"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
 <tr class="memitem:gafd8f1d933e19a74ccc49195bd3e31c00"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00">notBGL::survey_triangles</a> (graph_t &amp;g)</td></tr>
 <tr class="memdesc:gafd8f1d933e19a74ccc49195bd3e31c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the triangles in the graph.  <a href="#gafd8f1d933e19a74ccc49195bd3e31c00">More...</a><br/></td></tr>
@@ -186,6 +188,41 @@ template&lt;typename graph_t &gt; </div>
 </dl>
 </div>
 </div>
+<a class="anchor" id="gae2a393baf0ce7736a94a9fa249ab3f77"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto notBGL::degrees </td>
+          <td>(</td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts the degree sequence. </p>
+<p>Extracts the degree sequence.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph object</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>boost::adjacency_list</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a std::map object mapping the boost:vertex_descriptor to the degree (double). </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="save_properties_8cpp-example.html#a1">save_properties.cpp</a>.</dd>
+</dl>
+</div>
+</div>
 <a class="anchor" id="ga1bd26cac89e0ca102a1b36a84f344779"></a>
 <div class="memitem">
 <div class="memproto">
@@ -215,9 +252,9 @@ template&lt;typename vector_t , typename graph_t &gt; </div>
 <p>Computes the global clustering coefficient. </p>
 <p>Computes the global clustering coefficient according to </p>
 <p class="formulaDsp">
-<img class="formulaDsp" alt="\[ C = \frac{3N_\triangle}{N_\wedge} \]" src="form_2.png"/>
+<img class="formulaDsp" alt="\[ C = \frac{3N_\triangle}{N_\wedge} \]" src="form_0.png"/>
 </p>
-<p> where <img class="formulaInl" alt="$N_\triangle$" src="form_4.png"/> and <img class="formulaInl" alt="$N_\wedge$" src="form_5.png"/> are the number of triangles and the number of triplets present in the graph, respectively. More details can be found <a href="https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient">here</a></p>
+<p> where <img class="formulaInl" alt="$N_\triangle$" src="form_1.png"/> and <img class="formulaInl" alt="$N_\wedge$" src="form_2.png"/> are the number of triangles and the number of triplets present in the graph, respectively. More details can be found <a href="https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient">here</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">triangles</td><td>Vector containing the triangles in the graph [obtained from <a class="el" href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00" title="Identifies the triangles in the graph. ">survey_triangles()</a>]. </td></tr>
@@ -281,7 +318,7 @@ template&lt;typename vector_t , typename graph_t &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The local clustering coefficient.</dd></dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00" title="Identifies the triangles in the graph. ">survey_triangles</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd>survey_triangles </dd></dl>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="clustering_8cpp-example.html#a2">clustering.cpp</a>, and <a class="el" href="save_properties_8cpp-example.html#a4">save_properties.cpp</a>.</dd>
 </dl>
 </div>
@@ -372,7 +409,7 @@ template&lt;typename graph_t &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 23 2016 13:25:05 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 23 2016 20:21:24 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

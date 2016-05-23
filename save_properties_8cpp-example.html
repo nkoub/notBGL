@@ -38,9 +38,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
@@ -67,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,16 +108,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">                                 notBGL::MinimalVertexProp&gt; graph_t;</div>
 <div class="line">  graph_t graph;</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">// Populates the graph via the edgelist TestGraph.edge.</span></div>
-<div class="line">  <a name="a0"></a><a class="code" href="group__IO.html#ga1fd477f1f460149611d070a52439e8d0">notBGL::load_edgelist</a>(<span class="stringliteral">&quot;edgelists/TestGraph.edge&quot;</span>, graph);</div>
+<div class="line">  <span class="comment">// Populates the graph via the edgelist TestGraph1.edge.</span></div>
+<div class="line">  <a name="a0"></a><a class="code" href="group__IO.html#ga1fd477f1f460149611d070a52439e8d0">notBGL::load_edgelist</a>(<span class="stringliteral">&quot;edgelists/TestGraph1.edge&quot;</span>, graph);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Extracts the degree of vertices.</span></div>
-<div class="line">  <span class="keyword">auto</span> Vertex2Degree = <a name="a1"></a><a class="code" href="namespacenotBGL.html#ae2a393baf0ce7736a94a9fa249ab3f77">notBGL::degrees</a>(graph);</div>
+<div class="line">  <span class="keyword">auto</span> Vertex2Degree = <a name="a1"></a><a class="code" href="group__topo.html#gae2a393baf0ce7736a94a9fa249ab3f77">notBGL::degrees</a>(graph);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Computes the betweenness centrality of the vertices and the edges. This function returns a</span></div>
 <div class="line">  <span class="comment">// std::tuple of two std::map objects that map a boost::vertex_descriptor and a</span></div>
 <div class="line">  <span class="comment">// boost::edge_descriptor to their betweenness_centrlity, respectively.</span></div>
-<div class="line">  <span class="keyword">auto</span> bc = <a name="a2"></a><a class="code" href="group__topo.html#gacb2efa20041aab88077920ddee345120">notBGL::betweenness_centrality</a>(graph);</div>
+<div class="line">  <span class="keyword">auto</span> BC = <a name="a2"></a><a class="code" href="group__topo.html#gacb2efa20041aab88077920ddee345120">notBGL::betweenness_centrality</a>(graph);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Surveys the triangles present in the graph. This function yields a std::vector whose elements</span></div>
 <div class="line">  <span class="comment">// are std::tuple containing the boost::vertex_descriptor of the vertices participating to the</span></div>
@@ -135,17 +133,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">  <span class="comment">// object. </span></div>
 <div class="line">  <span class="comment">// By default, the name of the vertices are printed and that the width of the columns</span></div>
 <div class="line">  <span class="comment">// are set to 10.</span></div>
-<div class="line">  <a name="a5"></a><a class="code" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">notBGL::save_vertices_properties</a>(<span class="stringliteral">&quot;TestGraph_vertices_prop_name_width10_default.dat&quot;</span>, graph, {Vertex2Degree, std::get&lt;0&gt;(bc), Vertex2LCC});</div>
+<div class="line">  <a name="a5"></a><a class="code" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">notBGL::save_vertices_properties</a>(<span class="stringliteral">&quot;TestGraph1_vertices_prop_name_width10_default.dat&quot;</span>, graph, {Vertex2Degree, std::get&lt;0&gt;(BC), Vertex2LCC});</div>
 <div class="line">  <span class="comment">// Identifies the vertices with a contiguous sequence of integers starting at 0.</span></div>
-<div class="line">  <a class="code" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">notBGL::save_vertices_properties</a>(<span class="stringliteral">&quot;TestGraph_vertices_prop_num_width10.dat&quot;</span>, graph, {Vertex2Degree, std::get&lt;0&gt;(bc), Vertex2LCC}, notBGL::vertexID_num);</div>
+<div class="line">  <a class="code" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">notBGL::save_vertices_properties</a>(<span class="stringliteral">&quot;TestGraph1_vertices_prop_num_width10.dat&quot;</span>, graph, {Vertex2Degree, std::get&lt;0&gt;(BC), Vertex2LCC}, notBGL::vertexID_num);</div>
 <div class="line">  <span class="comment">// Only prints the properties without identifying the vertices, and changes the width of the</span></div>
 <div class="line">  <span class="comment">// column to 15.</span></div>
-<div class="line">  <a class="code" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">notBGL::save_vertices_properties</a>(<span class="stringliteral">&quot;TestGraph_vertices_prop_none_width15.dat&quot;</span>, graph, {Vertex2Degree, std::get&lt;0&gt;(bc), Vertex2LCC}, notBGL::vertexID_none, 15);</div>
+<div class="line">  <a class="code" href="group__IO.html#gaad4ae40942159c9488dc1b5f0266e462">notBGL::save_vertices_properties</a>(<span class="stringliteral">&quot;TestGraph1_vertices_prop_none_width15.dat&quot;</span>, graph, {Vertex2Degree, std::get&lt;0&gt;(BC), Vertex2LCC}, notBGL::vertexID_none, 15);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Same sequence of options, but for the edge properties.</span></div>
-<div class="line">  <a name="a6"></a><a class="code" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330">notBGL::save_edges_properties</a>(<span class="stringliteral">&quot;TestGraph_edges_prop_name_width10_default.dat&quot;</span>, graph, {std::get&lt;1&gt;(bc)});</div>
-<div class="line">  <a class="code" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330">notBGL::save_edges_properties</a>(<span class="stringliteral">&quot;TestGraph_edges_prop_num_width10.dat&quot;</span>, graph, {std::get&lt;1&gt;(bc)}, notBGL::vertexID_num);</div>
-<div class="line">  <a class="code" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330">notBGL::save_edges_properties</a>(<span class="stringliteral">&quot;TestGraph_edges_prop_none_width15.dat&quot;</span>, graph, {std::get&lt;1&gt;(bc)}, notBGL::vertexID_none, 15);</div>
+<div class="line">  <a name="a6"></a><a class="code" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330">notBGL::save_edges_properties</a>(<span class="stringliteral">&quot;TestGraph1_edges_prop_name_width10_default.dat&quot;</span>, graph, {std::get&lt;1&gt;(BC)});</div>
+<div class="line">  <a class="code" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330">notBGL::save_edges_properties</a>(<span class="stringliteral">&quot;TestGraph1_edges_prop_num_width10.dat&quot;</span>, graph, {std::get&lt;1&gt;(BC)}, notBGL::vertexID_num);</div>
+<div class="line">  <a class="code" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330">notBGL::save_edges_properties</a>(<span class="stringliteral">&quot;TestGraph1_edges_prop_none_width15.dat&quot;</span>, graph, {std::get&lt;1&gt;(BC)}, notBGL::vertexID_none, 15);</div>
 <div class="line"></div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Exits the program successfully.</span></div>
@@ -154,7 +152,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 23 2016 13:25:05 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 23 2016 20:21:24 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

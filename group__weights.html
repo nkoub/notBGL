@@ -38,9 +38,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
@@ -67,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,16 +87,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga77bce6c43a5d17beb8eab932a3964406"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
-<tr class="memitem:ga77bce6c43a5d17beb8eab932a3964406"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__weights.html#ga77bce6c43a5d17beb8eab932a3964406">notBGL::disparity</a> (graph_t &amp;g)</td></tr>
-<tr class="memdesc:ga77bce6c43a5d17beb8eab932a3964406"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga77bce6c43a5d17beb8eab932a3964406">More...</a><br/></td></tr>
-<tr class="separator:ga77bce6c43a5d17beb8eab932a3964406"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8038d65f5f86f5afc05a6cb987b48835"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:ga8038d65f5f86f5afc05a6cb987b48835"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__weights.html#ga8038d65f5f86f5afc05a6cb987b48835">notBGL::strengths</a> (graph_t &amp;graph)</td></tr>
+<tr class="memdesc:ga8038d65f5f86f5afc05a6cb987b48835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the strength sequence.  <a href="#ga8038d65f5f86f5afc05a6cb987b48835">More...</a><br/></td></tr>
+<tr class="separator:ga8038d65f5f86f5afc05a6cb987b48835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ead97928f3afd1005b47773a2998cb5"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:ga5ead97928f3afd1005b47773a2998cb5"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__weights.html#ga5ead97928f3afd1005b47773a2998cb5">notBGL::weights</a> (graph_t &amp;graph)</td></tr>
+<tr class="memdesc:ga5ead97928f3afd1005b47773a2998cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the weight sequence.  <a href="#ga5ead97928f3afd1005b47773a2998cb5">More...</a><br/></td></tr>
+<tr class="separator:ga5ead97928f3afd1005b47773a2998cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace665985c118194e87e0b8654c942af0"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:gace665985c118194e87e0b8654c942af0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__weights.html#gace665985c118194e87e0b8654c942af0">notBGL::disparity</a> (graph_t &amp;graph)</td></tr>
+<tr class="memdesc:gace665985c118194e87e0b8654c942af0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the disparity of vertices.  <a href="#gace665985c118194e87e0b8654c942af0">More...</a><br/></td></tr>
+<tr class="separator:gace665985c118194e87e0b8654c942af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga358ff66b1c7a6942dfebae7da9573f3a"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:ga358ff66b1c7a6942dfebae7da9573f3a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__weights.html#ga358ff66b1c7a6942dfebae7da9573f3a">notBGL::load_weighted_edgelist</a> (std::string filename, graph_t &amp;g)</td></tr>
+<tr class="memdesc:ga358ff66b1c7a6942dfebae7da9573f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates a graph from a weighted edge list.  <a href="#ga358ff66b1c7a6942dfebae7da9573f3a">More...</a><br/></td></tr>
+<tr class="separator:ga358ff66b1c7a6942dfebae7da9573f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga087f2b6b172628e0f7961da9615c2be6"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:ga087f2b6b172628e0f7961da9615c2be6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__weights.html#ga087f2b6b172628e0f7961da9615c2be6">notBGL::save_weighted_edgelist</a> (std::string filename, graph_t &amp;graph, vertex_identifier_t vertexID=vertexID_name, unsigned int width=10)</td></tr>
+<tr class="memdesc:ga087f2b6b172628e0f7961da9615c2be6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the weighted edgelist into a file.  <a href="#ga087f2b6b172628e0f7961da9615c2be6">More...</a><br/></td></tr>
+<tr class="separator:ga087f2b6b172628e0f7961da9615c2be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This group contains the functions related to graphs embedded in a geometric space (e.g., loading coordinates, calculating distances, greedy routing). </p>
 <hr/>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga77bce6c43a5d17beb8eab932a3964406"></a>
+<a class="anchor" id="gace665985c118194e87e0b8654c942af0"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -108,16 +122,61 @@ template&lt;typename graph_t &gt; </div>
           <td class="memname">auto notBGL::disparity </td>
           <td>(</td>
           <td class="paramtype">graph_t &amp;&#160;</td>
-          <td class="paramname"><em>g</em></td><td>)</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>{ function_description } </p>
+<p>Computes the disparity of vertices. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">g</td><td>{ parameter_description }</td></tr>
+    <tr><td class="paramname">graph</td><td>The graph object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>boost::adjacency_list</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::map object mapping the boost::vertex_descriptor to the disparities. </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="weighted_graphs_8cpp-example.html#a3">weighted_graphs.cpp</a>.</dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="ga358ff66b1c7a6942dfebae7da9573f3a"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto notBGL::load_weighted_edgelist </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>g</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Populates a graph from a weighted edge list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>Path to the file containing the edgelist. The edgelist file must have the format... anything at the right will be ignored. In other words, a weighted edgelist of the format... can be used without problem. </td></tr>
+    <tr><td class="paramname">g</td><td>Graph object to populate using an edgelist.</td></tr>
   </table>
   </dd>
 </dl>
@@ -127,14 +186,149 @@ template&lt;typename graph_t &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>{ description_of_the_return_value } </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a std::map mapping the name of vertices to their vertex_descriptor. This object is provided to</dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__IO.html#ga43c37070c865b327992d73a2e60cafa6" title="Populates a graph from an edge list. ">save_edgelist()</a> </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="weighted_graphs_8cpp-example.html#a0">weighted_graphs.cpp</a>.</dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="ga087f2b6b172628e0f7961da9615c2be6"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void notBGL::save_weighted_edgelist </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vertex_identifier_t&#160;</td>
+          <td class="paramname"><em>vertexID</em> = <code>vertexID_name</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>width</em> = <code>10</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves the weighted edgelist into a file. </p>
+<p>This function saves the weighted edgelist into a file. It is a wrapper of the more general function <a class="el" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330" title="Saves properties of edges into a file. ">save_edges_properties()</a>. See the <code>save_properties.cpp</code> example below for further details.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>Name of the file in which the weighted edgelist is to be written. </td></tr>
+    <tr><td class="paramname">graph</td><td>The graph object. </td></tr>
+    <tr><td class="paramname">vertexID</td><td>[optional] Identifier used for the edges. Options are<ul>
+<li><code>notBGL::vertexID_name</code> (default): prints the name of the vertices;</li>
+<li><code>notBGL::vertexID_num</code>: identifies the vertices with a contiguous sequence of integers starting at 0;</li>
+<li><code>notBGL::vertexID_none</code>: properties are printed without identifying the edges. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">width</td><td>[optional] Width of the columns in the file. Default is 10.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>boost::adjacency_list</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__IO.html#ga1a35094c022a55f48e02530ca3e00330" title="Saves properties of edges into a file. ">save_edges_properties()</a> </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="weighted_graphs_8cpp-example.html#a1">weighted_graphs.cpp</a>.</dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="ga8038d65f5f86f5afc05a6cb987b48835"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto notBGL::strengths </td>
+          <td>(</td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts the strength sequence. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>boost::adjacency_list</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::map object mapping the boost::vertex_descriptor to the strengths.</dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__topo.html#gae2a393baf0ce7736a94a9fa249ab3f77" title="Extracts the degree sequence. ">degrees()</a> </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="weighted_graphs_8cpp-example.html#a2">weighted_graphs.cpp</a>.</dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="ga5ead97928f3afd1005b47773a2998cb5"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto notBGL::weights </td>
+          <td>(</td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts the weight sequence. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>boost::adjacency_list</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::map object mapping the boost::edge_descriptor to the multiplicities. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 23 2016 13:25:05 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 23 2016 20:21:24 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

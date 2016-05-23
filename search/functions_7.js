@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['multiplicity',['multiplicity',['../group__topo.html#gaa0c859b1f1495ce287a32e0e772d2d65',1,'notBGL']]]
+  ['weights',['weights',['../group__weights.html#ga5ead97928f3afd1005b47773a2998cb5',1,'notBGL']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['topology',['Topology',['../group__topo.html',1,'']]]
+  ['weighted_20organization',['Weighted organization',['../group__weights.html',1,'']]]
 ];

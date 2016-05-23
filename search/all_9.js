@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['notbgl',['notBGL',['../namespacenotBGL.html',1,'']]]
+  ['topology',['Topology',['../group__topo.html',1,'']]]
 ];

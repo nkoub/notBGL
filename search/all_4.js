@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['geometry',['Geometry',['../group__geo.html',1,'']]],
-  ['global_5fclustering_5fcoefficient',['global_clustering_coefficient',['../group__topo.html#ga1bd26cac89e0ca102a1b36a84f344779',1,'notBGL']]]
+  ['input_20_2f_20output',['Input / Output',['../group__IO.html',1,'']]]
 ];

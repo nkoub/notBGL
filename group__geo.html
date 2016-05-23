@@ -38,9 +38,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
@@ -67,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -89,101 +87,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga1db3def9958c12e009314a7a96d286b4"><td class="memTemplParams" colspan="2">template&lt;typename graph_t , typename map_t &gt; </td></tr>
-<tr class="memitem:ga1db3def9958c12e009314a7a96d286b4"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__geo.html#ga1db3def9958c12e009314a7a96d286b4">notBGL::load_coordinates</a> (std::string filename, graph_t &amp;g, map_t &amp;Name2Vertex, const unsigned int N=3)</td></tr>
-<tr class="memdesc:ga1db3def9958c12e009314a7a96d286b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga1db3def9958c12e009314a7a96d286b4">More...</a><br/></td></tr>
-<tr class="separator:ga1db3def9958c12e009314a7a96d286b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga223ac56a421791328a9bd80324556734"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__geo.html#ga223ac56a421791328a9bd80324556734">notBGL::euclidean_distance</a> (std::vector&lt; double &gt; &amp;x1, std::vector&lt; double &gt; x2)</td></tr>
-<tr class="memdesc:ga223ac56a421791328a9bd80324556734"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga223ac56a421791328a9bd80324556734">More...</a><br/></td></tr>
-<tr class="separator:ga223ac56a421791328a9bd80324556734"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga608bc16f34d216add6a8e8a73f7b0ce8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__geo.html#ga608bc16f34d216add6a8e8a73f7b0ce8">notBGL::hyperbolic_distance</a> (std::vector&lt; double &gt; &amp;x1, std::vector&lt; double &gt; x2, double zeta)</td></tr>
-<tr class="memdesc:ga608bc16f34d216add6a8e8a73f7b0ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga608bc16f34d216add6a8e8a73f7b0ce8">More...</a><br/></td></tr>
-<tr class="separator:ga608bc16f34d216add6a8e8a73f7b0ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8603421571ddeadf148d5906e5629efa"><td class="memTemplParams" colspan="2">template&lt;typename graph_t , typename map_t &gt; </td></tr>
+<tr class="memitem:ga8603421571ddeadf148d5906e5629efa"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__geo.html#ga8603421571ddeadf148d5906e5629efa">notBGL::load_coordinates</a> (std::string filename, graph_t &amp;graph, map_t &amp;Name2Vertex)</td></tr>
+<tr class="memdesc:ga8603421571ddeadf148d5906e5629efa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the coordinates of vertices.  <a href="#ga8603421571ddeadf148d5906e5629efa">More...</a><br/></td></tr>
+<tr class="separator:ga8603421571ddeadf148d5906e5629efa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This group contains the functions related to graphs embedded in a geometric space (e.g., loading coordinates, calculating distances, greedy routing). </p>
 <hr/>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga223ac56a421791328a9bd80324556734"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double notBGL::euclidean_distance </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
-          <td class="paramname"><em>x1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; double &gt;&#160;</td>
-          <td class="paramname"><em>x2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>{ function_description } </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">x1</td><td>{ parameter_description } </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">x2</td><td>{ parameter_description }</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>{ description_of_the_return_value } </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ga608bc16f34d216add6a8e8a73f7b0ce8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double notBGL::hyperbolic_distance </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
-          <td class="paramname"><em>x1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; double &gt;&#160;</td>
-          <td class="paramname"><em>x2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>zeta</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>{ function_description } </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">x1</td><td>{ parameter_description } </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">x2</td><td>{ parameter_description } </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">zeta</td><td>The zeta</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>{ description_of_the_return_value } </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ga1db3def9958c12e009314a7a96d286b4"></a>
+<a class="anchor" id="ga8603421571ddeadf148d5906e5629efa"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -199,19 +112,13 @@ template&lt;typename graph_t , typename map_t &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">graph_t &amp;&#160;</td>
-          <td class="paramname"><em>g</em>, </td>
+          <td class="paramname"><em>graph</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">map_t &amp;&#160;</td>
-          <td class="paramname"><em>Name2Vertex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const unsigned int&#160;</td>
-          <td class="paramname"><em>N</em> = <code>3</code>&#160;</td>
+          <td class="paramname"><em>Name2Vertex</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -221,13 +128,12 @@ template&lt;typename graph_t , typename map_t &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>{ function_description } </p>
+<p>Loads the coordinates of vertices. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>The filename </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">g</td><td>{ parameter_description } </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">Name2Vertex</td><td>The name2 vertex </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">N</td><td>{ parameter_description }</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>The file containing the coordinates in the format [VertexName, x_1, x_2, x_3, ...] </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">graph</td><td>The graph object. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">Name2Vertex</td><td>The name2 vertex</td></tr>
   </table>
   </dd>
 </dl>
@@ -245,7 +151,7 @@ template&lt;typename graph_t , typename map_t &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 23 2016 13:25:05 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 23 2016 20:21:24 for The notBGL library by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
