@@ -1,11 +1,12 @@
 /**
- * @file notBGL.hpp
+ * @file       notBGL.hpp
  *
  * @brief      Source code of the notBGL library.
  *
  *             This file contains the complete source code of the notBGL
  *             library. While having one single file is not the most clear and
- *             organized choice for source codes, it has been
+ *             organized choice for source codes, this format has been chosen to
+ *             faciliate protability of the code.
  *
  * @author     Antoine Allard (<a
  *             href="http://antoineallard.info">antoineallard.info</a>)
@@ -47,14 +48,24 @@ namespace notBGL
     // Minimal vertex property structure used in the generic undirected unweighted graph type (not documented).
     struct MinimalVertexProp  { std::string name; unsigned int id; };
     struct MinimalWeightedVertexProp  { std::string name; unsigned int id; double strength = 0; };
+
+    // Default width of columns in output files.
+    const unsigned int DEFAULT_COLUMN_WIDTH = 10;
   #endif // DOXYGEN_EXCLUDED
 
   /// Generic undirected unweighted graph type.
   typedef boost::adjacency_list<boost::listS,
                                 boost::vecS,
                                 boost::undirectedS,
-                                MinimalVertexProp,
+                                notBGL::MinimalVertexProp,
                                 boost::no_property > UndirectedGraph_t;
+
+  /// Generic undirected weighted graph type.
+  typedef boost::adjacency_list<boost::listS,
+                                boost::vecS,
+                                boost::undirectedS,
+                                notBGL::MinimalWeightedVertexProp,
+                                boost::property<boost::edge_weight_t, double> > WeightedGraph_t;
 
 #ifndef DOXYGEN_EXCLUDED
   enum vertex_identifier_t {vertexID_none, vertexID_num, vertexID_name};
@@ -136,16 +147,31 @@ namespace notBGL
    *                         without identifying the vertices.
    * @param      width     [optional] Width of the columns in the file. Default
    *                       is 10.
+   * @param      header    [optional] An std::initializer_list containing
+   *                       std::string corresponding to the header of the column
+   *                       of each property. A header "Vertex" is also added to
+   *                       the column identifying the vertices, if applicable.
+   *                       Also, a symbol "#" is added at the beginning of the
+   *                       header to facilitate the use of the output file with
+   *                       softwares like Python/Numpy. Default is no header.
    *
    * @tparam     graph_t   boost::adjacency_list
    * @tparam     vertex_t  boost::vertex_descriptor
+   *
+   * @note       For convenience, there exists wrappers of this function that
+   *             allows the interchange of the parameters. See the
+   *             `save_properties.cpp` example below and the notBGL.hpp source
+   *             file for details.
    *
    * @see        save_edges_properties()
    *
    * @ingroup    IO
    */
   template<typename graph_t, typename vertex_t>
-  void save_vertices_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<vertex_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10);
+  void save_vertices_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<vertex_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = notBGL::DEFAULT_COLUMN_WIDTH, std::initializer_list<std::string> header = std::initializer_list<std::string>());
+
+  template<typename graph_t, typename vertex_t>
+  void save_vertices_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<vertex_t, double> > props, std::initializer_list<std::string> header, vertex_identifier_t vertexID = vertexID_name, unsigned int width = notBGL::DEFAULT_COLUMN_WIDTH);
 
   /**
    * @brief      Saves properties of edges into a file.
@@ -171,16 +197,32 @@ namespace notBGL
    *                         without identifying the edges.
    * @param      width     [optional] Width of the columns in the file. Default
    *                       is 10.
+   * @param      header    [optional] An std::initializer_list containing
+   *                       std::string corresponding to the header of the column
+   *                       of each property. A header "Vertex" is also added to
+   *                       the columns identifying the vertices, if applicable.
+   *                       Also, a symbol "#" is added at the beginning of the
+   *                       header to facilitate the use of the output file with
+   *                       softwares like Python/Numpy. Default is no header.
    *
    * @tparam     graph_t   boost::adjacency_list
-   * @tparam     vertex_t  boost::edge_descriptor
+   * @tparam     edge_t    boost::edge_descriptor
+   *
+   * @note       For convenience, there exists wrappers of this function that
+   *             allows the interchange of the parameters. See the
+   *             `save_properties.cpp` example below and the notBGL.hpp source
+   *             file for details.
    *
    * @see        save_vertices_properties()
    *
    * @ingroup    IO
    */
   template<typename graph_t, typename edge_t>
-  void save_edges_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<edge_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10);
+  void save_edges_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<edge_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = notBGL::DEFAULT_COLUMN_WIDTH, std::initializer_list<std::string> header = std::initializer_list<std::string>());
+
+
+  template<typename graph_t, typename edge_t>
+  void save_edges_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<edge_t, double> > props, std::initializer_list<std::string> header, vertex_identifier_t vertexID = vertexID_name, unsigned int width = notBGL::DEFAULT_COLUMN_WIDTH);
 
 
 
@@ -503,6 +545,35 @@ namespace notBGL
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ================================================================================================
+// ================================================================================================
+// ================================================================================================
+// *** Definition of functions.
+// ================================================================================================
+
+
+
+
+
+
+
+
+
+
 // // ================================================================================================
 // // ================================================================================================
 #ifndef DOXYGEN_EXCLUDED
@@ -658,7 +729,7 @@ void notBGL::save_edgelist(std::string filename, graph_t &g, bool write_names = 
 // ================================================================================================
 // ================================================================================================
 template<typename graph_t, typename vertex_t>
-void notBGL::save_vertices_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<vertex_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10)
+void notBGL::save_vertices_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<vertex_t, double> > props, vertex_identifier_t vertexID, unsigned int width, std::initializer_list<std::string> header)
 {
   // Stream objects.
   std::ofstream output_file;
@@ -673,12 +744,23 @@ void notBGL::save_vertices_properties(std::string filename, graph_t &graph, std:
   {
     // Iterators over the vertices of the graph.
     typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+    // Iterators over the std::string in "header".
+    typename std::initializer_list<std::string>::iterator h_it(header.begin()), h_end(header.end());
     // Iterators over the std::map<vertex_t, double> in "props".
     typename std::initializer_list<std::map<vertex_t, double> >::iterator p_it, p_end(props.end());
 
     // Prints the vertex properties.
     if(vertexID == notBGL::vertexID_name)
     {
+      if(header.size() > 0)
+      {
+        output_file << "#" << std::setw(width - 1) << "Vertex" << " ";
+        for(; h_it!=h_end; ++h_it)
+        {
+          output_file << std::setw(width) << *h_it << " ";
+        }
+        output_file << std::endl;
+      }
       for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
       {
         output_file << std::setw(width) << graph[*v_it].name << " ";
@@ -692,6 +774,15 @@ void notBGL::save_vertices_properties(std::string filename, graph_t &graph, std:
     }
     else if(vertexID == notBGL::vertexID_num)
     {
+      if(header.size() > 0)
+      {
+        output_file << "#" << std::setw(width - 1) << "Vertex" << " ";
+        for(; h_it!=h_end; ++h_it)
+        {
+          output_file << std::setw(width) << *h_it << " ";
+        }
+        output_file << std::endl;
+      }
       for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
       {
         output_file << std::setw(width) << graph[*v_it].id << " ";
@@ -705,12 +796,134 @@ void notBGL::save_vertices_properties(std::string filename, graph_t &graph, std:
     }
     else if(vertexID == notBGL::vertexID_none)
     {
+      if(header.size() > 0)
+      {
+        output_file << "#" << std::setw(width - 1) << *h_it << " ";
+        for(++h_it; h_it!=h_end; ++h_it)
+        {
+          output_file << std::setw(width) << *h_it << " ";
+        }
+        output_file << std::endl;
+      }
       for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
       {
         p_it = props.begin();
         for(; p_it!=p_end; ++p_it)
         {
           output_file << std::setw(width) << p_it->at(*v_it) << " ";
+        }
+        output_file << std::endl;
+      }
+    }
+    else
+    {
+      std::cerr << "Unknown vertex identifier type." << std::endl;
+      std::terminate();
+    }
+  }
+  // Closes the stream.
+  output_file.close();
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t, typename vertex_t>
+void notBGL::save_vertices_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<vertex_t, double> > props, std::initializer_list<std::string> header, vertex_identifier_t vertexID, unsigned int width)
+{
+  notBGL::save_vertices_properties(filename, graph, props, vertexID, width, header);
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t, typename edge_t>
+void notBGL::save_edges_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<edge_t, double> > props, vertex_identifier_t vertexID, unsigned int width, std::initializer_list<std::string> header)
+{
+  // Stream objects.
+  std::ofstream output_file;
+  // Opens the stream and terminates if the operation did not succeed.
+  output_file.open(filename.c_str(), std::ios_base::out);
+  if( !output_file.is_open() )
+  {
+    std::cerr << "Could not open file: " << filename << "." << std::endl;
+    std::terminate();
+  }
+  else
+  {
+    // Iterators over the edges of the graph.
+    typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
+    // Iterators over the std::string in "header".
+    typename std::initializer_list<std::string>::iterator h_it(header.begin()), h_end(header.end());
+    // Iterators over the std::map<edge_t, double> in "props".
+    typename std::initializer_list<std::map<edge_t, double> >::iterator p_it, p_end(props.end());
+
+    // Prints the vertex properties.
+    if(vertexID == notBGL::vertexID_name)
+    {
+      if(header.size() > 0)
+      {
+        output_file << "#" << std::setw(width - 1) << "Vertex1" << " ";
+        output_file << std::setw(width) << "Vertex2" << " ";
+        for(; h_it!=h_end; ++h_it)
+        {
+          output_file << std::setw(width) << *h_it << " ";
+        }
+        output_file << std::endl;
+      }
+      for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
+      {
+        output_file << std::setw(width) << graph[boost::source(*e_it, graph)].name << " ";
+        output_file << std::setw(width) << graph[boost::target(*e_it, graph)].name << " ";
+        p_it = props.begin();
+        for(; p_it!=p_end; ++p_it)
+        {
+          output_file << std::setw(width) << p_it->at(*e_it) << " ";
+        }
+        output_file << std::endl;
+      }
+    }
+    else if(vertexID == notBGL::vertexID_num)
+    {
+      if(header.size() > 0)
+      {
+        output_file << "#" << std::setw(width - 1) << "Vertex1" << " ";
+        output_file << std::setw(width) << "Vertex2" << " ";
+        for(; h_it!=h_end; ++h_it)
+        {
+          output_file << std::setw(width) << *h_it << " ";
+        }
+        output_file << std::endl;
+      }
+      for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
+      {
+        output_file << std::setw(width) << graph[boost::source(*e_it, graph)].id << " ";
+        output_file << std::setw(width) << graph[boost::target(*e_it, graph)].id << " ";
+        p_it = props.begin();
+        for(; p_it!=p_end; ++p_it)
+        {
+          output_file << std::setw(width) << p_it->at(*e_it) << " ";
+        }
+        output_file << std::endl;
+      }
+    }
+    else if(vertexID == notBGL::vertexID_none)
+    {
+      if(header.size() > 0)
+      {
+        output_file << "#" << std::setw(width - 1) << *h_it << " ";
+        for(++h_it; h_it!=h_end; ++h_it)
+        {
+          output_file << std::setw(width) << *h_it << " ";
+        }
+        output_file << std::endl;
+      }
+      for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
+      {
+        p_it = props.begin();
+        for(; p_it!=p_end; ++p_it)
+        {
+          output_file << std::setw(width) << p_it->at(*e_it) << " ";
         }
         output_file << std::endl;
       }
@@ -729,75 +942,10 @@ void notBGL::save_vertices_properties(std::string filename, graph_t &graph, std:
 // ================================================================================================
 // ================================================================================================
 template<typename graph_t, typename edge_t>
-void notBGL::save_edges_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<edge_t, double> > props, vertex_identifier_t vertexID = vertexID_name, unsigned int width = 10)
+void notBGL::save_edges_properties(std::string filename, graph_t &graph, std::initializer_list<std::map<edge_t, double> > props, std::initializer_list<std::string> header, vertex_identifier_t vertexID, unsigned int width)
 {
-  // Stream objects.
-  std::ofstream output_file;
-  // Opens the stream and terminates if the operation did not succeed.
-  output_file.open(filename.c_str(), std::ios_base::out);
-  if( !output_file.is_open() )
-  {
-    std::cerr << "Could not open file: " << filename << "." << std::endl;
-    std::terminate();
-  }
-  else
-  {
-    // Iterators over the edges of the graph.
-    typename boost::graph_traits<graph_t>::edge_iterator e_it, e_end;
-    // Iterators over the std::map<edge_t, double> in "props".
-    typename std::initializer_list<std::map<edge_t, double> >::iterator p_it, p_end(props.end());
-
-    // Prints the vertex properties.
-    if(vertexID == notBGL::vertexID_name)
-    {
-      for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
-      {
-        output_file << std::setw(width) << graph[boost::source(*e_it, graph)].name << " ";
-        output_file << std::setw(width) << graph[boost::target(*e_it, graph)].name << " ";
-        p_it = props.begin();
-        for(; p_it!=p_end; ++p_it)
-        {
-          output_file << std::setw(width) << p_it->at(*e_it) << " ";
-        }
-        output_file << std::endl;
-      }
-    }
-    else if(vertexID == notBGL::vertexID_num)
-    {
-      for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
-      {
-        output_file << std::setw(width) << graph[boost::source(*e_it, graph)].id << " ";
-        output_file << std::setw(width) << graph[boost::target(*e_it, graph)].id << " ";
-        p_it = props.begin();
-        for(; p_it!=p_end; ++p_it)
-        {
-          output_file << std::setw(width) << p_it->at(*e_it) << " ";
-        }
-        output_file << std::endl;
-      }
-    }
-    else if(vertexID == notBGL::vertexID_none)
-    {
-      for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
-      {
-        p_it = props.begin();
-        for(; p_it!=p_end; ++p_it)
-        {
-          output_file << std::setw(width) << p_it->at(*e_it) << " ";
-        }
-        output_file << std::endl;
-      }
-    }
-    else
-    {
-      std::cerr << "Unknown vertex identifier type." << std::endl;
-      std::terminate();
-    }
-  }
-  // Closes the stream.
-  output_file.close();
+  notBGL::save_edges_properties(filename, graph, props, vertexID, width, header);
 }
-
 
 
 
@@ -1335,7 +1483,7 @@ auto notBGL::load_coordinates(std::string filename, graph_t &graph, map_t &Name2
   // Iterator objects.
   typename map_t::iterator name_it;
   // Vectro objects.
-  std::vector<double> position();
+  std::vector<double> position;
   // Variable.
   unsigned int N = 0;
   // Opens the stream and terminates if the operation did not succeed.
@@ -1350,10 +1498,13 @@ auto notBGL::load_coordinates(std::string filename, graph_t &graph, map_t &Name2
     // Reads the first line of the file to count the number of dimensions.
     std::getline(positions_file,full_line);
     one_line.str(full_line); one_line >> std::ws;
+    one_line >> name1_str >> std::ws;
     while(!one_line.eof())
     {
+      one_line >> pos1_str >> std::ws;
       ++N;
     }
+    position.resize(N);
     // Resets the file stream to the initial position.
     positions_file.seekg(0, std::ios::beg);
     // Reads each line of the positions file.

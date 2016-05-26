@@ -46,6 +46,11 @@ int main(int argc, char** argv)
   // mapping the boost::vertex_descriptor to the value of the coefficient.
   auto Vertex2LCC = notBGL::local_clustering_coefficients(triangles, graph);
 
+  // Computes the multiplicity of edges. Having identified the triangles in the graph, this
+  // function computes the multiplicity of each edge and returns a std::map
+  // mapping the boost::edge_descriptor to the value of the multiplicity.
+  auto Edge2Multiplicity = notBGL::multiplicity(triangles, graph);
+
   // Saves the properties of the vertices into a file. Note that the std::map related to the
   // properties to be written into the file are passed to the function as a std::initializer_list
   // object. 
@@ -58,10 +63,19 @@ int main(int argc, char** argv)
   // column to 15.
   notBGL::save_vertices_properties("TestGraph1_vertices_prop_none_width15.dat", graph, {Vertex2Degree, std::get<0>(BC), Vertex2LCC}, notBGL::vertexID_none, 15);
 
+  // Headers for each column can be also added.
+  notBGL::save_vertices_properties("TestGraph1_vertices_prop_num_width15_header.dat", graph, {Vertex2Degree, std::get<0>(BC), Vertex2LCC}, notBGL::vertexID_num, 15, {"Deg.", "Between.", "Clust."});
+  // There exists a wrapper function to avoid specifying the vertex identifier and the width of the column.
+  notBGL::save_vertices_properties("TestGraph1_vertices_prop_name_width10_header.dat", graph, {Vertex2Degree, std::get<0>(BC), Vertex2LCC}, {"Deg.", "Between.", "Clust."});
+  notBGL::save_vertices_properties("TestGraph1_vertices_prop_num_width10_header.dat", graph, {Vertex2Degree, std::get<0>(BC), Vertex2LCC}, {"Deg.", "Between.", "Clust."}, notBGL::vertexID_num);
+
   // Same sequence of options, but for the edge properties.
-  notBGL::save_edges_properties("TestGraph1_edges_prop_name_width10_default.dat", graph, {std::get<1>(BC)});
-  notBGL::save_edges_properties("TestGraph1_edges_prop_num_width10.dat", graph, {std::get<1>(BC)}, notBGL::vertexID_num);
-  notBGL::save_edges_properties("TestGraph1_edges_prop_none_width15.dat", graph, {std::get<1>(BC)}, notBGL::vertexID_none, 15);
+  notBGL::save_edges_properties("TestGraph1_edges_prop_name_width10_default.dat", graph, {Edge2Multiplicity, std::get<1>(BC)});
+  notBGL::save_edges_properties("TestGraph1_edges_prop_num_width10.dat", graph, {Edge2Multiplicity, std::get<1>(BC)}, notBGL::vertexID_num);
+  notBGL::save_edges_properties("TestGraph1_edges_prop_none_width15.dat", graph, {Edge2Multiplicity, std::get<1>(BC)}, notBGL::vertexID_none, 15);
+  notBGL::save_edges_properties("TestGraph1_edges_prop_num_width15_header.dat", graph, {Edge2Multiplicity, std::get<1>(BC)}, notBGL::vertexID_num, 15, {"Mult.", "Between."});
+  notBGL::save_edges_properties("TestGraph1_edges_prop_name_width10_header.dat", graph, {Edge2Multiplicity, std::get<1>(BC)}, {"Mult.", "Between."});
+  notBGL::save_edges_properties("TestGraph1_edges_prop_num_width10_header.dat", graph, {Edge2Multiplicity, std::get<1>(BC)}, {"Mult.", "Between."}, notBGL::vertexID_num);
 
 
   // Exits the program successfully.
