@@ -260,6 +260,30 @@ namespace notBGL
   auto degrees(graph_t &graph);
 
   /**
+   * @brief      Returns the in-degree sequence.
+   *
+   * @param      graph    The graph object
+   *
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     { description_of_the_return_value }
+   */
+  template<typename graph_t>
+  auto in_degrees(graph_t &graph);
+
+  /**
+   * @brief      Returns the out-degree sequence.
+   *
+   * @param      graph    The graph object
+   *
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     { description_of_the_return_value }
+   */
+  template<typename graph_t>
+  auto out_degrees(graph_t &graph);
+
+  /**
    * @brief      Identifies the triangles in the graph.
    *
    * @param      g        Graph object.
@@ -990,6 +1014,35 @@ auto notBGL::degrees(graph_t &graph)
   }
   // Returns the degrees.
   return Vertex2Degree;
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::in_degrees(graph_t &graph)
+{
+  // Iterators.
+  typename boost::graph_traits<graph_t>::vertex_iterator v_it, v_end;
+  // std::map containing the degrees.
+  std::map<typename graph_t::vertex_descriptor, double> Vertex2Degree;
+  // Fills the container.
+  for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    Vertex2Degree[*v_it] = boost::in_degree(*v_it, graph);
+  }
+  // Returns the degrees.
+  return Vertex2Degree;
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::out_degrees(graph_t &graph)
+{
+  // Returns the out-degrees.
+  return notBGL::degrees(graph);
 }
 
 
