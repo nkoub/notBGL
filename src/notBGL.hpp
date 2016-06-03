@@ -60,6 +60,13 @@ namespace notBGL
                                 notBGL::MinimalVertexProp,
                                 boost::no_property > UndirectedGraph_t;
 
+  /// Generic directed unweighted graph type.
+  typedef boost::adjacency_list<boost::listS,
+                                boost::vecS,
+                                boost::bidirectionalS,
+                                notBGL::MinimalVertexProp,
+                                boost::no_property > DirectedGraph_t;
+
   /// Generic undirected weighted graph type.
   typedef boost::adjacency_list<boost::listS,
                                 boost::vecS,
@@ -88,7 +95,7 @@ namespace notBGL
    *                       edgelist file must have the format... anything at the
    *                       right will be ignored. In other words, a weighted
    *                       edgelist of the format... can be used without
-   *                       problem.
+   *                       problem. Lines beginning with "#" are ignored.
    * @param      g         Graph object to populate using an edgelist.
    *
    * @tparam     graph_t   { description }
@@ -638,6 +645,12 @@ auto notBGL::load_edgelist(std::string filename, graph_t &g)
       std::getline(edgelist_file,full_line); edgelist_file >> std::ws;
       one_line.str(full_line); one_line >> std::ws;
       one_line >> name1_str >> std::ws;
+      // Skips a line of comment.
+      if(name1_str == "#")
+      {
+        one_line.clear();
+        continue;
+      }
       one_line >> name2_str >> std::ws;
       one_line.clear();
       // Is name1 new?
@@ -1003,7 +1016,7 @@ auto notBGL::survey_triangles(graph_t &g)
   // Objects containing the degree of vertices.
   typename boost::graph_traits<graph_t>::degree_size_type d1, d2;
   // Computes the intersection for the in- and out- neighbourhoods of each node.
-  for(std::tie(it1, end1) = vertices(g); it1 != end1; ++it1)
+  for(std::tie(it1, end1) = boost::vertices(g); it1 != end1; ++it1)
   {
     // Degree of vertex v1.
     d1 = out_degree(*it1, g);
@@ -1012,10 +1025,10 @@ auto notBGL::survey_triangles(graph_t &g)
     {
       // Builds an ordered list of the neighbourhood of v1
       neighbours_v1.clear();
-      std::tie(it2, end2) = adjacent_vertices(*it1, g);
+      std::tie(it2, end2) = boost::adjacent_vertices(*it1, g);
       neighbours_v1.insert(it2, end2);
       // Loops over the neighbours of vertex v1.
-      for(std::tie(it2, end2) = adjacent_vertices(*it1, g); it2!=end2; ++it2)
+      for(std::tie(it2, end2) = boost::adjacent_vertices(*it1, g); it2!=end2; ++it2)
       {
         // Identity and degree of vertex 2.
         d2 = out_degree(*it2, g);
@@ -1024,7 +1037,7 @@ auto notBGL::survey_triangles(graph_t &g)
         {        
           // Builds an ordered list of the neighbourhood of v2
           neighbours_v2.clear();
-          for(std::tie(it3, end3) = adjacent_vertices(*it2, g); it3 != end3; ++it3)
+          for(std::tie(it3, end3) = boost::adjacent_vertices(*it2, g); it3 != end3; ++it3)
           {
             if(*it2 < *it3) // Ensures that triangles will be counted only once.
             {
@@ -1482,7 +1495,7 @@ auto notBGL::load_coordinates(std::string filename, graph_t &graph, map_t &Name2
   std::map< vertex_t, std::vector<double> > Vertex2Position;
   // Iterator objects.
   typename map_t::iterator name_it;
-  // Vectro objects.
+  // Vector objects.
   std::vector<double> position;
   // Variable.
   unsigned int N = 0;
@@ -1499,11 +1512,20 @@ auto notBGL::load_coordinates(std::string filename, graph_t &graph, map_t &Name2
     std::getline(positions_file,full_line);
     one_line.str(full_line); one_line >> std::ws;
     one_line >> name1_str >> std::ws;
+    // Skips a line of comment.
+    while(name1_str == "#")
+    {
+      one_line.clear();
+      std::getline(positions_file,full_line);
+      one_line.str(full_line); one_line >> std::ws;
+      one_line >> name1_str >> std::ws;
+    }
     while(!one_line.eof())
     {
       one_line >> pos1_str >> std::ws;
       ++N;
     }
+    one_line.clear();
     position.resize(N);
     // Resets the file stream to the initial position.
     positions_file.seekg(0, std::ios::beg);
@@ -1514,6 +1536,12 @@ auto notBGL::load_coordinates(std::string filename, graph_t &graph, map_t &Name2
       std::getline(positions_file,full_line); positions_file >> std::ws;
       one_line.str(full_line); one_line >> std::ws;
       one_line >> name1_str >> std::ws;
+      // Skips a line of comment.
+      if(name1_str == "#")
+      {
+        one_line.clear();
+        continue;
+      }
       for(unsigned int i(0); i<N; ++i)
       {
         one_line >> pos1_str >> std::ws;
@@ -1529,6 +1557,7 @@ auto notBGL::load_coordinates(std::string filename, graph_t &graph, map_t &Name2
         Name2Vertex[name1_str] = v1;
         graph[v1].name = name1_str;
         graph[v1].id = boost::num_vertices(graph);
+        Vertex2Position[v1] = position;
       }
       // Register the position of the vertex if it is present in the edgelist.
       else
