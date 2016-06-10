@@ -30,6 +30,7 @@
 #include <map>               // std::map
 #include <numeric>           // std::inner_product
 #include <queue>             // std::queue
+#include <set>               // std::set
 #include <sstream>           // std::stringstream
 #include <string>            // std::string, std::stod
 #include <tuple>             // std::tie, std::make_tuple
@@ -383,8 +384,34 @@ namespace notBGL
    * 
    * @see        survey_triangles()
    */
-  template <typename vector_t, typename graph_t>
+  template<typename vector_t, typename graph_t>
   auto multiplicity(vector_t &triangles, graph_t &graph);
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param      graph    The graph object.
+   *
+   * @tparam     graph_t  { description }
+   *
+   * @return     { description_of_the_return_value }
+   */
+  template<typename graph_t>
+  auto reciprocical_edge_pairs(graph_t &graph);
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param      Vector2ReciprocicalEdges  The vector 2 reciprocical edges
+   * @param      graph                     The graph
+   *
+   * @tparam     map_t                     { description }
+   * @tparam     graph_t                   { description }
+   *
+   * @return     { description_of_the_return_value }
+   */
+  template<typename map_t, typename graph_t>
+  auto reciprocity(map_t &Vector2ReciprocicalEdges, graph_t &graph);
 
   /**
    * @brief      Computes the betweenness centrality of the vertices and the
@@ -566,9 +593,13 @@ namespace notBGL
   
 
 
+
   #ifndef DOXYGEN_EXCLUDED
     namespace utilities
     {
+      template<typename map_t>
+      double sum_of_map(map_t &map);
+
       template<typename map_t>
       double average_of_map(map_t &map);
     }
@@ -605,18 +636,36 @@ namespace notBGL
 
 
 
-// // ================================================================================================
-// // ================================================================================================
 #ifndef DOXYGEN_EXCLUDED
+// ================================================================================================
+// ================================================================================================
 template<typename map_t>
-double notBGL::utilities::average_of_map(map_t &map)
+double notBGL::utilities::sum_of_map(map_t &map)
 {
   double sum = 0;
   for(auto el : map)
   {
     sum += el.second;
   }
-  return sum / map.size();
+  return sum;
+}
+
+
+
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename map_t>
+double notBGL::utilities::average_of_map(map_t &map)
+{
+  // double sum = 0;
+  // for(auto el : map)
+  // {
+  //   sum += el.second;
+  // }
+  // return sum / map.size();
+  return notBGL::utilities::sum_of_map(map) / map.size();
 }
 #endif // DOXYGEN_EXCLUDED
 
@@ -1243,6 +1292,76 @@ auto notBGL::multiplicity(vector_t &triangles, graph_t &graph)
   // Returns the multiplicities.
   return Edge2Multiplicity;
 }
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::reciprocical_edge_pairs(graph_t &graph)
+{
+  // Vertex descriptor.
+  typedef typename graph_t::vertex_descriptor vertex_t;
+  // Vector objects.
+  typename std::vector<vertex_t> intersection;
+  // Set object.
+  typename std::set<vertex_t> in_neighbours, out_neighbours;
+  // Map object.
+  typename std::map<vertex_t, double> Vertex2NbReciprocalEdges;
+  // Iterator objects.
+  typename std::vector<vertex_t>::iterator it;
+  typename graph_t::vertex_iterator v_it, v_end;
+  typename graph_t::inv_adjacency_iterator in_it, in_end;
+  typename graph_t::adjacency_iterator out_it, out_end;
+  // In and out degrees.
+  typename graph_t::degree_size_type in_degree, out_degree;
+  // // Computes the intersection for the in- and out- neighbourhoods of each node.
+  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    // In-degree.
+    in_degree = boost::in_degree(*v_it, graph);
+    in_neighbours.clear();
+    for(std::tie(in_it, in_end) = boost::inv_adjacent_vertices(*v_it, graph); in_it!=in_end; ++in_it)
+    {
+      in_neighbours.insert(*in_it);
+    }
+    // Out-degree.
+    out_degree = boost::out_degree(*v_it, graph);
+    out_neighbours.clear();
+    for(std::tie(out_it, out_end) = boost::adjacent_vertices(*v_it, graph); out_it!=out_end; ++out_it)
+    {
+      out_neighbours.insert(*out_it);
+    }
+    // Counts the number of edges that are reciprocal.
+    intersection.clear();
+    intersection.resize(in_degree, out_degree);
+    it = std::set_intersection(in_neighbours.begin(), in_neighbours.end(), out_neighbours.begin(), out_neighbours.end(), intersection.begin());
+    intersection.resize(it-intersection.begin());
+    Vertex2NbReciprocalEdges[*v_it] = intersection.size();
+  }
+  // Returns the std::map mapping the vertex descriptor to the number of reciprocical edges.
+  return Vertex2NbReciprocalEdges;
+}
+
+
+// ================================================================================================
+// ================================================================================================
+  template<typename map_t, typename graph_t>
+  auto notBGL::reciprocity(map_t &Vector2ReciprocicalPairs, graph_t &graph)
+  {
+    // Gets the number of vertices.
+    double nb_vertices = boost::num_vertices(graph);
+    // Gets the number of directed edges.
+    double nb_edges = boost::num_edges(graph);
+    // Gets the number of edges that have a twin in the other direction.
+    double nb_reciprocal_edge_pairs = notBGL::utilities::sum_of_map(Vector2ReciprocicalPairs);
+    // Computes the fraction of edges that are reciprocical (traditional definition).
+    double r = nb_reciprocal_edge_pairs / nb_edges;
+    // Computes the reciprocity as defined in doi:10.1103/PhysRevLett.93.268701.
+    double a_bar = nb_edges / (nb_vertices * (nb_vertices - 1));
+    double rho = (r - a_bar) / (1 - a_bar);
+    // Returns the two definitions.
+    return std::make_tuple(r, rho);
+  }
 
 
 // ================================================================================================
