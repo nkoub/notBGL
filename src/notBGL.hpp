@@ -261,30 +261,6 @@ namespace notBGL
   auto degrees(graph_t &graph);
 
   /**
-   * @brief      Returns the in-degree sequence.
-   *
-   * @param      graph    The graph object
-   *
-   * @tparam     graph_t  boost::adjacency_list
-   *
-   * @return     { description_of_the_return_value }
-   */
-  template<typename graph_t>
-  auto in_degrees(graph_t &graph);
-
-  /**
-   * @brief      Returns the out-degree sequence.
-   *
-   * @param      graph    The graph object
-   *
-   * @tparam     graph_t  boost::adjacency_list
-   *
-   * @return     { description_of_the_return_value }
-   */
-  template<typename graph_t>
-  auto out_degrees(graph_t &graph);
-
-  /**
    * @brief      Identifies the triangles in the graph.
    *
    * @param      g        Graph object.
@@ -388,6 +364,60 @@ namespace notBGL
   auto multiplicity(vector_t &triangles, graph_t &graph);
 
   /**
+   * @brief      Computes the betweenness centrality of the vertices and the
+   *             edges of a graph.
+   *
+   * @param      graph    The graph object.
+   *
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    topo
+   */
+  template<typename graph_t>
+  auto betweenness_centrality(graph_t &graph);
+
+
+
+
+
+  /** ---------------------------------------------------------------------------------------------
+   * @defgroup   directed Directed graphs
+   * @brief      This group contains the functions specific to
+   *             directed graphs (e.g., reciprocity, in/out-degree).
+   */
+
+   /**
+   * @brief      Returns the in-degree sequence.
+   *
+   * @param      graph    The graph object
+   *
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     { description_of_the_return_value }
+   * 
+   * @ingroup    directed
+   */
+  template<typename graph_t>
+  auto in_degrees(graph_t &graph);
+
+  /**
+   * @brief      Returns the out-degree sequence.
+   *
+   * @param      graph    The graph object
+   *
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     { description_of_the_return_value }
+   * 
+   * @ingroup    directed
+   */
+  template<typename graph_t>
+  auto out_degrees(graph_t &graph);
+
+
+  /**
    * @brief      { function_description }
    *
    * @param      graph    The graph object.
@@ -395,6 +425,8 @@ namespace notBGL
    * @tparam     graph_t  { description }
    *
    * @return     { description_of_the_return_value }
+   * 
+   * @ingroup    directed
    */
   template<typename graph_t>
   auto reciprocical_edge_pairs(graph_t &graph);
@@ -409,24 +441,11 @@ namespace notBGL
    * @tparam     graph_t                   { description }
    *
    * @return     { description_of_the_return_value }
+   * 
+   * @ingroup    directed
    */
   template<typename map_t, typename graph_t>
   auto reciprocity(map_t &Vector2ReciprocicalEdges, graph_t &graph);
-
-  /**
-   * @brief      Computes the betweenness centrality of the vertices and the
-   *             edges of a graph.
-   *
-   * @param      graph    The graph object.
-   *
-   * @tparam     graph_t  boost::adjacency_list
-   *
-   * @return     { description_of_the_return_value }
-   *
-   * @ingroup    topo
-   */
-  template<typename graph_t>
-  auto betweenness_centrality(graph_t &graph);
 
 
 
