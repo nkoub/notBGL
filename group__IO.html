@@ -101,7 +101,7 @@ template&lt;typename graph_t &gt; </div>
 <p>Populates a graph from an edge list. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filename</td><td>Path to the file containing the edgelist. The edgelist file must have the format... anything at the right will be ignored. In other words, a weighted edgelist of the format... can be used without problem. </td></tr>
+    <tr><td class="paramname">filename</td><td>Path to the file containing the edgelist. The edgelist file must have the format... anything at the right will be ignored. In other words, a weighted edgelist of the format... can be used without problem. Lines beginning with "#" are ignored. </td></tr>
     <tr><td class="paramname">g</td><td>Graph object to populate using an edgelist.</td></tr>
   </table>
   </dd>
@@ -114,7 +114,7 @@ template&lt;typename graph_t &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns a std::map mapping the name of vertices to their vertex_descriptor. This object is provided to</dd></dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__IO.html#ga43c37070c865b327992d73a2e60cafa6" title="Populates a graph from an edge list. ">save_edgelist()</a> </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="clustering_8cpp-example.html#a0">clustering.cpp</a>, and <a class="el" href="save_properties_8cpp-example.html#a0">save_properties.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="clustering_8cpp-example.html#a0">clustering.cpp</a>, <a class="el" href="directed_graphs_8cpp-example.html#a0">directed_graphs.cpp</a>, and <a class="el" href="save_properties_8cpp-example.html#a0">save_properties.cpp</a>.</dd>
 </dl>
 </div>
 </div>
