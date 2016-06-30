@@ -32,7 +32,7 @@
 #include <queue>             // std::queue
 #include <set>               // std::set
 #include <sstream>           // std::stringstream
-#include <string>            // std::string, std::stod
+#include <string>            // std::string, std::stod, std::getline
 #include <tuple>             // std::tie, std::make_tuple
 #include <vector>            // std::vector
 // Boost Graph Library
