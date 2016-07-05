@@ -38,6 +38,7 @@
 // Boost Graph Library
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/betweenness_centrality.hpp>
+#include <boost/graph/connected_components.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/iteration_macros.hpp>
 
@@ -377,6 +378,20 @@ namespace notBGL
    */
   template<typename graph_t>
   auto betweenness_centrality(graph_t &graph);
+
+  /**
+   * @brief      Identifies the components in which the vertices are.
+   *
+   * @param      graph    The graph
+   *
+   * @tparam     graph_t  { description }
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    topo
+   */
+  template<typename graph_t>
+  auto connected_components(graph_t &graph);
 
 
 
@@ -1462,6 +1477,23 @@ auto notBGL::betweenness_centrality(graph_t &graph)
   return std::make_tuple(Vertex2BC, Edge2BC);
 }
 
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::connected_components(graph_t &graph)
+{
+  // Typedef of a vertex.
+  typedef typename graph_t::vertex_descriptor vertex_t;
+  // Maps and associative maps to store the component memberships.
+  typedef std::map<vertex_t, int> map_t;
+  map_t component;
+  boost::associative_property_map<map_t> component_ass_map(component);
+  // Identifies the components.
+  unsigned int num_components = boost::connected_components(graph, component_ass_map);
+  // Returns the number of components and the memberships.
+  return std::make_tuple(component, num_components);
+}
 
 
 

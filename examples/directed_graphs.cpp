@@ -41,7 +41,7 @@ int main(int argc, char** argv)
   auto Vertex2ReciprocalPairs = notBGL::reciprocical_edge_pairs(graph);
 
   // Computes the reciprocity. The function returns a std::tuple<double,double>. The first value
-  // correspond to the "naive definition" of reciprocity, that is the fraction of directed edges
+  // corresponds to the "naive definition" of reciprocity, that is the fraction of directed edges
   // that have a "twin" edge in the other direction (note that there is an even number of such
   // edges). The second coefficient is the coefficient defined in doi:10.1103/PhysRevLett.93.268701
   // that accounts for the reciprocity can occur randomly.

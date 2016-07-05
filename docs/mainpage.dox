@@ -63,3 +63,10 @@
  *             graphs. See comments in the code and the documentation for
  *             further details.
  */
+
+/**
+ * @example    connected_components.cpp
+ * @brief      This is an example of how to use functions related to the
+ *             identification of the connected components. See comments in the
+ *             code and the documentation for further details.
+ */
