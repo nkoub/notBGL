@@ -27,6 +27,7 @@
 #include <iomanip>           // std::setw
 #include <iostream>          // std::cerr
 #include <limits>            // std::numeric_limits
+#include <list>              // std::list
 #include <map>               // std::map
 #include <numeric>           // std::inner_product
 #include <queue>             // std::queue
@@ -41,6 +42,7 @@
 #include <boost/graph/connected_components.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/iteration_macros.hpp>
+#include <boost/multi_array.hpp>
 
 // All the methods are under the namespace "notBGL"
 namespace notBGL
@@ -463,6 +465,31 @@ namespace notBGL
   auto reciprocity(map_t &Vector2ReciprocicalEdges, graph_t &graph);
 
 
+  /**
+   * @brief      { function_description }
+   *
+   * @param      g        { parameter_description }
+   *
+   * @tparam     graph_t  { description }
+   *
+   * @return     { description_of_the_return_value }
+   */
+  template<typename graph_t>
+  auto survey_directed_triangles(graph_t &g);
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param      triangles  The triangles
+   * @param      graph      The graph
+   *
+   * @tparam     vector_t   { description }
+   * @tparam     graph_t    { description }
+   *
+   * @return     { description_of_the_return_value }
+   */
+  template<typename vector_t, typename graph_t>
+  std::vector<double> triangle_spectrum(vector_t &triangles, graph_t &graph);
 
 
 
@@ -1075,6 +1102,7 @@ void notBGL::save_edges_properties(std::string filename, graph_t &graph, std::in
 
 
 
+
 // ================================================================================================
 // ================================================================================================
 // *** Module: Topology
@@ -1192,6 +1220,97 @@ auto notBGL::survey_triangles(graph_t &g)
             v3 = intersection[n];
             // Adds the triangle to the list.
             triangles.push_back({*it1, *it2, intersection[n]});
+          }
+        }
+      }
+    }
+  }
+  // Returns the vector containing the triangles.
+  return triangles;
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename graph_t>
+auto notBGL::survey_directed_triangles(graph_t &g)
+{
+  // Typedef.
+  typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
+  // Vector objects.
+  // std::vector<vertex_t> triangle(3);
+  std::vector<vertex_t> intersection;
+  // List objects.
+  std::list<std::vector<vertex_t> > triangles;
+  // Set objects.
+  std::set<vertex_t> neighbours_v1, neighbours_v2;
+  // Iterator objects.
+  typename std::vector<vertex_t>::iterator it;
+  typename std::set<vertex_t>::iterator it5, end5;
+  typename boost::graph_traits<graph_t>::vertex_iterator it1, end1;
+  typename boost::graph_traits<graph_t>::adjacency_iterator it2, end2;
+  typename graph_t::inv_adjacency_iterator it4, end4;
+  // Objects containing the degree of vertices.
+  typename boost::graph_traits<graph_t>::degree_size_type d1, d2;
+  // Computes the intersection for the in- and out- neighbourhoods of each node.
+  for(std::tie(it1, end1) = boost::vertices(g); it1 != end1; ++it1)
+  {
+    // Degree of vertex v1.
+    d1 = out_degree(*it1, g);
+    d1 += in_degree(*it1, g);
+    // Performs the calculation only if d1>1.
+    if( d1 > 1 )
+    {
+      // Builds an ordered list of the neighbourhood of v1
+      neighbours_v1.clear();
+      for(std::tie(it2, end2) = boost::adjacent_vertices(*it1, g); it2!=end2; ++it2)
+      {
+        neighbours_v1.insert(*it2);
+      }
+      for(std::tie(it4, end4) = boost::inv_adjacent_vertices(*it1, g); it4!=end4; ++it4)
+      {
+        neighbours_v1.insert(*it4);
+      }
+      // Loops over the neighbours of vertex v1.
+      it5 = neighbours_v1.begin();
+      end5 = neighbours_v1.end();
+      for(; it5 != end5; ++it5)
+      {
+        // Identity and degree of vertex 2.
+        d2 = out_degree(*it5, g);
+        d2 += in_degree(*it5, g);
+        // Performs the calculation only if d1>1 and if v2>v1 (ensures that each triangle is counted once).
+        if( *it1 < *it5 && d2 > 1 )
+        {        
+          // Builds an ordered list of the neighbourhood of v2
+          neighbours_v2.clear();
+          for(std::tie(it2, end2) = boost::adjacent_vertices(*it5, g); it2 != end2; ++it2)
+          {
+            if(*it5 < *it2) // Ensures that triangles will be counted only once.
+            {
+              neighbours_v2.insert(*it2);
+            }
+          }
+          for(std::tie(it4, end4) = boost::inv_adjacent_vertices(*it5, g); it4 != end4; ++it4)
+          {
+            if(*it5 < *it4) // Ensures that triangles will be counted only once.
+            {
+              neighbours_v2.insert(*it4);
+            }
+          }
+          // Identifies the triangles.
+          intersection.clear();
+          intersection.resize(std::min(neighbours_v1.size(), neighbours_v2.size()));
+          it = std::set_intersection(neighbours_v1.begin(), neighbours_v1.end(), neighbours_v2.begin(), neighbours_v2.end(), intersection.begin());
+          intersection.resize(it-intersection.begin());
+          // Loops over the common neighbours of vertices v1 and v2.
+          // triangle[0] = *it1;
+          // triangle[1] = *it5;
+          for(unsigned int n(0), nn(intersection.size()); n<nn; ++n)
+          {
+            // triangle[2] = intersection[n];
+            // Adds the triangle to the list.
+            triangles.push_back({*it1, *it5, intersection[n]});
           }
         }
       }
@@ -1494,6 +1613,80 @@ auto notBGL::connected_components(graph_t &graph)
   // Returns the number of components and the memberships.
   return std::make_tuple(component, num_components);
 }
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename vector_t, typename graph_t>
+std::vector<double> notBGL::triangle_spectrum(vector_t &triangles, graph_t &graph)
+{
+  // Typedef.
+  typedef typename boost::graph_traits<graph_t>::vertex_descriptor vertex_t;
+  // Vector objects.
+  std::vector<double> triangle_spectrum(7, double(0));
+  // Defines the homomorphism groups.
+  boost::multi_array<unsigned int, 3> config(boost::extents[3][3][3]);
+  config[0][0][0] = 0;  config[1][0][0] = 1;  config[2][0][0] = 3;
+  config[0][0][1] = 1;  config[1][0][1] = 1;  config[2][0][1] = 2;
+  config[0][0][2] = 3;  config[1][0][2] = 4;  config[2][0][2] = 5;
+  config[0][1][0] = 1;  config[1][1][0] = 1;  config[2][1][0] = 4;
+  config[0][1][1] = 1;  config[1][1][1] = 0;  config[2][1][1] = 3;
+  config[0][1][2] = 2;  config[1][1][2] = 3;  config[2][1][2] = 5;
+  config[0][2][0] = 3;  config[1][2][0] = 2;  config[2][2][0] = 5;
+  config[0][2][1] = 4;  config[1][2][1] = 3;  config[2][2][1] = 5;
+  config[0][2][2] = 5;  config[1][2][2] = 5;  config[2][2][2] = 6;
+  // Variables used to identify the homomorphism groups.
+  unsigned int edge01, edge12, edge20;
+  bool is_edge1, is_edge2;
+  typename graph_t::edge_descriptor e;
+  // Classifies the triangles.
+  for(auto t : triangles)
+  {
+    // Edge 0 <--> 1.
+    std::tie(e, is_edge1) = boost::edge(t[0], t[1], graph);
+    std::tie(e, is_edge2) = boost::edge(t[1], t[0], graph);
+    if(is_edge1)
+    {
+      if(is_edge2)
+        edge01 = 2;
+      else
+        edge01 = 0;
+    }
+    else
+      edge01 = 1;
+    // Edge 1 <--> 2.
+    std::tie(e, is_edge1) = boost::edge(t[1], t[2], graph);
+    std::tie(e, is_edge2) = boost::edge(t[2], t[1], graph);
+    if(is_edge1)
+    {
+      if(is_edge2)
+        edge12 = 2;
+      else
+        edge12 = 0;
+    }
+    else
+      edge12 = 1;
+    // Edge 2 <--> 0.
+    std::tie(e, is_edge1) = boost::edge(t[2], t[0], graph);
+    std::tie(e, is_edge2) = boost::edge(t[0], t[2], graph);
+    if(is_edge1)
+    {
+      if(is_edge2)
+        edge20 = 2;
+      else
+        edge20 = 0;
+    }
+    else
+      edge20 = 1;
+
+    // Compiles the triangle class.
+    triangle_spectrum[config[edge01][edge12][edge20]] += 1;
+
+  }
+  // Returns the std::map mapping a vertex descriptior to a value of local clustering.
+  return triangle_spectrum;
+}
+
 
 
 

@@ -7,7 +7,7 @@
  * 
  * Author:  Antoine Allard
  * WWW:     antoineallard.info
- * Date:    June 2016
+ * Date:    July 2016
  * 
  */
 
@@ -30,6 +30,7 @@ int main(int argc, char** argv)
  
   // Populates the graph via the edgelist TestGraph1.edge.
   notBGL::load_edgelist("edgelists/TestGraph3.edge", graph);
+  // notBGL::load_edgelist("edgelists/TestGraph5.edge", graph);
 
   // Extracts the out-degree of vertices.
   auto Vertex2OutDegree = notBGL::out_degrees(graph);
@@ -46,6 +47,12 @@ int main(int argc, char** argv)
   // edges). The second coefficient is the coefficient defined in doi:10.1103/PhysRevLett.93.268701
   // that accounts for the reciprocity can occur randomly.
   auto Reciprocity = notBGL::reciprocity(Vertex2ReciprocalPairs, graph);
+
+  // Extracts the triangles in the graph regardless of the nature of the connections.
+  auto triangles = notBGL::survey_directed_triangles(graph);
+
+  // Extracts the triangle spectrum.
+  auto spectrum = notBGL::triangle_spectrum(triangles, graph);
 
   // Prints the reciprocity coefficients on screen..
   std::cout << "Naive reciprocity coefficient: "
@@ -82,6 +89,46 @@ int main(int argc, char** argv)
                                      Vertex2ReciprocalPairs[*v_it] << " ";
     std::cout << std::endl;
   }
+  std::cout << std::endl;
+
+  // Prints the triangles in the graph.
+  bool is_edge;
+  typename graph_t::edge_descriptor e;
+  std::cout << "Triangles:" << std::endl;
+  for(auto t : triangles)
+  {
+    std::cout << graph[t[0]].name;
+    std::tie(e, is_edge) = boost::edge(t[1], t[0], graph);
+    is_edge ? std::cout << " <" : std::cout << " -";
+    std::cout << "--";
+    std::tie(e, is_edge) = boost::edge(t[0], t[1], graph);
+    is_edge ? std::cout << "> " : std::cout << "- ";
+    std::cout << graph[t[1]].name;
+    std::tie(e, is_edge) = boost::edge(t[2], t[1], graph);
+    is_edge ? std::cout << " <" : std::cout << " -";
+    std::cout << "--";
+    std::tie(e, is_edge) = boost::edge(t[1], t[2], graph);
+    is_edge ? std::cout << "> " : std::cout << "- ";
+    std::cout << graph[t[2]].name;
+    std::tie(e, is_edge) = boost::edge(t[0], t[2], graph);
+    is_edge ? std::cout << " <" : std::cout << " -";
+    std::cout << "--";
+    std::tie(e, is_edge) = boost::edge(t[2], t[0], graph);
+    is_edge ? std::cout << "> " : std::cout << "- ";
+    std::cout << graph[t[0]].name << std::endl;
+  }
+  std::cout << std::endl;
+
+  // Prints the histogram of triangle types.
+  std::cout << "Number of each triangle types:" << std::endl;
+  std::cout << "A ---> B ---> C ---> A: "<< spectrum[0] << std::endl;
+  std::cout << "A ---> B ---> C <--- A: "<< spectrum[1] << std::endl;
+  std::cout << "A ---> B <--- C <--> A: "<< spectrum[2] << std::endl;
+  std::cout << "A ---> B ---> C <--> A: "<< spectrum[3] << std::endl;
+  std::cout << "A <--- B ---> C <--> A: "<< spectrum[4] << std::endl;
+  std::cout << "A ---> B <--> C <--> A: "<< spectrum[5] << std::endl;
+  std::cout << "A <--> B <--> C <--> A: "<< spectrum[6] << std::endl;
+
 
 
   // Exits the program successfully.
@@ -105,6 +152,21 @@ int main(int argc, char** argv)
    *            Vera               3               2               2               3 
    *            Mary               0               1               0               1 
    *            Nora               1               1               1               1
+   *
+   * Triangles:
+   * Mark <-> Anna <-> Tony <-> Mark
+   * Mark <-> Tony --> Nick <-- Mark
+   * Mark --> Lucy <-> Fred <-- Mark
+   * Mark --> Fred <-> Vera <-- Mark
+   *
+   * Number of each triangle types:
+   * A ---> B ---> C ---> A: 0
+   * A ---> B ---> C <--- A: 0
+   * A ---> B <--- C <--> A: 1
+   * A ---> B ---> C <--> A: 0
+   * A <--- B ---> C <--> A: 2
+   * A ---> B <--> C <--> A: 0
+   * A <--> B <--> C <--> A: 1
    *
    */
 }
