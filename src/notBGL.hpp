@@ -50,8 +50,8 @@ namespace notBGL
 
   #ifndef DOXYGEN_EXCLUDED
     // Minimal vertex property structure used in the generic undirected unweighted graph type (not documented).
-    struct MinimalVertexProp  { std::string name; unsigned int id; };
-    struct MinimalWeightedVertexProp  { std::string name; unsigned int id; double strength = 0; };
+    struct MinimalVertexProp  { std::string name; unsigned int num; };
+    struct MinimalWeightedVertexProp  { std::string name; unsigned int num; double strength = 0; };
 
     // Default width of columns in output files.
     const unsigned int DEFAULT_COLUMN_WIDTH = 10;
@@ -396,6 +396,20 @@ namespace notBGL
   auto connected_components(graph_t &graph);
 
 
+  /**
+   * @brief      { function_description }
+   *
+   * @param      graph    The graph
+   *
+   * @tparam     graph_t  { description }
+   *
+   * @return     { description_of_the_return_value }
+   * 
+   * @ingroup    topo
+   * 
+   */
+  template<typename graph_t>
+  auto kcore_decomposition(graph_t &graph);
 
 
 
@@ -794,7 +808,7 @@ auto notBGL::load_edgelist(std::string filename, graph_t &g)
         v1 = boost::add_vertex(g);
         Name2Vertex[name1_str] = v1;
         g[v1].name = name1_str;
-        g[v1].id = node_cnt;
+        g[v1].num = node_cnt;
         ++node_cnt;
       }
       else
@@ -808,7 +822,7 @@ auto notBGL::load_edgelist(std::string filename, graph_t &g)
         v2 = boost::add_vertex(g);
         Name2Vertex[name2_str] = v2;
         g[v2].name = name2_str;
-        g[v2].id = node_cnt;
+        g[v2].num = node_cnt;
         ++node_cnt;
       }
       else
@@ -863,8 +877,8 @@ void notBGL::save_edgelist(std::string filename, graph_t &g, bool write_names = 
     {
       for (std::tie(it, end) = edges(g); it!=end; ++it)
       {
-        edgelist_file << g[source(*it, g)].id << " "
-                      << g[target(*it, g)].id << std::endl;
+        edgelist_file << g[source(*it, g)].num << " "
+                      << g[target(*it, g)].num << std::endl;
       }
     }
   }
@@ -932,7 +946,7 @@ void notBGL::save_vertices_properties(std::string filename, graph_t &graph, std:
       }
       for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
       {
-        output_file << std::setw(width) << graph[*v_it].id << " ";
+        output_file << std::setw(width) << graph[*v_it].num << " ";
         p_it = props.begin();
         for(; p_it!=p_end; ++p_it)
         {
@@ -1044,8 +1058,8 @@ void notBGL::save_edges_properties(std::string filename, graph_t &graph, std::in
       }
       for (std::tie(e_it, e_end) = boost::edges(graph); e_it!=e_end; ++e_it)
       {
-        output_file << std::setw(width) << graph[boost::source(*e_it, graph)].id << " ";
-        output_file << std::setw(width) << graph[boost::target(*e_it, graph)].id << " ";
+        output_file << std::setw(width) << graph[boost::source(*e_it, graph)].num << " ";
+        output_file << std::setw(width) << graph[boost::target(*e_it, graph)].num << " ";
         p_it = props.begin();
         for(; p_it!=p_end; ++p_it)
         {
@@ -1617,6 +1631,62 @@ auto notBGL::connected_components(graph_t &graph)
 
 // ================================================================================================
 // ================================================================================================
+template<typename graph_t>
+auto notBGL::kcore_decomposition(graph_t &graph)
+{
+  // Typedef of a vertex.
+  typedef typename graph_t::vertex_descriptor vertex_t;
+  // std::map object containing the coreness of each vertex.
+  typename std::map<vertex_t, double> Vertex2kCore;
+  // std::vector object containing the effective degree of each vertex.
+  std::vector<unsigned int> DegreeVec(boost::num_vertices(graph));
+  // Builds the list of the degree of the vertices.
+  typename graph_t::vertex_iterator v_it, v_end;
+  typename graph_t::adjacency_iterator a_it, a_end;
+  std::set<std::pair<unsigned int, vertex_t> > DegreeSet;
+  for (std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    DegreeSet.insert(std::make_pair(boost::out_degree(*v_it, graph), *v_it));
+    DegreeVec[graph[*v_it].num] = boost::out_degree(*v_it, graph);
+  }
+  // Sets the coreness of each vertex using the algorithm by  Batagelj and Zaversnik.
+  vertex_t v1, v2;
+  unsigned int d1, d2, n2;
+  typename std::set<std::pair<unsigned int, vertex_t> >::iterator m_it;
+  while(DegreeSet.size() > 0)
+  {
+    // Sets the coreness of the first vertex of the list and removes it from the list.
+    d1 = DegreeSet.begin()->first;
+    v1 = DegreeSet.begin()->second;
+    Vertex2kCore[v1] = d1;
+    DegreeSet.erase(DegreeSet.begin());
+    // Reduces the "effective" degree of its neighbours.
+    for(std::tie(a_it, a_end) = boost::adjacent_vertices(v1, graph); a_it!=a_end; ++a_it)
+    {
+      n2 = graph[*a_it].num;
+      d2 = DegreeVec[n2];
+      m_it = DegreeSet.find(std::make_pair(d2, *a_it));
+      if(m_it != DegreeSet.end())
+      {
+        // std::cout << graph[m_it->second].name << std::endl;
+        d2 = m_it->first;
+        if(d2 > d1)
+        {
+          v2 = m_it->second;
+          DegreeVec[n2] = d2 - 1;
+          DegreeSet.erase(m_it);
+          DegreeSet.insert(std::make_pair(d2 - 1, v2));
+        }
+      }
+    }
+  }
+  // Returns the coreness of the vertices.
+  return Vertex2kCore;
+}
+
+
+// ================================================================================================
+// ================================================================================================
 template<typename vector_t, typename graph_t>
 std::vector<double> notBGL::triangle_spectrum(vector_t &triangles, graph_t &graph)
 {
@@ -1827,7 +1897,7 @@ auto notBGL::load_weighted_edgelist(std::string filename, graph_t &graph)
         v1 = boost::add_vertex(graph);
         Name2Vertex[name1_str] = v1;
         graph[v1].name = name1_str;
-        graph[v1].id = node_cnt;
+        graph[v1].num = node_cnt;
         ++node_cnt;
       }
       else
@@ -1841,7 +1911,7 @@ auto notBGL::load_weighted_edgelist(std::string filename, graph_t &graph)
         v2 = boost::add_vertex(graph);
         Name2Vertex[name2_str] = v2;
         graph[v2].name = name2_str;
-        graph[v2].id = node_cnt;
+        graph[v2].num = node_cnt;
         ++node_cnt;
       }
       else
@@ -1972,7 +2042,7 @@ auto notBGL::load_coordinates(std::string filename, graph_t &graph, map_t &Name2
         vertex_t v1 = boost::add_vertex(graph);
         Name2Vertex[name1_str] = v1;
         graph[v1].name = name1_str;
-        graph[v1].id = boost::num_vertices(graph);
+        graph[v1].num = boost::num_vertices(graph);
         Vertex2Position[v1] = position;
       }
       // Register the position of the vertex if it is present in the edgelist.
@@ -1995,8 +2065,8 @@ double notBGL::hyperbolic_distance(std::vector<double> &x1, std::vector<double> 
   // Uses the hyperbolic law of cosines to compute the distance between to points in the
   // hyperbolic disk.
   double tmp = 3.14159265358979 - std::fabs(3.14159265358979 - std::fabs(x1[1] - x2[1]));
-if(tmp > 3.14159265358979)
-  std::cout << tmp << std::endl;
+// if(tmp > 3.14159265358979)
+//   std::cout << tmp << std::endl;
   tmp = std::sinh(zeta * x1[0]) * std::sinh(zeta * x2[0]) * std::cos(tmp);
   tmp = std::cosh(zeta * x1[0]) * std::cosh(zeta * x2[0]) - tmp;
   if(tmp < 1)

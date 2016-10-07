@@ -1,6 +1,6 @@
 /*
  *
- * This is an example of how to use the function save_vertices_properties() function.
+ * This is an example of how to use the save_vertices_properties() function.
  *
  * Compilation requires the c++11 standard.
  *   Example: g++ -O3 -std=c++1y save_vertices_properties.cpp

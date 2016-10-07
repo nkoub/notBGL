@@ -28,7 +28,7 @@ int main(int argc, char** argv)
                                  notBGL::MinimalVertexProp> graph_t;
   graph_t graph;
  
-  // Populates the graph via the edgelist TestGraph1.edge.
+  // Populates the graph via the edgelist TestGraph3.edge.
   notBGL::load_edgelist("edgelists/TestGraph3.edge", graph);
   // notBGL::load_edgelist("edgelists/TestGraph5.edge", graph);
 

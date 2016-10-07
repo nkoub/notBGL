@@ -1352,6 +1352,10 @@ tr.heading h2 {
 	margin-top: -11px;
 }
 
+dl.el {
+  margin-left: 10cm;
+}
+
 @media print
 {
   #top { display: none; }
@@ -1393,6 +1397,7 @@ tr.heading h2 {
 }
 
 .tablist li {
+    /*margin: 0px 20%;*/
     float: left;
     display: table-cell;
     background-image: url('tab_b.png');
