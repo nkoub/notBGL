@@ -87,10 +87,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#ga62a5e4a4f78f2d340862cc4bd4c197c9">notBGL::kcore_decomposition</a> (graph_t &amp;graph)</td></tr>
 <tr class="memdesc:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the <em>k</em>-core decomposition of the graph.  <a href="#ga62a5e4a4f78f2d340862cc4bd4c197c9">More...</a><br/></td></tr>
 <tr class="separator:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga52cfa0924f2042e9ef5d6298838ee4c2"><td class="memTemplParams" colspan="2">template&lt;typename map_t , typename graph_t &gt; </td></tr>
-<tr class="memitem:ga52cfa0924f2042e9ef5d6298838ee4c2"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#ga52cfa0924f2042e9ef5d6298838ee4c2">notBGL::mcore_decomposition</a> (map_t &amp;multiplicities, graph_t &amp;graph)</td></tr>
-<tr class="memdesc:ga52cfa0924f2042e9ef5d6298838ee4c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the <em>m</em>-core decomposition of the graph.  <a href="#ga52cfa0924f2042e9ef5d6298838ee4c2">More...</a><br/></td></tr>
-<tr class="separator:ga52cfa0924f2042e9ef5d6298838ee4c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7b3c72db9f69efb361adef0507c68ef"><td class="memTemplParams" colspan="2">template&lt;typename map_t , typename graph_t &gt; </td></tr>
+<tr class="memitem:gad7b3c72db9f69efb361adef0507c68ef"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gad7b3c72db9f69efb361adef0507c68ef">notBGL::mcore_decomposition</a> (map_t &amp;Edge2Multiplicity, graph_t &amp;graph)</td></tr>
+<tr class="memdesc:gad7b3c72db9f69efb361adef0507c68ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the <em>m</em>-core decomposition of the graph.  <a href="#gad7b3c72db9f69efb361adef0507c68ef">More...</a><br/></td></tr>
+<tr class="separator:gad7b3c72db9f69efb361adef0507c68ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <hr/>
@@ -299,7 +299,7 @@ template&lt;typename graph_t &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An object (std::map) mapping the vertices (boost::vertex_descriptor) to their coreness (double).</dd></dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__topo.html#ga52cfa0924f2042e9ef5d6298838ee4c2" title="Extracts the m-core decomposition of the graph. ">mcore_decomposition()</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__topo.html#gad7b3c72db9f69efb361adef0507c68ef" title="Extracts the m-core decomposition of the graph. ">mcore_decomposition()</a> </dd></dl>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="core_decomposition_8cpp-example.html#a1">core_decomposition.cpp</a>.</dd>
 </dl>
 </div>
@@ -350,7 +350,7 @@ template&lt;typename vector_t , typename graph_t &gt; </div>
 </dl>
 </div>
 </div>
-<a class="anchor" id="ga52cfa0924f2042e9ef5d6298838ee4c2"></a>
+<a class="anchor" id="gad7b3c72db9f69efb361adef0507c68ef"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -360,7 +360,7 @@ template&lt;typename map_t , typename graph_t &gt; </div>
           <td class="memname">auto notBGL::mcore_decomposition </td>
           <td>(</td>
           <td class="paramtype">map_t &amp;&#160;</td>
-          <td class="paramname"><em>multiplicities</em>, </td>
+          <td class="paramname"><em>Edge2Multiplicity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -380,7 +380,7 @@ template&lt;typename map_t , typename graph_t &gt; </div>
 <p>P. Colomer-de-Sim&oacute;n, M. &Aacute;. Serrano, M. G. Beir&oacute;, J. I. Alvarez-Hamelin &amp; M. Bogu&ntilde;&aacute; <em>Deciphering the global organization of clustering in real complex networks</em>, <a href="http://dx.doi.org/10.1038/srep02517">Scientific Reports 3:2517</a> (2013)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">multiplicities</td><td>An object (std::map) mapping the edges (boost::edge_descriptor) to their multiplicity (double). This object is obtained via the function <a class="el" href="group__topo.html#gaa0c859b1f1495ce287a32e0e772d2d65" title="Computes the multiplicity of edges. ">multiplicity()</a>. </td></tr>
+    <tr><td class="paramname">Edge2Multiplicity</td><td>An object (std::map) mapping the edges (boost::edge_descriptor) to their multiplicity (double). This object is obtained via the function <a class="el" href="group__topo.html#gaa0c859b1f1495ce287a32e0e772d2d65" title="Computes the multiplicity of edges. ">multiplicity()</a>. </td></tr>
     <tr><td class="paramname">graph</td><td>An undirected boost::adjacency_list object (e.g., notBGL::UndirectedGraph_t)</td></tr>
   </table>
   </dd>
