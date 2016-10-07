@@ -451,12 +451,12 @@ namespace notBGL
    *             href="http://dx.doi.org/10.1038/srep02517">Scientific Reports
    *             3:2517</a> (2013)
    *
-   * @param      multiplicities  An object (std::map) mapping the edges
-   *                             (boost::edge_descriptor) to their multiplicity
-   *                             (double). This object is obtained via the
-   *                             function multiplicity().
-   * @param      graph           An undirected boost::adjacency_list object
-   *                             (e.g., notBGL::UndirectedGraph_t)
+   * @param      Edge2Multiplicity  An object (std::map) mapping the edges
+   *                                (boost::edge_descriptor) to their
+   *                                multiplicity (double). This object is
+   *                                obtained via the function multiplicity().
+   * @param      graph              An undirected boost::adjacency_list object
+   *                                (e.g., notBGL::UndirectedGraph_t)
    *
    * @return     An object (std::map) mapping the vertices
    *             (boost::vertex_descriptor) to their <i>m</i>-coreness (double).
@@ -466,7 +466,7 @@ namespace notBGL
    * @see        survey_triangles(), multiplicity(), kcore_decomposition()
    */
   template<typename map_t, typename graph_t>
-  auto mcore_decomposition(map_t &multiplicities, graph_t &graph);
+  auto mcore_decomposition(map_t &Edge2Multiplicity, graph_t &graph);
 
 
 
@@ -1748,7 +1748,7 @@ auto notBGL::kcore_decomposition(graph_t &graph)
 // ================================================================================================
 // ================================================================================================
 template<typename map_t, typename graph_t>
-auto notBGL::mcore_decomposition(map_t &multiplicities, graph_t &graph)
+auto notBGL::mcore_decomposition(map_t &Edge2Multiplicity, graph_t &graph)
 {
   // Typedef of a vertex.
   typedef typename graph_t::vertex_descriptor vertex_t;
@@ -1763,7 +1763,7 @@ auto notBGL::mcore_decomposition(map_t &multiplicities, graph_t &graph)
     Vertex2mCore[*v_it] = 0;
   }
   // Loops over the multiplicities.
-  for(auto el : multiplicities)
+  for(auto el : Edge2Multiplicity)
   {
     // Gets the multiplicity of the edge.
     m0 = el.second;
