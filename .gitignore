@@ -2,3 +2,4 @@ html/
 *.out
 *.dat
 src/backward_compatibility.hpp
+push2github.sh

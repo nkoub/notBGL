@@ -453,7 +453,8 @@ namespace notBGL
    *
    * @param      multiplicities  An object (std::map) mapping the edges
    *                             (boost::edge_descriptor) to their multiplicity
-   *                             (double).
+   *                             (double). This object is obtained via the
+   *                             function multiplicity().
    * @param      graph           An undirected boost::adjacency_list object
    *                             (e.g., notBGL::UndirectedGraph_t)
    *
