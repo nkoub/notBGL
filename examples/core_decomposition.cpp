@@ -62,18 +62,18 @@ int main(int argc, char** argv)
   /* 
    * The output should read:
    * 
-   * >> g++ -O3 -std=c++1y kcore_decomposition.cpp -o kcore_decomposition
-   * >> ./kcore_decomposition
-   * Vertex coreness:
-   * Mark: 4
-   * Anna: 4
-   * Tony: 4
-   * Nick: 4
-   * Mary: 3
-   * Lucy: 4
-   * Vera: 2
-   * Fred: 2
-   * Nora: 1
+   * >> g++ -O3 -std=c++1y core_decomposition.cpp -o core_decomposition
+   * >> ./core_decomposition
+   * #        Vertex          k-core          m-core 
+   *            Mark               4               4
+   *            Anna               4               4
+   *            Tony               4               3
+   *            Nick               4               3
+   *            Mary               3               3
+   *            Lucy               4               4
+   *            Vera               2               2
+   *            Fred               2               1
+   *            Nora               1               0
    *
    */
 }
