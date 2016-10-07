@@ -451,16 +451,18 @@ namespace notBGL
    *             href="http://dx.doi.org/10.1038/srep02517">Scientific Reports
    *             3:2517</a> (2013)
    *
-   * @param      graph    An undirected boost::adjacency_list object (e.g.,
-   *                      notBGL::UndirectedGraph_t)
+   * @param      multiplicities  An object (std::map) mapping the edges
+   *                             (boost::edge_descriptor) to their multiplicity
+   *                             (double).
+   * @param      graph           An undirected boost::adjacency_list object
+   *                             (e.g., notBGL::UndirectedGraph_t)
    *
    * @return     An object (std::map) mapping the vertices
    *             (boost::vertex_descriptor) to their <i>m</i>-coreness (double).
    *
    * @ingroup    topo
-   * 
+   *
    * @see        survey_triangles(), multiplicity(), kcore_decomposition()
-   * 
    */
   template<typename map_t, typename graph_t>
   auto mcore_decomposition(map_t &multiplicities, graph_t &graph);
