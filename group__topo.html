@@ -79,9 +79,16 @@ Functions</h2></td></tr>
 <tr class="memitem:gacb2efa20041aab88077920ddee345120"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gacb2efa20041aab88077920ddee345120">notBGL::betweenness_centrality</a> (graph_t &amp;graph)</td></tr>
 <tr class="memdesc:gacb2efa20041aab88077920ddee345120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the betweenness centrality of the vertices and the edges of a graph.  <a href="#gacb2efa20041aab88077920ddee345120">More...</a><br/></td></tr>
 <tr class="separator:gacb2efa20041aab88077920ddee345120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec90d1dcfab7965e2b1a0c3be2d59140"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:gaec90d1dcfab7965e2b1a0c3be2d59140"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gaec90d1dcfab7965e2b1a0c3be2d59140">notBGL::connected_components</a> (graph_t &amp;graph)</td></tr>
+<tr class="memdesc:gaec90d1dcfab7965e2b1a0c3be2d59140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the components in which the vertices are.  <a href="#gaec90d1dcfab7965e2b1a0c3be2d59140">More...</a><br/></td></tr>
+<tr class="separator:gaec90d1dcfab7965e2b1a0c3be2d59140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#ga62a5e4a4f78f2d340862cc4bd4c197c9">notBGL::kcore_decomposition</a> (graph_t &amp;graph)</td></tr>
+<tr class="memdesc:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga62a5e4a4f78f2d340862cc4bd4c197c9">More...</a><br/></td></tr>
+<tr class="separator:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>This group contains the functions related to the characterization of the topology of graphs (e.g., clustering, betweenness centrality). </p>
 <hr/>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="gac4027626e23440950d0fbab8f3b410eb"></a>
@@ -99,8 +106,6 @@ template&lt;typename map_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>{ function_description } </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">local_clustering_coefficients</td><td>The local clustering coefficients</td></tr>
@@ -133,8 +138,6 @@ template&lt;typename graph_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Computes the betweenness centrality of the vertices and the edges of a graph. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">graph</td><td>The graph object.</td></tr>
@@ -149,6 +152,38 @@ template&lt;typename graph_t &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>{ description_of_the_return_value } </dd></dl>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="betweenness_centrality_8cpp-example.html#a0">betweenness_centrality.cpp</a>, and <a class="el" href="save_properties_8cpp-example.html#a2">save_properties.cpp</a>.</dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="gaec90d1dcfab7965e2b1a0c3be2d59140"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto notBGL::connected_components </td>
+          <td>(</td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>{ description }</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>{ description_of_the_return_value } </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="connected_components_8cpp-example.html#a1">connected_components.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -167,8 +202,6 @@ template&lt;typename graph_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Extracts the degree sequence. </p>
 <p>Extracts the degree sequence.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -212,8 +245,6 @@ template&lt;typename vector_t , typename graph_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Computes the global clustering coefficient. </p>
 <p>Computes the global clustering coefficient according to </p>
 <p class="formulaDsp">
 <img class="formulaDsp" alt="\[ C = \frac{3N_\triangle}{N_\wedge} \]" src="form_0.png"/>
@@ -236,6 +267,38 @@ template&lt;typename vector_t , typename graph_t &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>Value of the global clustering coefficient.</dd></dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00" title="Identifies the triangles in the graph. ">survey_triangles()</a>, <a class="el" href="group__topo.html#gac4027626e23440950d0fbab8f3b410eb" title="{ function_description } ">average_local_clustering_coefficient()</a> </dd></dl>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="clustering_8cpp-example.html#a4">clustering.cpp</a>.</dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="ga62a5e4a4f78f2d340862cc4bd4c197c9"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto notBGL::kcore_decomposition </td>
+          <td>(</td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>{ description }</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>{ description_of_the_return_value } </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="kcore_decomposition_8cpp-example.html#a1">kcore_decomposition.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -264,8 +327,6 @@ template&lt;typename vector_t , typename graph_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Computes the local clustering coefficients. </p>
 <p>Ceci est un <code>test</code></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -312,8 +373,6 @@ template&lt;typename vector_t , typename graph_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Computes the multiplicity of edges. </p>
 <p>The multiplicity of an edge is the number of triangles to which it participates.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -350,8 +409,6 @@ template&lt;typename graph_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Identifies the triangles in the graph. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">g</td><td>Graph object.</td></tr>

@@ -67,6 +67,7 @@
 <code>#include &lt;iomanip&gt;</code><br/>
 <code>#include &lt;iostream&gt;</code><br/>
 <code>#include &lt;limits&gt;</code><br/>
+<code>#include &lt;list&gt;</code><br/>
 <code>#include &lt;map&gt;</code><br/>
 <code>#include &lt;numeric&gt;</code><br/>
 <code>#include &lt;queue&gt;</code><br/>
@@ -77,34 +78,39 @@
 <code>#include &lt;vector&gt;</code><br/>
 <code>#include &lt;boost/graph/adjacency_list.hpp&gt;</code><br/>
 <code>#include &lt;boost/graph/betweenness_centrality.hpp&gt;</code><br/>
+<code>#include &lt;boost/graph/connected_components.hpp&gt;</code><br/>
 <code>#include &lt;boost/graph/graph_traits.hpp&gt;</code><br/>
 <code>#include &lt;boost/graph/iteration_macros.hpp&gt;</code><br/>
+<code>#include &lt;boost/multi_array.hpp&gt;</code><br/>
 </div>
 <p><a href="notBGL_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a963a236df4a4b82af7dc73680a05efcf"><td class="memItemLeft" align="right" valign="top">typedef boost::adjacency_list<br class="typebreak"/>
+<tr class="memitem:a963a236df4a4b82af7dc73680a05efcf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a963a236df4a4b82af7dc73680a05efcf"></a>
+typedef boost::adjacency_list<br class="typebreak"/>
 &lt; boost::listS, boost::vecS, <br class="typebreak"/>
 boost::undirectedS, <br class="typebreak"/>
 notBGL::MinimalVertexProp, <br class="typebreak"/>
 boost::no_property &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>notBGL::UndirectedGraph_t</b></td></tr>
-<tr class="memdesc:a963a236df4a4b82af7dc73680a05efcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic undirected unweighted graph type.  <a href="#a963a236df4a4b82af7dc73680a05efcf">More...</a><br/></td></tr>
+<tr class="memdesc:a963a236df4a4b82af7dc73680a05efcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic undirected unweighted graph type. <br/></td></tr>
 <tr class="separator:a963a236df4a4b82af7dc73680a05efcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac450f4b08bed64fd234c43b04187cf6e"><td class="memItemLeft" align="right" valign="top">typedef boost::adjacency_list<br class="typebreak"/>
+<tr class="memitem:ac450f4b08bed64fd234c43b04187cf6e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac450f4b08bed64fd234c43b04187cf6e"></a>
+typedef boost::adjacency_list<br class="typebreak"/>
 &lt; boost::listS, boost::vecS, <br class="typebreak"/>
 boost::bidirectionalS, <br class="typebreak"/>
 notBGL::MinimalVertexProp, <br class="typebreak"/>
 boost::no_property &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>notBGL::DirectedGraph_t</b></td></tr>
-<tr class="memdesc:ac450f4b08bed64fd234c43b04187cf6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic directed unweighted graph type.  <a href="#ac450f4b08bed64fd234c43b04187cf6e">More...</a><br/></td></tr>
+<tr class="memdesc:ac450f4b08bed64fd234c43b04187cf6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic directed unweighted graph type. <br/></td></tr>
 <tr class="separator:ac450f4b08bed64fd234c43b04187cf6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a6217b4f8917a07cc29cef18840f112"><td class="memItemLeft" align="right" valign="top">typedef boost::adjacency_list<br class="typebreak"/>
+<tr class="memitem:a5a6217b4f8917a07cc29cef18840f112"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5a6217b4f8917a07cc29cef18840f112"></a>
+typedef boost::adjacency_list<br class="typebreak"/>
 &lt; boost::listS, boost::vecS, <br class="typebreak"/>
 boost::undirectedS, <br class="typebreak"/>
 notBGL::MinimalWeightedVertexProp, <br class="typebreak"/>
 boost::property<br class="typebreak"/>
 &lt; boost::edge_weight_t, double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>notBGL::WeightedGraph_t</b></td></tr>
-<tr class="memdesc:a5a6217b4f8917a07cc29cef18840f112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic undirected weighted graph type.  <a href="#a5a6217b4f8917a07cc29cef18840f112">More...</a><br/></td></tr>
+<tr class="memdesc:a5a6217b4f8917a07cc29cef18840f112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic undirected weighted graph type. <br/></td></tr>
 <tr class="separator:a5a6217b4f8917a07cc29cef18840f112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -161,6 +167,14 @@ template&lt;typename graph_t , typename edge_t &gt; </td></tr>
 <tr class="memitem:gacb2efa20041aab88077920ddee345120"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gacb2efa20041aab88077920ddee345120">notBGL::betweenness_centrality</a> (graph_t &amp;graph)</td></tr>
 <tr class="memdesc:gacb2efa20041aab88077920ddee345120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the betweenness centrality of the vertices and the edges of a graph.  <a href="group__topo.html#gacb2efa20041aab88077920ddee345120">More...</a><br/></td></tr>
 <tr class="separator:gacb2efa20041aab88077920ddee345120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec90d1dcfab7965e2b1a0c3be2d59140"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:gaec90d1dcfab7965e2b1a0c3be2d59140"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#gaec90d1dcfab7965e2b1a0c3be2d59140">notBGL::connected_components</a> (graph_t &amp;graph)</td></tr>
+<tr class="memdesc:gaec90d1dcfab7965e2b1a0c3be2d59140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the components in which the vertices are.  <a href="group__topo.html#gaec90d1dcfab7965e2b1a0c3be2d59140">More...</a><br/></td></tr>
+<tr class="separator:gaec90d1dcfab7965e2b1a0c3be2d59140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__topo.html#ga62a5e4a4f78f2d340862cc4bd4c197c9">notBGL::kcore_decomposition</a> (graph_t &amp;graph)</td></tr>
+<tr class="memdesc:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="group__topo.html#ga62a5e4a4f78f2d340862cc4bd4c197c9">More...</a><br/></td></tr>
+<tr class="separator:ga62a5e4a4f78f2d340862cc4bd4c197c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa7e964d8429b0bd50418ae0796955abb"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
 <tr class="memitem:gaa7e964d8429b0bd50418ae0796955abb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__directed.html#gaa7e964d8429b0bd50418ae0796955abb">notBGL::in_degrees</a> (graph_t &amp;graph)</td></tr>
 <tr class="memdesc:gaa7e964d8429b0bd50418ae0796955abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the in-degree sequence.  <a href="group__directed.html#gaa7e964d8429b0bd50418ae0796955abb">More...</a><br/></td></tr>
@@ -177,6 +191,14 @@ template&lt;typename graph_t , typename edge_t &gt; </td></tr>
 <tr class="memitem:ga2e8b3ff2d4f3b201f61926e8bc55d4ac"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__directed.html#ga2e8b3ff2d4f3b201f61926e8bc55d4ac">notBGL::reciprocity</a> (map_t &amp;Vector2ReciprocicalEdges, graph_t &amp;graph)</td></tr>
 <tr class="memdesc:ga2e8b3ff2d4f3b201f61926e8bc55d4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="group__directed.html#ga2e8b3ff2d4f3b201f61926e8bc55d4ac">More...</a><br/></td></tr>
 <tr class="separator:ga2e8b3ff2d4f3b201f61926e8bc55d4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66c5e01b5a56a5f3554c1c9484d3f35d"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:a66c5e01b5a56a5f3554c1c9484d3f35d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>notBGL::survey_directed_triangles</b> (graph_t &amp;g)</td></tr>
+<tr class="memdesc:a66c5e01b5a56a5f3554c1c9484d3f35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#a66c5e01b5a56a5f3554c1c9484d3f35d">More...</a><br/></td></tr>
+<tr class="separator:a66c5e01b5a56a5f3554c1c9484d3f35d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22b49a6d426fe9a451be6df11adc2b53"><td class="memTemplParams" colspan="2">template&lt;typename vector_t , typename graph_t &gt; </td></tr>
+<tr class="memitem:a22b49a6d426fe9a451be6df11adc2b53"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>notBGL::triangle_spectrum</b> (vector_t &amp;triangles, graph_t &amp;graph)</td></tr>
+<tr class="memdesc:a22b49a6d426fe9a451be6df11adc2b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#a22b49a6d426fe9a451be6df11adc2b53">More...</a><br/></td></tr>
+<tr class="separator:a22b49a6d426fe9a451be6df11adc2b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8038d65f5f86f5afc05a6cb987b48835"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
 <tr class="memitem:ga8038d65f5f86f5afc05a6cb987b48835"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__weights.html#ga8038d65f5f86f5afc05a6cb987b48835">notBGL::strengths</a> (graph_t &amp;graph)</td></tr>
 <tr class="memdesc:ga8038d65f5f86f5afc05a6cb987b48835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts the strength sequence.  <a href="group__weights.html#ga8038d65f5f86f5afc05a6cb987b48835">More...</a><br/></td></tr>
@@ -209,8 +231,7 @@ template&lt;typename graph_t , typename edge_t &gt; </td></tr>
 <tr class="separator:a608bc16f34d216add6a8e8a73f7b0ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Source code of the notBGL library. </p>
-<p>This file contains the complete source code of the notBGL library. While having one single file is not the most clear and organized choice for source codes, this format has been chosen to faciliate protability of the code.</p>
+<div class="textblock"><p>This file contains the complete source code of the notBGL library. While having one single file is not the most clear and organized choice for source codes, this format has been chosen to faciliate protability of the code.</p>
 <dl class="section author"><dt>Author</dt><dd>Antoine Allard (<a href="http://antoineallard.info">antoineallard.info</a>)</dd></dl>
 <dl class="section date"><dt>Date</dt><dd>March 2016 </dd></dl>
 </div></div><!-- contents -->

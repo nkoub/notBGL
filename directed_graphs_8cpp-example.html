@@ -53,7 +53,7 @@
 <div class="line"><span class="comment"> * </span></div>
 <div class="line"><span class="comment"> * Author:  Antoine Allard</span></div>
 <div class="line"><span class="comment"> * WWW:     antoineallard.info</span></div>
-<div class="line"><span class="comment"> * Date:    June 2016</span></div>
+<div class="line"><span class="comment"> * Date:    July 2016</span></div>
 <div class="line"><span class="comment"> * </span></div>
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"></div>
@@ -74,8 +74,9 @@
 <div class="line">                                 notBGL::MinimalVertexProp&gt; graph_t;</div>
 <div class="line">  graph_t graph;</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">// Populates the graph via the edgelist TestGraph1.edge.</span></div>
+<div class="line">  <span class="comment">// Populates the graph via the edgelist TestGraph3.edge.</span></div>
 <div class="line">  <a name="a0"></a><a class="code" href="group__IO.html#ga1fd477f1f460149611d070a52439e8d0">notBGL::load_edgelist</a>(<span class="stringliteral">&quot;edgelists/TestGraph3.edge&quot;</span>, graph);</div>
+<div class="line">  <span class="comment">// notBGL::load_edgelist(&quot;edgelists/TestGraph5.edge&quot;, graph);</span></div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Extracts the out-degree of vertices.</span></div>
 <div class="line">  <span class="keyword">auto</span> Vertex2OutDegree = <a name="a1"></a><a class="code" href="group__directed.html#ga1e0461dacb2b6019f7a9e8c62bd76763">notBGL::out_degrees</a>(graph);</div>
@@ -87,11 +88,17 @@
 <div class="line">  <span class="keyword">auto</span> Vertex2ReciprocalPairs = <a name="a3"></a><a class="code" href="group__directed.html#ga997ecc8ec62475946e298d3c57594b77">notBGL::reciprocical_edge_pairs</a>(graph);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Computes the reciprocity. The function returns a std::tuple&lt;double,double&gt;. The first value</span></div>
-<div class="line">  <span class="comment">// correspond to the &quot;naive definition&quot; of reciprocity, that is the fraction of directed edges</span></div>
+<div class="line">  <span class="comment">// corresponds to the &quot;naive definition&quot; of reciprocity, that is the fraction of directed edges</span></div>
 <div class="line">  <span class="comment">// that have a &quot;twin&quot; edge in the other direction (note that there is an even number of such</span></div>
 <div class="line">  <span class="comment">// edges). The second coefficient is the coefficient defined in doi:10.1103/PhysRevLett.93.268701</span></div>
 <div class="line">  <span class="comment">// that accounts for the reciprocity can occur randomly.</span></div>
 <div class="line">  <span class="keyword">auto</span> Reciprocity = <a name="a4"></a><a class="code" href="group__directed.html#ga2e8b3ff2d4f3b201f61926e8bc55d4ac">notBGL::reciprocity</a>(Vertex2ReciprocalPairs, graph);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Extracts the triangles in the graph regardless of the nature of the connections.</span></div>
+<div class="line">  <span class="keyword">auto</span> triangles = notBGL::survey_directed_triangles(graph);</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Extracts the triangle spectrum.</span></div>
+<div class="line">  <span class="keyword">auto</span> spectrum = notBGL::triangle_spectrum(triangles, graph);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Prints the reciprocity coefficients on screen..</span></div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Naive reciprocity coefficient: &quot;</span></div>
@@ -128,6 +135,46 @@
 <div class="line">                                     Vertex2ReciprocalPairs[*v_it] &lt;&lt; <span class="stringliteral">&quot; &quot;</span>;</div>
 <div class="line">    std::cout &lt;&lt; std::endl;</div>
 <div class="line">  }</div>
+<div class="line">  std::cout &lt;&lt; std::endl;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Prints the triangles in the graph.</span></div>
+<div class="line">  <span class="keywordtype">bool</span> is_edge;</div>
+<div class="line">  <span class="keyword">typename</span> graph_t::edge_descriptor e;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Triangles:&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">  <span class="keywordflow">for</span>(<span class="keyword">auto</span> t : triangles)</div>
+<div class="line">  {</div>
+<div class="line">    std::cout &lt;&lt; graph[t[0]].name;</div>
+<div class="line">    std::tie(e, is_edge) = boost::edge(t[1], t[0], graph);</div>
+<div class="line">    is_edge ? std::cout &lt;&lt; <span class="stringliteral">&quot; &lt;&quot;</span> : std::cout &lt;&lt; <span class="stringliteral">&quot; -&quot;</span>;</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;--&quot;</span>;</div>
+<div class="line">    std::tie(e, is_edge) = boost::edge(t[0], t[1], graph);</div>
+<div class="line">    is_edge ? std::cout &lt;&lt; <span class="stringliteral">&quot;&gt; &quot;</span> : std::cout &lt;&lt; <span class="stringliteral">&quot;- &quot;</span>;</div>
+<div class="line">    std::cout &lt;&lt; graph[t[1]].name;</div>
+<div class="line">    std::tie(e, is_edge) = boost::edge(t[2], t[1], graph);</div>
+<div class="line">    is_edge ? std::cout &lt;&lt; <span class="stringliteral">&quot; &lt;&quot;</span> : std::cout &lt;&lt; <span class="stringliteral">&quot; -&quot;</span>;</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;--&quot;</span>;</div>
+<div class="line">    std::tie(e, is_edge) = boost::edge(t[1], t[2], graph);</div>
+<div class="line">    is_edge ? std::cout &lt;&lt; <span class="stringliteral">&quot;&gt; &quot;</span> : std::cout &lt;&lt; <span class="stringliteral">&quot;- &quot;</span>;</div>
+<div class="line">    std::cout &lt;&lt; graph[t[2]].name;</div>
+<div class="line">    std::tie(e, is_edge) = boost::edge(t[0], t[2], graph);</div>
+<div class="line">    is_edge ? std::cout &lt;&lt; <span class="stringliteral">&quot; &lt;&quot;</span> : std::cout &lt;&lt; <span class="stringliteral">&quot; -&quot;</span>;</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;--&quot;</span>;</div>
+<div class="line">    std::tie(e, is_edge) = boost::edge(t[2], t[0], graph);</div>
+<div class="line">    is_edge ? std::cout &lt;&lt; <span class="stringliteral">&quot;&gt; &quot;</span> : std::cout &lt;&lt; <span class="stringliteral">&quot;- &quot;</span>;</div>
+<div class="line">    std::cout &lt;&lt; graph[t[0]].name &lt;&lt; std::endl;</div>
+<div class="line">  }</div>
+<div class="line">  std::cout &lt;&lt; std::endl;</div>
+<div class="line"></div>
+<div class="line">  <span class="comment">// Prints the histogram of triangle types.</span></div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;Number of each triangle types:&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;A ---&gt; B ---&gt; C ---&gt; A: &quot;</span>&lt;&lt; spectrum[0] &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;A ---&gt; B ---&gt; C &lt;--- A: &quot;</span>&lt;&lt; spectrum[1] &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;A ---&gt; B &lt;--- C &lt;--&gt; A: &quot;</span>&lt;&lt; spectrum[2] &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;A ---&gt; B ---&gt; C &lt;--&gt; A: &quot;</span>&lt;&lt; spectrum[3] &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;A &lt;--- B ---&gt; C &lt;--&gt; A: &quot;</span>&lt;&lt; spectrum[4] &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;A ---&gt; B &lt;--&gt; C &lt;--&gt; A: &quot;</span>&lt;&lt; spectrum[5] &lt;&lt; std::endl;</div>
+<div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;A &lt;--&gt; B &lt;--&gt; C &lt;--&gt; A: &quot;</span>&lt;&lt; spectrum[6] &lt;&lt; std::endl;</div>
+<div class="line"></div>
 <div class="line"></div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Exits the program successfully.</span></div>
@@ -151,6 +198,21 @@
 <div class="line"><span class="comment">   *            Vera               3               2               2               3 </span></div>
 <div class="line"><span class="comment">   *            Mary               0               1               0               1 </span></div>
 <div class="line"><span class="comment">   *            Nora               1               1               1               1</span></div>
+<div class="line"><span class="comment">   *</span></div>
+<div class="line"><span class="comment">   * Triangles:</span></div>
+<div class="line"><span class="comment">   * Mark &lt;-&gt; Anna &lt;-&gt; Tony &lt;-&gt; Mark</span></div>
+<div class="line"><span class="comment">   * Mark &lt;-&gt; Tony --&gt; Nick &lt;-- Mark</span></div>
+<div class="line"><span class="comment">   * Mark --&gt; Lucy &lt;-&gt; Fred &lt;-- Mark</span></div>
+<div class="line"><span class="comment">   * Mark --&gt; Fred &lt;-&gt; Vera &lt;-- Mark</span></div>
+<div class="line"><span class="comment">   *</span></div>
+<div class="line"><span class="comment">   * Number of each triangle types:</span></div>
+<div class="line"><span class="comment">   * A ---&gt; B ---&gt; C ---&gt; A: 0</span></div>
+<div class="line"><span class="comment">   * A ---&gt; B ---&gt; C &lt;--- A: 0</span></div>
+<div class="line"><span class="comment">   * A ---&gt; B &lt;--- C &lt;--&gt; A: 1</span></div>
+<div class="line"><span class="comment">   * A ---&gt; B ---&gt; C &lt;--&gt; A: 0</span></div>
+<div class="line"><span class="comment">   * A &lt;--- B ---&gt; C &lt;--&gt; A: 2</span></div>
+<div class="line"><span class="comment">   * A ---&gt; B &lt;--&gt; C &lt;--&gt; A: 0</span></div>
+<div class="line"><span class="comment">   * A &lt;--&gt; B &lt;--&gt; C &lt;--&gt; A: 1</span></div>
 <div class="line"><span class="comment">   *</span></div>
 <div class="line"><span class="comment">   */</span></div>
 <div class="line">}</div>

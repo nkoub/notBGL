@@ -69,7 +69,6 @@ Functions</h2></td></tr>
 <tr class="separator:ga9c6c9d6ab1fd76b1f5c00fe0e691c688"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>This group contains the functions related to inputs and outputs such as loading graphs from edgelists from files as well as writing edgelists and proporties of vertices or edges into files. </p>
 <hr/>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ga1fd477f1f460149611d070a52439e8d0"></a>
@@ -97,8 +96,6 @@ template&lt;typename graph_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Populates a graph from an edge list. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>Path to the file containing the edgelist. The edgelist file must have the format... anything at the right will be ignored. In other words, a weighted edgelist of the format... can be used without problem. Lines beginning with "#" are ignored. </td></tr>
@@ -114,7 +111,7 @@ template&lt;typename graph_t &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns a std::map mapping the name of vertices to their vertex_descriptor. This object is provided to</dd></dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__IO.html#ga43c37070c865b327992d73a2e60cafa6" title="Populates a graph from an edge list. ">save_edgelist()</a> </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="clustering_8cpp-example.html#a0">clustering.cpp</a>, <a class="el" href="directed_graphs_8cpp-example.html#a0">directed_graphs.cpp</a>, and <a class="el" href="save_properties_8cpp-example.html#a0">save_properties.cpp</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="clustering_8cpp-example.html#a0">clustering.cpp</a>, <a class="el" href="connected_components_8cpp-example.html#a0">connected_components.cpp</a>, <a class="el" href="directed_graphs_8cpp-example.html#a0">directed_graphs.cpp</a>, <a class="el" href="kcore_decomposition_8cpp-example.html#a0">kcore_decomposition.cpp</a>, and <a class="el" href="save_properties_8cpp-example.html#a0">save_properties.cpp</a>.</dd>
 </dl>
 </div>
 </div>
@@ -149,8 +146,6 @@ template&lt;typename graph_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Populates a graph from an edge list. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>Path to the file to write the edgelist into. The edgelist file will have the format </td></tr>
@@ -218,8 +213,6 @@ template&lt;typename graph_t , typename edge_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Saves properties of edges into a file. </p>
 <p>This is the main function to save properties of edges into a file. Several other edge-related output functions are wrappers of the save_edges_properties(). See the <code>save_properties.cpp</code> example below for further details.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -299,8 +292,6 @@ template&lt;typename graph_t , typename vertex_t &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Saves properties of vertices into a file. </p>
 <p>This is the main function to save properties of vertices into a file. Several other vertex-related output functions are wrappers of the save_vertices_properties(). See the <code>save_vertices_properties.cpp</code> example below for further details.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
