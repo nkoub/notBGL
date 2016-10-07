@@ -72,8 +72,8 @@
  */
 
 /**
- * @example    kcore_decomposition.cpp
- * @brief      This is an example of how to use the function extracting the
- *             k-core decomposition. See comments in the code and the
- *             documentation for further details.
+ * @example    core_decomposition.cpp
+ * @brief      This is an example of how to use the functions extracting the
+ *             k-core and the m-core decompositions. See comments in the code
+ *             and the documentation for further details.
  */
