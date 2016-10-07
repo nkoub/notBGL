@@ -397,19 +397,75 @@ namespace notBGL
 
 
   /**
-   * @brief      { function_description }
+   * @brief      Extracts the <i>k</i>-core decomposition of the graph.
    *
-   * @param      graph    The graph
+   *             The <a
+   *             href="http://dx.doi.org/10.1103/PhysRevLett.96.040601"><i>k</i>-core
+   *             decomposition</a> assigns vertices to nested cores where nodes
+   *             belonging to the <i>k</i>-th core all share at least <i>k</i>
+   *             edges with one another. A vertex has a coreness equal to
+   *             <i>k</i> if it is found in the <i>k</i>-th core, but not in the
+   *             (<i>k</i>+1)-th core.
    *
-   * @tparam     graph_t  { description }
+   *             This function is an implementation of the algorithm introduced
+   *             in
    *
-   * @return     { description_of_the_return_value }
-   * 
+   *             V. Batagelj, M. Zaversnik. <i>An O(m) Algorithm for Cores
+   *             Decomposition of Networks</i>. <a
+   *             href="https://arxiv.org/abs/cs/0310049">arXiv:cs/0310049</a>
+   *             (2003)
+   *
+   * @param      graph    An undirected boost::adjacency_list object (e.g.,
+   *                      notBGL::UndirectedGraph_t)
+   *
+   * @return     An object (std::map) mapping the vertices
+   *             (boost::vertex_descriptor) to their coreness (double).
+   *
    * @ingroup    topo
+   * 
+   * @see        mcore_decomposition()
    * 
    */
   template<typename graph_t>
   auto kcore_decomposition(graph_t &graph);
+
+
+  /**
+   * @brief      Extracts the <i>m</i>-core decomposition of the graph.
+   *
+   *             The <i>m</i>-core is defined as the maximal subgraph such that
+   *             all its edges have, at least, a multiplicity <i>m</i> within it
+   *             (the number of distinct triangles going through an edge). A
+   *             vertex belongs to the <i>m</i>-core if at least one of its
+   *             edges belongs to it. A node belonging to the <i>m</i>-core but
+   *             not to the (<i>m</i>+1)-core is said to have <i>m</i>-coreness
+   *             <i>m</i>.
+   *
+   *             This function is an implementation of the algorithm introduced
+   *             in
+   *
+   *             P. Colomer-de-Sim&oacute;n, M. &Aacute;. Serrano, M. G.
+   *             Beir&oacute;, J. I. Alvarez-Hamelin & M. Bogu&ntilde;&aacute;
+   *             <i>Deciphering the global organization of clustering in real
+   *             complex networks</i>, <a
+   *             href="http://dx.doi.org/10.1038/srep02517">Scientific Reports
+   *             3:2517</a> (2013)
+   *
+   * @param      graph    An undirected boost::adjacency_list object (e.g.,
+   *                      notBGL::UndirectedGraph_t)
+   *
+   * @return     An object (std::map) mapping the vertices
+   *             (boost::vertex_descriptor) to their <i>m</i>-coreness (double).
+   *
+   * @ingroup    topo
+   * 
+   * @see        survey_triangles(), multiplicity(), kcore_decomposition()
+   * 
+   */
+  template<typename map_t, typename graph_t>
+  auto mcore_decomposition(map_t &multiplicities, graph_t &graph);
+
+
 
 
 
@@ -504,6 +560,8 @@ namespace notBGL
    */
   template<typename vector_t, typename graph_t>
   std::vector<double> triangle_spectrum(vector_t &triangles, graph_t &graph);
+
+
 
 
 
@@ -1668,7 +1726,6 @@ auto notBGL::kcore_decomposition(graph_t &graph)
       m_it = DegreeSet.find(std::make_pair(d2, *a_it));
       if(m_it != DegreeSet.end())
       {
-        // std::cout << graph[m_it->second].name << std::endl;
         d2 = m_it->first;
         if(d2 > d1)
         {
@@ -1682,6 +1739,50 @@ auto notBGL::kcore_decomposition(graph_t &graph)
   }
   // Returns the coreness of the vertices.
   return Vertex2kCore;
+}
+
+
+// ================================================================================================
+// ================================================================================================
+template<typename map_t, typename graph_t>
+auto notBGL::mcore_decomposition(map_t &multiplicities, graph_t &graph)
+{
+  // Typedef of a vertex.
+  typedef typename graph_t::vertex_descriptor vertex_t;
+  // std::map object containing the m-coreness of each vertex.
+  std::map<vertex_t, double> Vertex2mCore;
+  // Initializes the std::map containing the m-coreness.
+  vertex_t v1;
+  double m0, m1;
+  typename graph_t::vertex_iterator v_it, v_end;
+  for(std::tie(v_it, v_end) = boost::vertices(graph); v_it!=v_end; ++v_it)
+  {
+    Vertex2mCore[*v_it] = 0;
+  }
+  // Loops over the multiplicities.
+  for(auto el : multiplicities)
+  {
+    // Gets the multiplicity of the edge.
+    m0 = el.second;
+
+    // Adjusts the m-coreness of vertex1, is necessary;
+    v1 = boost::source(el.first, graph);
+    m1 = Vertex2mCore[v1];
+    if(m0 > m1)
+    {
+      Vertex2mCore[v1] = m0;
+    }
+
+    // Adjusts the m-coreness of vertex2, is necessary;
+    v1 = boost::target(el.first, graph);
+    m1 = Vertex2mCore[v1];
+    if(m0 > m1)
+    {
+      Vertex2mCore[v1] = m0;
+    }
+  }
+  // Returns the multiplicities.
+  return Vertex2mCore;
 }
 
 

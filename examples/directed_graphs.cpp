@@ -63,7 +63,7 @@ int main(int argc, char** argv)
             << std::endl
             << std::endl;
 
-  // Prints the degrees of nodes.
+  // Prints the degrees of vertices.
   double width = 15;
   std::cout << std::setw(1) << "#";
   std::cout << std::setw(width-1) << "Vertex"        << " ";
