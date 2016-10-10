@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>The notBGL library: Directed graphs</title>
+<title>The notBGL library: Topology: Directed graphs</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -42,7 +42,7 @@
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Directed graphs</div>  </div>
+<div class="title">Topology: Directed graphs</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -67,6 +67,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ga2e8b3ff2d4f3b201f61926e8bc55d4ac"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__directed.html#ga2e8b3ff2d4f3b201f61926e8bc55d4ac">notBGL::reciprocity</a> (map_t &amp;Vector2ReciprocicalEdges, graph_t &amp;graph)</td></tr>
 <tr class="memdesc:ga2e8b3ff2d4f3b201f61926e8bc55d4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga2e8b3ff2d4f3b201f61926e8bc55d4ac">More...</a><br/></td></tr>
 <tr class="separator:ga2e8b3ff2d4f3b201f61926e8bc55d4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66c5e01b5a56a5f3554c1c9484d3f35d"><td class="memTemplParams" colspan="2">template&lt;typename graph_t &gt; </td></tr>
+<tr class="memitem:ga66c5e01b5a56a5f3554c1c9484d3f35d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__directed.html#ga66c5e01b5a56a5f3554c1c9484d3f35d">notBGL::survey_directed_triangles</a> (graph_t &amp;g)</td></tr>
+<tr class="memdesc:ga66c5e01b5a56a5f3554c1c9484d3f35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga66c5e01b5a56a5f3554c1c9484d3f35d">More...</a><br/></td></tr>
+<tr class="separator:ga66c5e01b5a56a5f3554c1c9484d3f35d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga22b49a6d426fe9a451be6df11adc2b53"><td class="memTemplParams" colspan="2">template&lt;typename vector_t , typename graph_t &gt; </td></tr>
+<tr class="memitem:ga22b49a6d426fe9a451be6df11adc2b53"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__directed.html#ga22b49a6d426fe9a451be6df11adc2b53">notBGL::triangle_spectrum</a> (vector_t &amp;triangles, graph_t &amp;graph)</td></tr>
+<tr class="memdesc:ga22b49a6d426fe9a451be6df11adc2b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">{ function_description }  <a href="#ga22b49a6d426fe9a451be6df11adc2b53">More...</a><br/></td></tr>
+<tr class="separator:ga22b49a6d426fe9a451be6df11adc2b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <hr/>
@@ -208,6 +216,82 @@ template&lt;typename map_t , typename graph_t &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>{ description_of_the_return_value } </dd></dl>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="directed_graphs_8cpp-example.html#a4">directed_graphs.cpp</a>.</dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="ga66c5e01b5a56a5f3554c1c9484d3f35d"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto notBGL::survey_directed_triangles </td>
+          <td>(</td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>g</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">g</td><td>{ parameter_description }</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">graph_t</td><td>{ description }</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>{ description_of_the_return_value } </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="directed_graphs_8cpp-example.html#a5">directed_graphs.cpp</a>.</dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="ga22b49a6d426fe9a451be6df11adc2b53"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename vector_t , typename graph_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; double &gt; notBGL::triangle_spectrum </td>
+          <td>(</td>
+          <td class="paramtype">vector_t &amp;&#160;</td>
+          <td class="paramname"><em>triangles</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">graph_t &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">triangles</td><td>The triangles </td></tr>
+    <tr><td class="paramname">graph</td><td>The graph</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">vector_t</td><td>{ description } </td></tr>
+    <tr><td class="paramname">graph_t</td><td>{ description }</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>{ description_of_the_return_value } </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="directed_graphs_8cpp-example.html#a6">directed_graphs.cpp</a>.</dd>
 </dl>
 </div>
 </div>
