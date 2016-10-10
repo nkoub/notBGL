@@ -80,8 +80,8 @@
 <div class="line">  <span class="keyword">auto</span> Vertex2kCore = <a name="a1"></a><a class="code" href="group__topo__cent.html#ga62a5e4a4f78f2d340862cc4bd4c197c9">notBGL::kcore_decomposition</a>(graph);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Extract the m-coreness of vertices.</span></div>
-<div class="line">  <span class="keyword">auto</span> triangles = <a name="a2"></a><a class="code" href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00">notBGL::survey_triangles</a>(graph);</div>
-<div class="line">  <span class="keyword">auto</span> Edge2Multiplicity = <a name="a3"></a><a class="code" href="group__topo.html#gaa0c859b1f1495ce287a32e0e772d2d65">notBGL::multiplicity</a>(triangles, graph);</div>
+<div class="line">  <span class="keyword">auto</span> triangles = <a name="a2"></a><a class="code" href="group__topo__clust.html#gafd8f1d933e19a74ccc49195bd3e31c00">notBGL::survey_triangles</a>(graph);</div>
+<div class="line">  <span class="keyword">auto</span> Edge2Multiplicity = <a name="a3"></a><a class="code" href="group__topo__clust.html#gaa0c859b1f1495ce287a32e0e772d2d65">notBGL::multiplicity</a>(triangles, graph);</div>
 <div class="line">  <span class="keyword">auto</span> Vertex2mCore = <a name="a4"></a><a class="code" href="group__topo__cent.html#gad7b3c72db9f69efb361adef0507c68ef">notBGL::mcore_decomposition</a>(Edge2Multiplicity, graph);</div>
 <div class="line"></div>
 <div class="line">  <span class="comment">// Prints the corenesses of vertices.</span></div>

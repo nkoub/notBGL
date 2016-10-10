@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>The notBGL library: Topology:Centrality</title>
+<title>The notBGL library: Topology: Centrality</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -42,11 +42,11 @@
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Topology:Centrality</div>  </div>
+<div class="title">Topology: Centrality</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This group contains the functions related to the characterization of the topology of graphs (e.g., clustering, betweenness centrality).  
+<p>Functions computing different centrality mesasures.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -159,13 +159,13 @@ template&lt;typename map_t , typename graph_t &gt; </div>
 <p>P. Colomer-de-Sim&oacute;n, M. &Aacute;. Serrano, M. G. Beir&oacute;, J. I. Alvarez-Hamelin &amp; M. Bogu&ntilde;&aacute; <em>Deciphering the global organization of clustering in real complex networks</em>, <a href="http://dx.doi.org/10.1038/srep02517">Scientific Reports 3:2517</a> (2013)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Edge2Multiplicity</td><td>An object (std::map) mapping the edges (boost::edge_descriptor) to their multiplicity (double). This object is obtained via the function <a class="el" href="group__topo.html#gaa0c859b1f1495ce287a32e0e772d2d65" title="Computes the multiplicity of edges. ">multiplicity()</a>. </td></tr>
+    <tr><td class="paramname">Edge2Multiplicity</td><td>An object (std::map) mapping the edges (boost::edge_descriptor) to their multiplicity (double). This object is obtained via the function <a class="el" href="group__topo__clust.html#gaa0c859b1f1495ce287a32e0e772d2d65" title="Computes the multiplicity of edges. ">multiplicity()</a>. </td></tr>
     <tr><td class="paramname">graph</td><td>An undirected boost::adjacency_list object (e.g., notBGL::UndirectedGraph_t)</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An object (std::map) mapping the vertices (boost::vertex_descriptor) to their <em>m</em>-coreness (double).</dd></dl>
-<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__topo.html#gafd8f1d933e19a74ccc49195bd3e31c00" title="Identifies the triangles in the graph. ">survey_triangles()</a>, <a class="el" href="group__topo.html#gaa0c859b1f1495ce287a32e0e772d2d65" title="Computes the multiplicity of edges. ">multiplicity()</a>, <a class="el" href="group__topo__cent.html#ga62a5e4a4f78f2d340862cc4bd4c197c9" title="Extracts the k-core decomposition of the graph. ">kcore_decomposition()</a> </dd></dl>
+<dl class="section see"><dt>See Also</dt><dd><a class="el" href="group__topo__clust.html#gafd8f1d933e19a74ccc49195bd3e31c00" title="Identifies the triangles in the graph. ">survey_triangles()</a>, <a class="el" href="group__topo__clust.html#gaa0c859b1f1495ce287a32e0e772d2d65" title="Computes the multiplicity of edges. ">multiplicity()</a>, <a class="el" href="group__topo__cent.html#ga62a5e4a4f78f2d340862cc4bd4c197c9" title="Extracts the k-core decomposition of the graph. ">kcore_decomposition()</a> </dd></dl>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="core_decomposition_8cpp-example.html#a4">core_decomposition.cpp</a>.</dd>
 </dl>
 </div>
