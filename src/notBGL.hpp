@@ -265,113 +265,6 @@ namespace notBGL
   auto degrees(graph_t &graph);
 
   /**
-   * @brief      Identifies the triangles in the graph.
-   *
-   * @param      g        Graph object.
-   *
-   * @tparam     graph_t  { description }
-   *
-   * @return     A std::vector of tuple of vertex_descriptor
-   *
-   * @see        local_clustering_coefficient
-   *
-   * @ingroup    topo
-   * 
-   */
-  template<typename graph_t>
-  auto survey_triangles(graph_t &g);
-
-  /**
-   * @brief      Computes the local clustering coefficients.
-   *
-   *             Ceci est un `test`
-   *
-   * @param      triangles  Vector containing the triangles in the graph (from
-   *                        survey_triangles()).
-   * @param      graph      The graph
-   *
-   * @tparam     vector_t   { description }
-   * @tparam     graph_t    { description }
-   *
-   * @return     The local clustering coefficient.
-   *
-   * @see        survey_triangles
-   *
-   * @ingroup    topo
-   * 
-   */
-  template<typename vector_t, typename graph_t>
-  auto local_clustering_coefficients(vector_t &triangles, graph_t &graph);
-
-  /**
-   * @brief      { function_description }
-   *
-   * @param[in]  local_clustering_coefficients  The local clustering
-   *                                            coefficients
-   *
-   * @tparam     map_t                          { description }
-   *
-   * @return     { description_of_the_return_value }
-   *
-   * @ingroup    topo
-   * 
-   */
-  template<typename map_t>
-  double average_local_clustering_coefficient(map_t &local_clustering_coefficients);
-
-  /**
-   * @brief      Computes the global clustering coefficient.
-   *
-   *             Computes the global clustering coefficient according to
-   *             @f[ C = \frac{3N_\triangle}{N_\wedge}
-   *             @f] where
-   *             @f$N_\triangle\f$ and
-   *             @f$N_\wedge\f$ are the number of triangles and the number of
-   *             triplets present in the graph, respectively. More details can
-   *             be found
-   *             [here](https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient)
-   *
-   * @param      triangles  Vector containing the triangles in the graph
-   *                        [obtained from survey_triangles()].
-   * @param      graph      The graph object.
-   *
-   * @tparam     vector_t   std::vector< std::tuple< boost::vertex_descriptor> > >
-   * @tparam     graph_t    boost::adjacency_list
-   *
-   * @return     Value of the global clustering coefficient.
-   *
-   * @see        survey_triangles(), average_local_clustering_coefficient()
-   * 
-   * @ingroup    topo
-   * 
-   */
-  template<typename vector_t, typename graph_t>
-  double global_clustering_coefficient(vector_t &triangles, graph_t &graph);
-
-  /**
-   * @brief      Computes the multiplicity of edges.
-   *
-   *             The multiplicity of an edge is the number of triangles to which it participates.
-   *
-   * @param      triangles  Vector containing the triangles in the graph
-   *                        [obtained from survey_triangles()].
-   * @param      graph      The graph object.
-   *
-   * @tparam     vector_t   std::vector< std::tuple< boost::vertex_descriptor> >
-   *                        >
-   * @tparam     graph_t    boost::adjacency_list
-   *
-   * @return     std::map object mapping the boost::edge_descriptor to the
-   *             multiplicities.
-   *
-   * @ingroup    topo
-   * 
-   * @see        survey_triangles()
-   */
-  template<typename vector_t, typename graph_t>
-  auto multiplicity(vector_t &triangles, graph_t &graph);
-
-  /**
    * @brief      Identifies the components in which the vertices are.
    *
    * @param      graph    The graph
@@ -386,11 +279,12 @@ namespace notBGL
   auto connected_components(graph_t &graph);
 
 
+
+
+
   /** ---------------------------------------------------------------------------------------------
-   * @defgroup   topo_cent Topology:Centrality
-   * @brief      This group contains the functions related to the
-   *             characterization of the topology of graphs (e.g., clustering,
-   *             betweenness centrality).
+   * @defgroup   topo_cent Topology: Centrality
+   * @brief      Functions computing different centrality mesasures.
    */
 
   /**
@@ -485,7 +379,123 @@ namespace notBGL
 
 
   /** ---------------------------------------------------------------------------------------------
-   * @defgroup   directed Directed graphs
+   * @defgroup   topo_clust Topology: Clustering
+   * @brief      Functions related to measuring clustering.
+   */
+
+  /**
+   * @brief      Identifies the triangles in the graph.
+   *
+   * @param      g        Graph object.
+   *
+   * @tparam     graph_t  { description }
+   *
+   * @return     A std::vector of tuple of vertex_descriptor
+   *
+   * @see        local_clustering_coefficient()
+   *
+   * @ingroup    topo_clust
+   * 
+   */
+  template<typename graph_t>
+  auto survey_triangles(graph_t &g);
+
+  /**
+   * @brief      Computes the local clustering coefficients.
+   *
+   *             Ceci est un `test`
+   *
+   * @param      triangles  Vector containing the triangles in the graph (from
+   *                        survey_triangles()).
+   * @param      graph      The graph
+   *
+   * @tparam     vector_t   { description }
+   * @tparam     graph_t    { description }
+   *
+   * @return     The local clustering coefficient.
+   *
+   * @see        survey_triangles()
+   *
+   * @ingroup    topo_clust
+   * 
+   */
+  template<typename vector_t, typename graph_t>
+  auto local_clustering_coefficients(vector_t &triangles, graph_t &graph);
+
+  /**
+   * @brief      { function_description }
+   *
+   * @param[in]  local_clustering_coefficients  The local clustering
+   *                                            coefficients
+   *
+   * @tparam     map_t                          { description }
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    topo_clust
+   * 
+   */
+  template<typename map_t>
+  double average_local_clustering_coefficient(map_t &local_clustering_coefficients);
+
+  /**
+   * @brief      Computes the global clustering coefficient.
+   *
+   *             Computes the global clustering coefficient according to
+   *             @f[ C = \frac{3N_\triangle}{N_\wedge}
+   *             @f] where
+   *             @f$N_\triangle\f$ and
+   *             @f$N_\wedge\f$ are the number of triangles and the number of
+   *             triplets present in the graph, respectively. More details can
+   *             be found
+   *             [here](https://en.wikipedia.org/wiki/Clustering_coefficient#Global_clustering_coefficient)
+   *
+   * @param      triangles  Vector containing the triangles in the graph
+   *                        [obtained from survey_triangles()].
+   * @param      graph      The graph object.
+   *
+   * @tparam     vector_t   std::vector< std::tuple< boost::vertex_descriptor> > >
+   * @tparam     graph_t    boost::adjacency_list
+   *
+   * @return     Value of the global clustering coefficient.
+   *
+   * @see        survey_triangles(), average_local_clustering_coefficient()
+   * 
+   * @ingroup    topo_clust
+   * 
+   */
+  template<typename vector_t, typename graph_t>
+  double global_clustering_coefficient(vector_t &triangles, graph_t &graph);
+
+  /**
+   * @brief      Computes the multiplicity of edges.
+   *
+   *             The multiplicity of an edge is the number of triangles to which it participates.
+   *
+   * @param      triangles  Vector containing the triangles in the graph
+   *                        [obtained from survey_triangles()].
+   * @param      graph      The graph object.
+   *
+   * @tparam     vector_t   std::vector< std::tuple< boost::vertex_descriptor> >
+   *                        >
+   * @tparam     graph_t    boost::adjacency_list
+   *
+   * @return     std::map object mapping the boost::edge_descriptor to the
+   *             multiplicities.
+   *
+   * @ingroup    topo_clust
+   * 
+   * @see        survey_triangles()
+   */
+  template<typename vector_t, typename graph_t>
+  auto multiplicity(vector_t &triangles, graph_t &graph);
+
+
+
+
+
+  /** ---------------------------------------------------------------------------------------------
+   * @defgroup   directed Topology: Directed graphs
    * @brief      This group contains the functions specific to
    *             directed graphs (e.g., reciprocity, in/out-degree).
    */
@@ -500,6 +510,7 @@ namespace notBGL
    * @return     { description_of_the_return_value }
    * 
    * @ingroup    directed
+   * 
    */
   template<typename graph_t>
   auto in_degrees(graph_t &graph);
@@ -514,6 +525,7 @@ namespace notBGL
    * @return     { description_of_the_return_value }
    * 
    * @ingroup    directed
+   * 
    */
   template<typename graph_t>
   auto out_degrees(graph_t &graph);
@@ -529,6 +541,7 @@ namespace notBGL
    * @return     { description_of_the_return_value }
    * 
    * @ingroup    directed
+   * 
    */
   template<typename graph_t>
   auto reciprocical_edge_pairs(graph_t &graph);
@@ -545,6 +558,7 @@ namespace notBGL
    * @return     { description_of_the_return_value }
    * 
    * @ingroup    directed
+   * 
    */
   template<typename map_t, typename graph_t>
   auto reciprocity(map_t &Vector2ReciprocicalEdges, graph_t &graph);
@@ -558,6 +572,9 @@ namespace notBGL
    * @tparam     graph_t  { description }
    *
    * @return     { description_of_the_return_value }
+   * 
+   * @ingroup    directed
+   * 
    */
   template<typename graph_t>
   auto survey_directed_triangles(graph_t &g);
@@ -572,6 +589,9 @@ namespace notBGL
    * @tparam     graph_t    { description }
    *
    * @return     { description_of_the_return_value }
+   * 
+   * @ingroup    directed
+   * 
    */
   template<typename vector_t, typename graph_t>
   std::vector<double> triangle_spectrum(vector_t &triangles, graph_t &graph);
