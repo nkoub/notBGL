@@ -259,6 +259,7 @@ namespace notBGL
    *             to the degree (double).
    *
    * @ingroup    topo
+   * 
    */
   template<typename graph_t>
   auto degrees(graph_t &graph);
@@ -275,6 +276,7 @@ namespace notBGL
    * @see        local_clustering_coefficient
    *
    * @ingroup    topo
+   * 
    */
   template<typename graph_t>
   auto survey_triangles(graph_t &g);
@@ -296,6 +298,7 @@ namespace notBGL
    * @see        survey_triangles
    *
    * @ingroup    topo
+   * 
    */
   template<typename vector_t, typename graph_t>
   auto local_clustering_coefficients(vector_t &triangles, graph_t &graph);
@@ -311,6 +314,7 @@ namespace notBGL
    * @return     { description_of_the_return_value }
    *
    * @ingroup    topo
+   * 
    */
   template<typename map_t>
   double average_local_clustering_coefficient(map_t &local_clustering_coefficients);
@@ -339,6 +343,7 @@ namespace notBGL
    * @see        survey_triangles(), average_local_clustering_coefficient()
    * 
    * @ingroup    topo
+   * 
    */
   template<typename vector_t, typename graph_t>
   double global_clustering_coefficient(vector_t &triangles, graph_t &graph);
@@ -367,21 +372,6 @@ namespace notBGL
   auto multiplicity(vector_t &triangles, graph_t &graph);
 
   /**
-   * @brief      Computes the betweenness centrality of the vertices and the
-   *             edges of a graph.
-   *
-   * @param      graph    The graph object.
-   *
-   * @tparam     graph_t  boost::adjacency_list
-   *
-   * @return     { description_of_the_return_value }
-   *
-   * @ingroup    topo
-   */
-  template<typename graph_t>
-  auto betweenness_centrality(graph_t &graph);
-
-  /**
    * @brief      Identifies the components in which the vertices are.
    *
    * @param      graph    The graph
@@ -395,6 +385,28 @@ namespace notBGL
   template<typename graph_t>
   auto connected_components(graph_t &graph);
 
+
+  /** ---------------------------------------------------------------------------------------------
+   * @defgroup   topo_cent Topology:Centrality
+   * @brief      This group contains the functions related to the
+   *             characterization of the topology of graphs (e.g., clustering,
+   *             betweenness centrality).
+   */
+
+  /**
+   * @brief      Computes the betweenness centrality of the vertices and the
+   *             edges of a graph.
+   *
+   * @param      graph    The graph object.
+   *
+   * @tparam     graph_t  boost::adjacency_list
+   *
+   * @return     { description_of_the_return_value }
+   *
+   * @ingroup    topo_cent
+   */
+  template<typename graph_t>
+  auto betweenness_centrality(graph_t &graph);
 
   /**
    * @brief      Extracts the <i>k</i>-core decomposition of the graph.
@@ -421,7 +433,7 @@ namespace notBGL
    * @return     An object (std::map) mapping the vertices
    *             (boost::vertex_descriptor) to their coreness (double).
    *
-   * @ingroup    topo
+   * @ingroup    topo_cent
    * 
    * @see        mcore_decomposition()
    * 
@@ -461,7 +473,7 @@ namespace notBGL
    * @return     An object (std::map) mapping the vertices
    *             (boost::vertex_descriptor) to their <i>m</i>-coreness (double).
    *
-   * @ingroup    topo
+   * @ingroup    topo_cent
    *
    * @see        survey_triangles(), multiplicity(), kcore_decomposition()
    */
